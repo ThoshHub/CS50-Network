@@ -1,0 +1,21 @@
+Accounts:
+
+	Username:	moon
+	Email:		moon@moon.org
+	Password:	moon
+
+	Username:	mercury
+	Email:		mercury@moon.org
+	Password:	mercury
+
+	Username:	mars
+	Email:		mars@moon.org
+	Password:	mars
+
+	Username:	jupiter
+	Email:		jupiter@moon.org
+	Password:	jupiter
+
+	Username:	venus
+	Email:		venus@moon.org
+	Password:	venus
