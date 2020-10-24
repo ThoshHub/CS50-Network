@@ -1,0 +1,21 @@
+Super user:
+	moon
+	sailor@moon.org
+	moon
+
+Regular users:
+	mercury
+	mercury@moon.org
+	mercury
+
+	mars
+	mars@moon.org
+	mars
+
+	jupiter
+	jupiter@moon.org
+	jupiter
+
+	venus
+	venus@moon.org
+	venus	

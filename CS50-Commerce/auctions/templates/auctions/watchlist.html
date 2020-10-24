@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+	<h2>Current Listings:</h2>
+	<p>
+
+	</p>
+
+	{% for listing in listings %}
+	<div class="listings">
+		<div style="display:inline-block;vertical-align:top;">
+			<img class="listingimage" src="{{listing.picture}}" alt="Image Not Available!" height="200"><br>
+		</div>
+		<div style="display:inline-block;">
+			<p>
+	
+				<strong>Listing ID:</strong> {{listing.id}}<br>
+				<strong>Title:</strong> {{listing.title}}, <br>
+				<strong>Description:</strong> {{listing.description}}<br>
+				{% if listing.current_bid == null %}
+					<strong>Current Bid:</strong> <span style="color:grey"> No bids yet.</span><br>
+				{% else %}
+					<strong>Current Bid:</strong> ${{listing.current_bid.bid_price}}<br>
+				{% endif %}
+				<strong>Category:</strong> {{ listing.category|title }}<br>
+				<a href="{% url 'listing_details' listing.id %}">See Details</a>
+			</p>
+		</div>
+	</div>
+	<p></p>
+	{% endfor %}
+
+{% endblock %}

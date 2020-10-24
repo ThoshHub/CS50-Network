@@ -1,0 +1,12 @@
+from auctions.models import *
+
+l = Listing(title="Pen", description="Black, Smooth", date="2020-09-02 00:00", starting_bid=1.00, price=1.00)
+com1 = Comment(comment_text="Sample Comment!", listing=l)
+bid1 = Bid(bid_price=2.00, listing=l)
+
+users = User.objects.all()
+current_user = users[0]
+bid = Bid(bid_price=7.00, bidder=current_user)
+bid.save()
+
+listing = Listing(title="Tuxedo Mask", description="A Mask Worn For Balls", date=datetime.now(), starting_bid=8.00, sold=False,picture="https://i.imgur.com/sOfYkQ4.png", poster=current_user)

@@ -1,0 +1,89 @@
+
+/Name users after Sailor Moon characters?
+/	Items themed after sailor moon items?
+/		tuxedo
+/		uniform
+/		mask
+/		plastic rose
+/		kimono
+
+/Views:
+
+/Models:
+/	Listings
+/		User Id
+/		/title
+/		/text-based description,
+/		/what the starting bid should be.
+/		/current price 
+/		/provide a URL for an image for the listing
+/			needs to be optional on the form
+/		/category (e.g. Fashion, Toys, Electronics, Home, etc.).
+/			needs to be optional on the form
+/		/sold or not (boolean)
+/
+/	Bids
+/		User Id
+/		/Bid price
+/		/Listing Id
+/
+/	Comments
+/		User Id
+/		/Comment text
+/		/Listing Id
+
+/For listings page:
+/	No need to use Flexbox atm, maybe just get basic functionality working first and then
+/	try to make it look better/add extra functionality later
+/
+/	Down the road, after basic functionality is done, might want to change the layout
+/	of this part, it kinda looks bad.
+
+/play with 
+/	choices=tuple([(None, '')] + list(CATEGORY_CHOICES.CATEGORY_CHOICES)),
+/	vs
+/	(None, None) for category choices
+/	and select which one is better/add
+/
+/	add required=False to fields in form that are not required
+
+/On listing details and details page, Category has to be 'None' for Listings without a category chosen when created
+
+/Need to add validation for bids (has to be greater than previous bid)
+
+/Need to validate the create listings page
+/	Need to make sure it cant be accessed when not logged in
+/	the link shouldnt exist in the layout
+/	and the actual url redirect in the views should also check if the user is logged in
+/		if not boot them back to login screen with message
+
+
+/Behavior:
+/	For each user I need a "my listings" page
+/		will redirect to login with error message at the top if not logged in
+/		users will be redirected to this page after logging in
+/	For each user I need a "my bids" page
+/		will redirect to login with error message at the top if not logged in
+
+/Need To do the TODO Validations
+
+/- For the users, there also needs to be a watchlist which is just and id to a listings
+/	- there should be a 
+
+Need to edit the current listing details page which looks terrible
+/	remove listing Id
+/	add margins
+/	add CSS
+/	port it over to the listing details page <---- DO THIS WHEN YOU WAKE UP
+
+Need to make it so user with current bid can't bid again!
+
+Optional at the end after everything else is done:
+	success messages upon 
+		posting a bid
+		posting a comment
+		adding to and removing a watchlist
+
+Form Validation:
+1:29:18 in the Django Lecture
+need to add validation to form data

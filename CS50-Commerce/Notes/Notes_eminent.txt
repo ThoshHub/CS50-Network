@@ -1,0 +1,48 @@
+For the create listing url page you need to:
+
+/1. create a form for the listing including all the fields defined in the model
+/2. pass the model object in in the views.py fields
+/	-  need to import it?
+/3. review how objects are saved
+/	- I believe once it is passed into the model we can reference it in the html?? 
+
+/4. I need to edit each model type type to include a key to each user
+/	- as of now they are all posted anonymously without keeping track of which user 
+/	has bid on what item, comented on what item, or listed what item
+
+/5. Once IDs are added I need a way for a user to bid on an item
+/6. Before this though I need to create a page for each item using the dynamic link generation
+/	- This will have the bid button
+	- It needs to validate that it is higher than the price that the user submitted
+
+/7. I think we need to change the model so that listings have a foreign key to a bid
+/	- or instead we could make it so that listing contains 1 bid object, the contents of which (such as the user, price, date are updated every time a bid is made)
+/	- The actual bid class then would not need a foreign key to the listing,
+/		only a bidder name and price
+/	- It would have to be initialized at the beginning of every new listing (create_listing) 2
+
+/8. For the watchlist, the user object needs to contain an attribute that is a foreign key to a watchlist object
+/	- This way there is only 1 watchlist per user
+/	- if it was instead a watchlist had a foreign key to a user, then you could have multiple watchlists per user 
+/	- the second attribute of the watchlist is just a list of foreign keys to listings
+/	- OR we just have the watchlist be an attribute of the user model
+/		- and then the watchlist is just a list of listings
+/	- this could be helpful: https://stackoverflow.com/questions/16554335/best-method-to-store-list-of-foreign-keys-in-a-model
+/	- 	https://docs.djangoproject.com/en/dev/ref/models/fields/#manytomanyfield
+
+/9. Now we need to have users be able to close listings
+/	- close boolean exists
+
+/ 10. Need to edit the categories bug
+/11. And the categories page
+/	- First we need to figure out how to display the second column instead of tuples
+/	- then I think we can go ahead and call a url when a link is clicked and send the link
+/	value of the link that was clicked somehow?
+/	- if we can grab that value and send it back to the view, then we can just
+/	add another def to the view and have it filter the listings for that category
+
+/11.5 I think what needs to be done is that in categories the href links have 
+/	to be dynamically generated and point to categories/<name of category>
+/	and there will be a new url for categories/<name of category>
+/	with a def that will generate take in the ID (in this case "<name of category>")
+/	and dynamically create a filtered page from it?
