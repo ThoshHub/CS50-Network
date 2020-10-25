@@ -1,5 +1,6 @@
 Accounts:
 
+Admins:
 	Username:	moon
 	Email:		moon@moon.org
 	Password:	moon
@@ -19,3 +20,17 @@ Accounts:
 	Username:	venus
 	Email:		venus@moon.org
 	Password:	venus
+
+Regulars:
+
+	Username:	uranus
+	Email:		uranus@moon.org
+	Password:	uranus
+
+	Username:	neptune
+	Email:		neptune@moon.org
+	Password:	neptune
+
+	Username:	jupiter
+	Email:		jupiter@moon.org
+	Password:	jupiter

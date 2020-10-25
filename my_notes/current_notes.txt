@@ -1,1 +1,15 @@
-1)
+Data Model:
+Going with data model where tweet is dependent on user
+    User:
+		/id
+        /name
+		/email address
+        following []
+        followers []
+
+    Tweet:
+        id 
+        content
+        date
+        creator -> foreign key to user
+        likes -> [] array of foreign keys to users
