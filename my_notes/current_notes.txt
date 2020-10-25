@@ -1,15 +1,24 @@
 Data Model:
 Going with data model where tweet is dependent on user
-    User:
-		/id
-        /name
-		/email address
-        following []
-        followers []
+/    User:
+/		id
+/		name
+/		email address
+/		following []
+/		followers []
 
-    Tweet:
-        id 
-        content
-        date
-        creator -> foreign key to user
-        likes -> [] array of foreign keys to users
+/	Tweet:
+/		id 
+/		content
+/		date
+/		creator -> foreign key to user
+/		likes -> [] array of foreign keys to users
+
+Now the "all posts" page 
+	Needs to have a form for creating posts
+		Need to create a new form in forms.py
+		Need to send that form to the view
+		Do I need a PUT request in the form's front end?
+		Need to 
+
+	Needs to display all posts by all users
