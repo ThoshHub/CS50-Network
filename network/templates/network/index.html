@@ -1,5 +1,14 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+
+	<h2><span style="color:blue;">Write A Message:</span></h2>
+	<form class="form-group" style="border:5px" action="{% url 'index' %}" method="POST">
+	{% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
+		{% csrf_token %}
+
+		{{ form.as_p }}
+
+		<input type="submit">
+	</form>
 {% endblock %}

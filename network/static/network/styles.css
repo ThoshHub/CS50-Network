@@ -1,3 +1,7 @@
 .padded {
 	padding: 30px;
 }
+
+.message-form {
+	padding: 10px /*change this*/
+}
