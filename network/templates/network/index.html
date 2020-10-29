@@ -2,13 +2,13 @@
 
 {% block body %}
 
-	<h2><span style="color:blue;">Write A Message:</span></h2>
-	<form class="form-group" style="border:5px" action="{% url 'index' %}" method="POST">
-	{% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
-		{% csrf_token %}
+	<h2 id="index_header"><span style="color:black;">Welcome!</span></h2>
+    <form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
+    {% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
+        {% csrf_token %}
 
-		{{ form.as_p }}
+        {{ form.as_p }}
 
-		<input type="submit">
-	</form>
+        <input class="btn btn-primary" type="submit">
+    </form>
 {% endblock %}

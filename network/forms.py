@@ -5,7 +5,8 @@ from .models import message
 class messageForm(ModelForm):
 	message = forms.CharField(widget=forms.Textarea(
 		attrs={
-			'class': 'message-form'
+			'class': 'form-control',
+			'padding': '20px'
 		}
 	), required=True)
 	class Meta:
