@@ -16,9 +16,14 @@ Going with data model where tweet is dependent on user
 
 Now the "all posts" page 
 	Needs to have a form for creating posts
-		Need to create a new form in forms.py
-		Need to send that form to the view
+	/	Need to create a new form in forms.py
+	/	Need to send that form to the view
 		Do I need a PUT request in the form's front end?
-		Need to 
+		
+		In planning for this, I think I need to do a fetch request in the javascript to post the message
+			that way I can call more javascript afterwards
+			to update the page
 
 	Needs to display all posts by all users
+
+	
