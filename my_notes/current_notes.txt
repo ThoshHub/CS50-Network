@@ -18,12 +18,18 @@ Now the "all posts" page
 	Needs to have a form for creating posts
 	/	Need to create a new form in forms.py
 	/	Need to send that form to the view
-		Do I need a PUT request in the form's front end?
+	/	Do I need a PUT request in the form's front end?
+	/		NO
 		
-		In planning for this, I think I need to do a fetch request in the javascript to post the message
-			that way I can call more javascript afterwards
-			to update the page
+	/	In planning for this, I think I need to do a fetch request in the javascript to post the message
+	/		that way I can call more javascript afterwards
+	/		to update the page
+	/ UPDATE: instead chose to just use the method provided by django to make a post request from the html page directly
+	/ This forces a page refresh, but that's okay
 
 	Needs to display all posts by all users
+	on page load need to send a get request to server url
+	that url has to return a json of message objects (first 10 and then also a "1" to keep track of first 10)
+		then when the user presses next, 10 more objects are sent ""
 
 	
