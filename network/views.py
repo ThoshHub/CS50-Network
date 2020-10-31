@@ -4,18 +4,21 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import messageForm
-from .models import User
+from .models import User, message
+
+from datetime import date, datetime
+from django.utils import timezone
 
 def index(request):
 	# TODO need to show the user some sort of blank page if the user 
 	if request.method == "POST":
 		form = messageForm(request.POST)
-		if form.is_valid:
+		if form.is_valid():
+			# print("GOT HERE")
 			return_message = form.cleaned_data["message"] # get the message that the user submitted
-			# create a message object
-				# TODO
-			# save the message object
-				# TODO
+			current_user = request.user
+			posted_message = message(content=return_message, date=timezone.now, writer=current_user)
+			posted_message.save()
 	return render(request, "network/index.html", {"form": messageForm()})
 
 def login_view(request):

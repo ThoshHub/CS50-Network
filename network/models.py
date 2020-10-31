@@ -10,7 +10,7 @@ class User(AbstractUser):
 	# temp = models.CharField(max_length=64)
 
 class message(models.Model):
-	content = models.TextField # not limited to 140 chars, but no requirement existed i
+	content = models.CharField( max_length=2000 ) # set the limit to 2000 chars
 	date = models.DateTimeField(default=timezone.now) # default time will be the time at creation
 	writer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_messages")
 	liked_by = models.ManyToManyField("User", related_name="likes")

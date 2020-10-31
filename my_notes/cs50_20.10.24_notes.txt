@@ -1,0 +1,413 @@
+• https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/#block-v1:HarvardX+CS50W+Web+type
+
+Python Notes: https://www.youtube.com/watch?v=EOLPQdVj5Ac
+I need to review:
+	• Decorators
+		○ Seems similar to nested functions
+	• Lambda functions
+		○ One line functions
+
+Django Notes: https://www.youtube.com/watch?v=w8q0C-C1js4
+	• Django views
+		○ Settings file
+	• Django urls
+		○ urls.py file 15:00 in
+		○ There's a lot of stuff here so you might need to be patient and watch it a couple times over
+	• Django templates & rendering 34:00 but and a bit before
+		○ He talks about separation of components
+		○ 56:39 is important, he talks about the variable
+	• He talks about linking css files somewhere in here
+	• HTML template inheritance 1:04:27 ish
+		○ Using extends
+	• Dynamic links 1:08:52
+	• CSRF Token 1:17:30
+		○ It seems the way to validate is just to include the csrf_token
+		○ Not passing it in or anything
+	• Dynamically generating forms 1:21:03
+		○ This is definitely mind-bending, it's worth reviewing more than once
+		○ "is_valid" 
+			§ is this automatic server side authentication??
+			§ Seems so in his example at 1:26:35
+		○ "cleaned_data"
+	• Good summary so far right before 1:27:22
+	• Http Response Redirect 1:29:19
+		○ This is not the same as a dynamic link! 
+		○ Dynamic links are generated in an html page
+		○ This is instead a redirect, which is why it's done differently
+			§ Through the reverse function that he shows us
+	• Pretty much anytime you use a new function you need to import something
+	• Sessions 1:32:33
+		○ "request.session"
+			§ Provided by Django??
+		○ "python manage.py migrate" command alleviates the error he gets regarding sessions
+			§ Creates default tables in Django's database required by Django for sessions
+		○ sessions are determined by cookies
+	• Another summary at 1:36:50
+
+SQL Notes: https://www.youtube.com/watch?v=YzP164YANAU&feature=youtu.be
+	• Around the 37:40 mark, I noticed that there are 2 types of tables
+		○ Tables that represent objects
+			§ Like the people or cities tables
+		○ Tables that represent relationships between objects
+			§ Like the passengers table (relationship between people and flights
+	• Creating Indexes 41:24
+		○ Extra time to insert and update but makes selecting much faster
+	• Models 49:27
+		○ Basically Django's representation of tables
+		○ Models are classes
+		○ 1 Model per Table
+		○ Documentation on Django's website will be helpful
+		○ Adding foreign keys 59:11
+		○ related_name 1:00:20
+			§ Basically a reverse relationship
+		○ Entering some mock data 1:02:55
+		○ In case it doesn't make any sense, he's treating them as objects at 1:03:30
+			§ You can tell because of the case
+			§ This is why he doesn't have to specify an id
+		○ Creating mock flights from existing data 1:10:29
+		○ A usage of the related_name and why they are important 1:22:48
+		○ ?
+	• Migrations 51:52
+		○ Basically tells Django to update the database to include the models that you have created
+		○ 2 step process:
+			1. Create migration
+			2. Do the actual migrate
+		○ This happens everytime there is an update to the database
+	• Admin Accounts 1:11:58
+		○ We need to create an admin account
+		○ In order to insert data using admin app we need to:
+			§ Take the models and add them to the admin app 1:12:53
+		○ Giving each flight it's own page 1:16:44
+			§ Not a specific topic but seems pretty important and universally useful
+			§ Creates a path from flightid! 1:16:45
+				□ This is really important and I think it goes back to the dynamic link generation
+			§ There's a whole bunch of stuff in here worth reviewing, probably too much to list
+		○ Adding passengers 1:19:54
+			§ Django let's us add many to many relationships WITHIN the object class 1:20:15
+		○ You can also customize the Admin page 1:38:42
+			§ He says there's more documentation on Django's page
+			§ The example he gives is to also show the id when displaying the tables
+	• Many-to-Many Relationships
+		○ Adding passengers to a flight through user interface 1:25:27
+			§ GET vs POST review
+			§ Get an object based on its ID
+		○ Wtf can add routes with slashes in them 1:25:55
+		○ 1:28:35 this is only the post part, he explains that the form has not been created yet
+			§ Go back to 1:22:03 for the passenger.flights.add part
+		○ 1:34:02 Explanation for the way non_passengers is selected
+			§ Basically, it looks like flights.passengers references all passengers in the flights objects so it just gives the result of all passengers on the flight
+			§ But to get all passengers NOT on the flight, 
+				□ He grabs all passenger objects with "Passenger.objects"
+				□ And then uses .exclude as a filter and passes in the current flight objects
+				□ Which I assume means "get all Passenger objects but exclude the ones that have flights as this current flight"
+				□ This gets the desired set of non-passengers
+				□ And at the end he adds .all
+	• Users And Authentication 1:40:36
+		○ There's a whole bunch of stuff in here worth reviewing, probably too much to list
+		○ Some example code for a login page 1:46:11
+		○ He never created a users table in Django but it looks like it exists by default:
+			§ Right before 1:46:11
+		○ Conditionally displaying parts of HTML 1:50:15
+			§ Very useful imo
+	• Other
+		○ To display a default string if a list is empty on an html page 1:23:18
+		○ Dynamic linking to one page 1:23:59 (flight to index)
+		○ Dynamic linking to many pages 1:24:14 (index to flights)
+			§ Also demonstrates dynamic links that require arguments!
+		○ Don't forget the csrf_token! 1:32:24
+		○ Select in HTML is a dropdown list 1:32:40
+			§ The value of a dropdown list is not the same as its name! look at the syntax at 1:35:18!
+
+Javascript Notes: https://www.youtube.com/watch?v=x5trGVMKTdY
+
+	• DOM: Document Object Model
+		○ All Javascript takes place in between script tags: <script></script>
+		○ Event Driven Programmer
+		○ onclick button 7:48 to run JS
+		○ Count function at 10:53
+		○ document.querySelector 13:50
+		○ look through and extract an element of that page 
+		○ can pass a string in to identify an element
+		○ for example ‘h1’
+	• Javascript === vs == 18:28
+	• Javascript const vs let 21:57
+		const will never change
+	• 27:45 getting a button 
+	• 29:24 This is functional programming
+	• document.addEventListener('DOMContentLoaded') 33:19 explains how to load all of a page for the JS to run
+		○ basically makes it so that the entire webpage is loaded
+		○ this prevents a javascript error where code is trying to reference a part of the webpage that hasn't loaded yet
+		○ for example, a button in the case of this clips
+		○ takes in 2 arguments, watch the clip to find out more
+	• 35:02 anonymous function
+		○ some more functional programming here
+	• Just like with CSS where we took all the CSS and put it into a separate file, we can do the same with JS
+		○ 37:10
+		○ lets us also use other people's JS basically the same way by including the include statement at the top of the html page
+	• document.querySelector('') is used to grab form elements
+		○ document.querySelector('').onsubmit to do something when a button (submit) is clicked
+		○ this is explained at 42:40
+		○ shows us how to grab specific classes or ids (html elements) and apply javascript to them
+		○ 45:10
+	•  We can also change the CSS of the page using JS
+		○ Using the .style tags 50:59
+		○ Using Data attributes to color buttons
+		○ What's the difference between data-attribute and id?
+			§ Explained at 53:34 
+			§ .querySelectorAll uses this
+			§ This is hard to explain but you should see the video at the timestamp
+				□ .querySelector by default only selects the first one 
+				□ .querySelectorAll gets all the elements
+					® Will return a nodelist (basically an array)
+			§ All this is done at 58:03 to change the color of an h1 tag
+				□ See the video to get a better feel of what's going on, it's too much to explain in text
+				□ There's like 3 nested functions jesus christ
+				□ Arrow syntax for function seems very useful 1:02:00
+		○ Now using a select dropdown instead of buttons to change something 1:04:16
+			§ Uses "this" keyword to change the color of the text to whatever was selected in the dropdown
+			§ This is also hard to explain in text, just watch the video at the timestamp
+		○ There are tons of on event handlers
+			§ List at 1:06:13
+				□ Onclick
+				□ Onmouseover
+				□ Onkeydown
+				□ Onkeyup
+				□ Onload
+				□ Onblur
+				□ …
+	• 1:06:52 Creating a todo list using ONLY JS
+		○ Console.log prints something to the JS console
+		○ Return false stop the method? 1:09:53
+		○ Can append to unordered list using .append method 1:11:49
+		○ Minor thing on how to clear out the input field at 1:13:16
+		○ 1:14:30 how to disable a button using JS
+			§ And right after using an onkeyup event handler to reenable it
+		○ 1:18:00 using an if statement to check if a field is empty 
+	• Using timed functions (basically functions that run on a clock 1:19:42
+		○ Using setInterval() 1:20:10
+			§ First parameter is function to run
+			§ Second parameter is how often
+	• Local Storage
+		○ Ways for the browser to store stuff 
+			§ localStorage.getItem(key)
+			§ localStorage.setItem(key, value)
+		○ 1:24:35 for examples of use
+		○ Going into the Application tab > Local storage
+			§ Let's you see the current variables that are stored locally
+			§ 1:27:33
+	• 1:28:53 JSON (JS Object)
+		○ JSON = Javascript Object Notation
+		○ Used for APIs among other things
+	• fetch to make web requests to other websites 1:37:09
+		○ Also asynchronous JS and what to do after you receive the response
+			§ Using .then to change the data 1:38:40
+			§ The way this is explained I can't write it down but if you want to grab JSON data from an API then just watch this timestamp 1:38:44 ~
+			§ And then console.log that data 
+		○ Javascript rounding function 1:42:19
+		○ 1:45:07 substituting the value of a variable INTO the name of a variable? 
+			§ You need to watch this it's too hard to explain on text 
+			§ He then grabs the JSON field that he wants by using the currency input by the user as the key for the JSON field
+		○ Undefined variable explained at 1:46:13
+		○ You can fetch into post requests
+	• I should also mention that during this fetch tutorial he uses document.querySelector.innerHTML which changes the value of the html in the body
+		○ he does this instead of assigning a class or id tag and editing that
+		○ Not sure about how this works but here's more information if you run into it 
+		○ https://www.google.com/search?q=inner+html 
+	• JSON's are case sensitive!
+		○ you can use .toUpper (or .toLower) to remedy this! 1:48:56
+	• Catch (try catch) 1:49:44 
+	• It seems the whole point of this (as he mentions at the end of the lecture) is to manipulate the DOM (DOM: Document Object Model)
+
+
+User Interfaces Notes: https://www.youtube.com/watch?v=opddeo3qvg8
+	subtitles: http://cdn.cs50.net/web/2020/spring/lectures/6/lang/en/lecture6.srt
+	• We will be looking at common user interface designs
+	• Single Page Applications
+		◇ Using CSS to toggle the pages
+		◇ 5:14 Select a div using css and change the style property
+			▪ he's passing in the “page” variable
+				- as in he's passing in “page1” which the 
+			▪ that's how he's getting the specific div
+			▪ 6:43 now he's hiding ALL the divs
+			
+	• You can use fetch to grab stuff from your own server
+		◇ so if I fetch something from ‘/section/1’, it will literally grab me the entire HTML from that url
+		◇ he does this in 12:53 to grab a section of text
+			▪ then he converts that to text
+				- not sure why he does this since it's already just text
+			▪ then the logs the console text 
+			▪ and then he grabs everything with the content id and sets the innerHTML to the text that he fetched
+				- he uses the .innerHTML that we've seen before to do this
+					→ though I'm still not completely sure what this .innerHTML does 
+		◇ The main pro of this is that just whatever the javascript is changing is being reloaded, 
+			▪ Nothing else needs to be reloaded in the page
+				- none of the other text
+				- none of the other css
+				- etc.
+	
+	• Time to combine Django and JS
+		◇ using JS to dynamically populate a section of the page with text 13:12
+		◇ history.pushState 16:03
+			▪ he explains the parameters and everything for this if you need to review
+		◇ He's talking about the JavaScript History API
+			▪ ???
+			▪ ok at 16:09 I think what he means is that its basically adding a new history item to the browser?
+				- like if you had visited that URL manually... ??
+				- ohhh so the point of all this is that if the user presses the back button they can go back to a previous section
+					→ even if the user is still on the same page
+				- in order to do this, he uses window.onpopstate 17:15
+		◇ This is how social media sites make their feeds which dynamically add new content
+	• The window object that we get access to is the actual window on screen
+		◇ apparently lot of stuff in this object
+		◇ he goes over some of the properties of windows in 19:34
+		◇ window is physically what you see on screen
+			▪ compare this to the document object which is the entire webpage but if the webpage is huge it might not all be able to be displayed on the window at once
+			▪ window.scrolly 20:38
+				- and some other properties etc.
+	
+	• eventListener is how you basically get the webpage to listen for events
+		◇ that is, when something happens
+		◇ so like for example at 23:04 he has an event listener for when the user is scrolling through the window
+			▪ he makes a good point here on a possible use of being able to detect the end of a page
+				- for example infinite scroll websites that generate more posts as you scroll
+	• He implements infinite scroll at 28:59
+		◇ I'm not going to explain the whole thing step by step just watch the video it makes sense what he's doing
+		◇ you can create a div element 29:43
+	• 32:36 Animations, here we go
+		◇ @keyframes 34:25
+			▪ basically defines the beginning and end of the animation
+			▪ the animation-* tags define the animation name, duration, and mode (forwards)
+				- if this doesn't make sense just watch the clip at the timestamp
+	• 37:22 shows how to control animations partway through
+		◇ like at 0%
+		◇ then at 50%
+		◇ then at 100%
+		◇ instead of just to-from
+		◇ right after he shows you how to do the animation more than once
+			▪ then he shows you how to make it so the animation never stops
+	
+	• We can also use JS to control animations
+		◇ 39:09 use JS to control when an animation will start and stop 
+		◇ BTW unrelated but pretty much all javascript that he writes is surrounded by the ‘DOMContentLoaded’ thing
+			▪ something to keep in mind when working on the project
+		◇ basically what is going on here is that he is modiyfing the h1 tag css everytime that button is clicked!
+	
+	• 43:56 getting a dynamically generated button onclick event
+		◇ the way this is done is separate from the usual .onclick event listeners
+		◇ 44:18 he says here that he couldve added a listener to each button and this is just an alternative way of doing it
+			▪ detects the element (in this case the button with the class hide) by using element.className
+			▪ in order to get rid of the entire post (which is what he's trying to do here) he needs to not remove the element which is just the button but the div which contains the entire post and happens to be the parent of the hide button which is the selected element
+				- you can treat buttons and stuff as objects here in JS
+			▪ he does this using element.parentElement.remove 45:52
+		
+		◇ Now he adds an animation to the post removal 46:53
+		◇ 48:01 .animationPlayState = ‘running’; this is how he activates the animation
+			▪ sets the default animation state to paused in the CSS right before this
+			▪ 48:15 detect when an event is over
+				- THEN remove the parent element...
+		◇ 50:39 clever way to make the other divs containing posts slide upwards by changing the height tags of the css
+	
+	• 52:35 It's React time baby
+		◇ React is a JS framework
+		◇ uses Declarative Programming (???)
+		◇ 56:25
+			▪ include these 3 JS packages to add React to our project
+				- literally just adding the script src at the top of our html page
+			▪ React uses JSx which is not Javascript
+				- the last package on the list (Babel) converts JSx to JS
+				- 58:33
+	• React components?
+		◇ 58:55 Just watch this whole part to learn how react and components work
+		◇ 2 parts
+			1- Create React Component
+			2- Render using ReactDOM
+		◇ Components can be nested 1:02:09
+		◇ 1:03:18 you can pass strings of text into React components
+			- he shows you how to pass in strings and substitute them in the component to which that string was passed
+		
+	• Creating the counter page over again except by using React 1:04:58
+		◇ 1:06:57 React Constructor
+			▪ needed in every React Component where you actually want to do something
+		◇ he NEVER seems to be declaring any variables like in python in any of these which is weird
+			▪ he just has the name of the variable and what it's equal to (count)
+			▪ idk how significant this is
+		◇ 1:08:54 updating the count number
+		◇ 1:09:02 Confused about arrow notation; need to review this
+	
+	• 1:12:00 Going to build an interactive game now
+		◇ He mentions that when designing a react application it is important to think about what is going to change in an application, like what will the “state” be?
+		◇ 1:16:09 storing the value of an input field
+			▪ he shows how to make it editable too (it is not initially)
+		◇ 1:21:15 get enter keypress (or any other keypress, if you want)
+		◇ I've noticed that this “event” object seems to be everywhere and is pretty important it looks like
+		◇ This whole interactive game is definitely a good example because it shows how to design the whole game from beginning to end without getting overwhelmed by the amount of stuff that's going on
+			▪ There's a lot of variables and updates and stuff happening
+			▪ but the lecture makes it look easy
+		◇ 1:27:55 just adding some style and making it look nice
+		◇ 1:29:14 returning different things conditionally
+	• Take away from the whole lecture is that React renders different components based on the current state
+	• He says at the end that frameworks come and go but the underlying idea is the same, it's just about the state and how it changes and what to render based on it
+		◇ If you know one, you know them all basically
+
+Testing and CI/CD Notes 
+https://cs50.harvard.edu/web/2020/weeks/7/ 
+https://youtu.be/WbRDkJ4lPdY 
+	• Assert in Python 2:04 
+	• He talks about manual tests and shell scripting tests to run collections of tests
+	• unittest.py framework for running tests 19:00
+	• 24:32 tests.py in django are the unit tests
+		○ He explains that basically mock tests are done here on mock data
+		1. step is to do the setup function
+			1. This creates a sample database that does not interfere with our regular database
+		○ So basically you are testing the logic/methods not the data 28:08
+		○ I wonder what happens if you don't have an assert function at the end of each test?
+			§ Is it required to return a boolean?
+			§ What if you return a string?
+			§ What if you just print something?
+		○ To actually do these tests there is a django command  29:58
+			§ python manage.py test
+	• 32:53 We can also test webpages
+		○ You might need to watch this again, he literally creates a client object not sure what this means
+		○ ???
+		○ So far he just tested whether the server responds with a 200 (ok) code
+		○ 34:53 he is able to use the context (what's passed in into the view) and test the objects
+			§ This is a pretty powerful technique imo
+	• 43:04 Selenium is basically a web-browser tester
+		○ He explains what a webdriver is
+		○ At 45:09 right now, he's going through a bunch of code and explaining how selenium works
+			§ I won't explain how all this works here because it's a lot but so just rewatch it for the gestalt on selenium
+		○ 50:36 he shows his tests that he's written for selenium
+			§ It's very similar to what he did in the python console like 20 seconds ago
+	• 55:57 He goes over some useful unittest methods
+		○ There are ones that we haven't seen like assertIn, assertNotIn, etc.
+		○ Reference this list if you need to
+	• 57:29 CI/CD
+		○ He defines CI and CD here
+		○ 1:03:40 Github Actions
+			§ Is a CI Tool
+			§ Can run automated tests too
+			§ Uses YAML language
+			§ 1:06:45 He goes over the steps of how to create a github actions
+				□ I am not going to bother writing it all down, so just watch the video
+			§ 1:14:06 This is actually cool as fuck, he's basically doing unit tests on the cloud
+				□ Just looked up pricing, it's free for all public repos, private repos cost money
+	• 1:18:00 Docker
+		○ He goes over docker, what it is, how it works, and why people might use it
+		○ 1:21:31 Going over how to create a docker file
+		○ 1:25:34 Finally going over how to use enterprise level databases (not SQLLite)
+			§ MySQL
+			§ PostGres
+			§ So you would basically want A web app on one server/docker container and a database server/container on another
+				□ Basically you need more than one container bundled for your application
+		○ 1:27:01 Run a web app in one container and run a database in another and have them talk to each other
+			§ To do this you need to create a docker compose file 
+			§ He goes over how to do this in the next minute or so
+		○ 1:30:04 Running commands within a docker container
+			§ For example python3 manage.py createsuperuser
+			§ You don't want to run this in your own terminal, you want to do it inside a docker container
+				□ He shows you how to do that
+
+Scalability and Security
+https://cs50.harvard.edu/web/2020/weeks/8/
+https://youtu.be/6PWTxRGh_dka
+	• s
