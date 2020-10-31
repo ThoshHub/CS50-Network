@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-	// console.log("page loaded!")
+	console.log("page loaded!")
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
-		// console.log("Something was clicked")
+		console.log("Something was clicked")
 
 		if (element.id == "submit_message_button") {
-			submit_message()
+			// submit_message()
 			
 		}
 		// need to test whether the element's id = "submit_message_button"

@@ -10,5 +10,10 @@
         {{ form.as_p }}
 
         <input id="submit_message_button" class="btn btn-primary" value="Post Message!" type="Submit">
-    </form>
+	</form>
+	
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/messages.js' %}"></script>
 {% endblock %}
