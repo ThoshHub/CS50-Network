@@ -14,10 +14,10 @@ def index(request):
 	if request.method == "POST":
 		form = messageForm(request.POST)
 		if form.is_valid():
-			# print("GOT HERE")
 			return_message = form.cleaned_data["message"] # get the message that the user submitted
+			# print("DEBUG STATEMENT: The Mesage Returned was: \n\"" + return_message + "\"")
 			current_user = request.user
-			posted_message = message(content=return_message, date=timezone.now, writer=current_user)
+			posted_message = message(content=str(return_message), writer=current_user)
 			posted_message.save()
 	return render(request, "network/index.html", {"form": messageForm()})
 
