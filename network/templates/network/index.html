@@ -1,7 +1,8 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
-
+	<script src="{% static 'network/messages.js' %}"></script>
 	<h2 id="index_header"><span style="color:black;">Welcome!</span></h2>
     <form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
     {% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
@@ -12,8 +13,4 @@
         <input id="submit_message_button" class="btn btn-primary" value="Post Message!" type="Submit">
 	</form>
 	
-{% endblock %}
-
-{% block script %}
-    <script src="{% static 'network/messages.js' %}"></script>
 {% endblock %}
