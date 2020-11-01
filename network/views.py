@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from .forms import messageForm
 from .models import User, message
+from django.http import JsonResponse
 
 from datetime import date, datetime
 from django.utils import timezone
@@ -71,3 +72,8 @@ def register(request):
 		return HttpResponseRedirect(reverse("index"))
 	else:
 		return render(request, "network/register.html")
+
+def return_message(request):
+	return JsonResponse({
+		"message": "sample message"
+	}, status=200)

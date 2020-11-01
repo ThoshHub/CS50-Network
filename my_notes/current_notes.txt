@@ -28,6 +28,8 @@ Now the "all posts" page
 	/ This forces a page refresh, but that's okay
 
 	Needs to display all posts by all users
+	Need to make an api url that returns json of Xth ten messages
+	
 	on page load need to send a get request to server url
 	that url has to return a json of message objects (first 10 and then also a "1" to keep track of first 10)
 		then when the user presses next, 10 more objects are sent ""
