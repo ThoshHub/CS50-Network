@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 	console.log("page loaded!");
+	fetch('/messages')
+	.then(res => res.json())
+	.then(data => {console.log(data);});
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -12,15 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		// }
 
 	// Load first 10 messages
-	load()
+	// load()
   })
 });
 
 function load() {
+	// var data = null
 	fetch('/messages')
-	.then(response => response.json());
-	j = response.json();
-	console.log(j);
+	.then(res => res.json)
+	.then(data = console.log(data))
+	//console.log(fetch('/messages'))
+	// .then(response => response.json());
+	// .then
 }
 
 // function get_emails(mailbox){

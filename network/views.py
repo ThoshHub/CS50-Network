@@ -73,7 +73,8 @@ def register(request):
 	else:
 		return render(request, "network/register.html")
 
-def return_message(request):
-	return JsonResponse({
-		"message": "sample message"
-	}, status=200)
+def return_messages(request):
+	print("Got to Line 77")
+	data = [{'name': 'Peter', 'email': 'peter@example.org'},
+            {'name': 'Julia', 'email': 'julia@example.org'}]
+	return JsonResponse(data, safe=False)

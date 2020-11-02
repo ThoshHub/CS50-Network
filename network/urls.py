@@ -10,6 +10,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
     
 	# API Routes
-    path("messages", views.return_message, name="message") # returns json object of 10 messages
+    path("messages", views.return_messages, name="messages") # returns json object of 10 messages
     # path("messages/<int:email_id>", views.email, name="email"),
 ]
