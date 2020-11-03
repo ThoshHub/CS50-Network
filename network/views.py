@@ -75,18 +75,7 @@ def register(request):
 		return render(request, "network/register.html")
 
 def return_messages(request):
-	messages = message.objects.all()
-	
-	# data_1 = [{'name': 'Peter', 'email': 'peter@example.org'}, {'name': 'Julia', 'email': 'julia@example.org'}]
-	
-	data_2 = serializers.serialize("json", messages )
-	# data_2 = [{"model": "network.message", "pk": 1, "fields": {"content": "Test Message 20.10.30 01", "date": "2020-10-25T22:06:17Z", "writer": 1, "liked_by": [3, 4, 6]}}, {"model": "network.message", "pk": 2, "fields": {"content": "Test Message 20.10.30 02", "date": "2020-10-31T00:37:42.188Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 3, "fields": {"content": "test", "date": "2020-10-31T00:44:15.819Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 8, "fields": {"content": "test", "date": "2020-10-31T02:33:13.590Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 9, "fields": {"content": "test", "date": "2020-10-31T02:33:58.138Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 10, "fields": {"content": "test", "date": "2020-10-31T02:34:30.796Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 11, "fields": {"content": "test", "date": "2020-10-31T02:34:42.699Z", "writer": 1, "liked_by": []}}, {"model": "network.message", "pk": 12, "fields": {"content": "test", "date": "2020-11-01T08:53:05.937Z", "writer": 1, "liked_by": []}}]
-	# data_2 = "[{\"model\": \"network.message\", \"pk\": 1, \"fields\": {\"content\": \"Test Message 20.10.30 01\", \"date\": \"2020-10-25T22:06:17Z\", \"writer\": 1, \"liked_by\": [3, 4, 6]}}, {\"model\": \"network.message\", \"pk\": 2, \"fields\": {\"content\": \"Test Message 20.10.30 02\", \"date\": \"2020-10-31T00:37:42.188Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 3, \"fields\": {\"content\": \"test\", \"date\": \"2020-10-31T00:44:15.819Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 8, \"fields\": {\"content\": \"test\", \"date\": \"2020-10-31T02:33:13.590Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 9, \"fields\": {\"content\": \"test\", \"date\": \"2020-10-31T02:33:58.138Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 10, \"fields\": {\"content\": \"test\", \"date\": \"2020-10-31T02:34:30.796Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 11, \"fields\": {\"content\": \"test\", \"date\": \"2020-10-31T02:34:42.699Z\", \"writer\": 1, \"liked_by\": []}}, {\"model\": \"network.message\", \"pk\": 12, \"fields\": {\"content\": \"test\", \"date\": \"2020-11-01T08:53:05.937Z\", \"writer\": 1, \"liked_by\": []}}]"
-	# data_2 = [{'model': 'network.message', 'pk': 1, 'fields': {'content': 'Test Message 20.10.30 01', 'date': '2020-10-25T22:06:17Z', 'writer': 1, 'liked_by': [3, 4, 6]}}, {'model': 'network.message', 'pk': 2, 'fields': {'content': 'Test Message 20.10.30 02', 'date': '2020-10-31T00:37:42.188Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 3, 'fields': {'content': 'test', 'date': '2020-10-31T00:44:15.819Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 8, 'fields': {'content': 'test', 'date': '2020-10-31T02:33:13.590Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 9, 'fields': {'content': 'test', 'date': '2020-10-31T02:33:58.138Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 10, 'fields': {'content': 'test', 'date': '2020-10-31T02:34:30.796Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 11, 'fields': {'content': 'test', 'date': '2020-10-31T02:34:42.699Z', 'writer': 1, 'liked_by': []}}, {'model': 'network.message', 'pk': 12, 'fields': {'content': 'test', 'date': '2020-11-01T08:53:05.937Z', 'writer': 1, 'liked_by': []}}]
-	# data_2 = [{'content': 'Test Message 20.10.30 01', 'date': '2020-10-25T22:06:17Z', 'writer': 1, 'liked_by': [3, 4, 6]}]
-	# data_3 = json.loads(data_2)
-
-	# data_4 = messages.toJSON()
-
-	print(data_3)
-	return JsonResponse(data_3, safe=False)
+	messages = message.objects.all() # grab all messages
+	data_2 = serializers.serialize("json", messages) # serialize them into a json string
+	data_3 = json.loads(data_2) # convert json string into a list
+	return JsonResponse(data_3, safe=False) # return the list

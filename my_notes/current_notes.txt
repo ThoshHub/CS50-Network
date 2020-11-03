@@ -28,10 +28,18 @@ Now the "all posts" page
 	/ This forces a page refresh, but that's okay
 
 	Needs to display all posts by all users
-	Need to make an api url that returns json of Xth ten messages
+	/on page load need to send a get request to server url
+	/Need to make an api url that returns json of Xth ten messages
+	Need to modify api url to only get 10 at a time
+	Need to modify api url to take a second parameter equal to the number of times the user has clicked next x 110
+		The api url should return that x10th 
+		for example clicking next twice should give us messages 20-30
+	Need to create a "next button" and bind it to this api action
 	
-	on page load need to send a get request to server url
-	that url has to return a json of message objects (first 10 and then also a "1" to keep track of first 10)
-		then when the user presses next, 10 more objects are sent ""
+	Need to display the messages in the front end
+		need to dynamically generate div for each message (10 at a time)
+		all inside a bigger div that is cleared and filled everytime a user clicks next
+	
+	
 
 	
