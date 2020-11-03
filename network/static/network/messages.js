@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 	console.log("page loaded!");
-	fetch('/messages')
-	.then(res => res.json())
-	.then(data => {console.log(data);});
+
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
 		console.log("Something was clicked")
-
+		load()
+		
 		// Unused
 		// if (element.id == "submit_message_button") {
 		// 	// submit_message()
@@ -20,13 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function load() {
-	// var data = null
 	fetch('/messages')
-	.then(res => res.json)
-	.then(data = console.log(data))
-	//console.log(fetch('/messages'))
-	// .then(response => response.json());
-	// .then
+	.then(res => res.json())
+	.then(data => {console.log(data);});
 }
 
 // function get_emails(mailbox){
