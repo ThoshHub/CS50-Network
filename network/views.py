@@ -78,4 +78,7 @@ def return_messages(request):
 	messages = message.objects.all() # grab all messages
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
+	data_4 = {}
+	for data_s in data_3[:10]:
+		print("item " + data_s)
 	return JsonResponse(data_3, safe=False) # return the list
