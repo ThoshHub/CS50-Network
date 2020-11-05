@@ -22,6 +22,8 @@ function load() {
 	fetch('/messages')
 	.then(res => res.json())
 	.then(data => {console.log(data);});
+
+	// for(i=0; i < data.)
 }
 
 // function get_emails(mailbox){
