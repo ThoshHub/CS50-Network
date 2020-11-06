@@ -21,25 +21,41 @@ document.addEventListener('DOMContentLoaded', function() {
 function load() {
 	fetch('/messages')
 	.then(res => res.json())
-	.then(data => {console.log(data);});
-
-	// for(i=0; i < data.)
+	.then(data => {
+		// Print data
+		// console.log(data);
+	
+		data.forEach(element => {
+			// Display each element
+			display_message(element)
+		});
+	});
 }
 
-// function get_emails(mailbox){
-// 	fetch('/emails/' + mailbox)
-// 	.then(response => response.json())
-// 	.then(emails => {
-// 		// Print emails
-// 		console.log(emails);
+function display_message(element) {
+	// console.log(element)
+	const content = element.fields.content
+	const writer = element.fields.writer
+	const date = element.fields.date
+	// console.log(date)
+	// TODO create div and fill in everything
+}
+
+// REMOVE THIS FUNCTION
+function get_emails(mailbox){
+	fetch('/emails/' + mailbox)
+	.then(response => response.json())
+	.then(emails => {
+		// Print emails
+		console.log(emails);
 		
-// 		// ... do something else with emails ...
-// 		emails.forEach(element => {
-// 			console.log(mailbox)
-// 			create_email_listing(element, mailbox) // Mailbox is passed in because the individual email view depends on what mailbox the mail is from in display_email()
-// 		});
-// 	});
-// }
+		// ... do something else with emails ...
+		emails.forEach(element => {
+			console.log(mailbox)
+			create_email_listing(element, mailbox) // Mailbox is passed in because the individual email view depends on what mailbox the mail is from in display_email()
+		});
+	});
+}
 
 function submit_message() { //unused as of 20.10.29
 	console.log("message was submitted!")
