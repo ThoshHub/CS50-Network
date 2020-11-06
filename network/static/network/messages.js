@@ -38,7 +38,14 @@ function display_message(element) {
 	const writer = element.fields.writer
 	const date = element.fields.date
 	// console.log(date)
+	
 	// TODO create div and fill in everything
+	// Create a new div for the email
+	const post = document.createElement('div')
+	post.id = "message_" + element.id // give each message a new id
+
+	// Attach generated HTML to the messages div
+	//document.querySelector('#index_messages').append(post);
 }
 
 // REMOVE THIS FUNCTION
