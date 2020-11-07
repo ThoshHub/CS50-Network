@@ -28,7 +28,8 @@ function load() {
 	});
 }
 
-function get_user(id) {
+// DELETE THIS
+function get_user_1(id) {
 	var returnVal = ""
 	fetch('/users/' + id)
 	.then(res => res.json())
@@ -46,15 +47,58 @@ function get_user(id) {
 	// TODO returnVal is blank even though it is set in the .then statement
 }
 
+// DELETE THIS
+function get_user_2(id) {
+	var data;
+    // or $.get(...).then, or request(...).then, or query(...).then
+    fetch('/users/' + id).then(function(response){
+		data = response.json();
+	});
+	console.log(data)
+    return data;
+}
+
+// DELETE THIS
+function get_user_3(id) {
+    var data;
+    var data2;
+    // or $.get(...).then, or request(...).then, or query(...).then
+    fetch('/users/' + id).then(function(response){
+        data = response.json();
+        data.then(function(result){
+            // console.log(result[0].name)
+			data2 = result[0].name
+			return data2;
+        });
+    });
+    //console.log(data2) // THIS Doesn't Work, I need to review JS Promises
+    //return data;
+}
+
+function get_user_4(id) {
+    // RETURN the promise
+    return fetch('/users/' + id).then(function(response){
+		data = response.json();
+    	return data // process it inside the `then`
+	});
+}
+
 function display_message(element) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
-	var writer = get_user(writer_id);
+	var writer = get_user_4(writer_id);
 	const date = element.fields.date;
+	var test = ""
 	
-	// console.log(writer)
-	
+	// console.log(writer) // this is now a promise object
+	writer.then(function(result){
+		// console.log(result)
+		console.log(result[0].name)
+		test = result[0].name
+	})
+	// console.log(test) // THIS FAILS
+
 	// Create a new div for the email
 	const post = document.createElement('div');
 	post.id = "message_" + element.id // give each message a new id
