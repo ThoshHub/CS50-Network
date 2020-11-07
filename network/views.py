@@ -1,6 +1,8 @@
+from collections import UserDict
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import request
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import messageForm
@@ -76,7 +78,7 @@ def register(request):
 
 def return_messages(request):
 	# messages = message.objects.all() # grab all messages, returns 1-12
-	messages = message.objects.order_by("-date") # compare this to above retursn 12-1 
+	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
 
@@ -86,3 +88,13 @@ def return_messages(request):
 		print(m)
 
 	return JsonResponse(data_3, safe=False) # return the list
+
+# This model 
+def return_user(request, user_id):
+	writer = User.objects.filter(id = user_id).first()
+	# print(writer)
+	print("Got to Line 77: "+ str(writer))
+	# need to format the data like this
+	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # this also works
+	data = [{'name': str(writer)}] # str(writer) is the username of the id of the user that was passed in
+	return JsonResponse(data, safe=False)	
