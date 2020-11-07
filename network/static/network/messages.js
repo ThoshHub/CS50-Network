@@ -39,10 +39,13 @@ function display_message(element) {
 	const date = element.fields.date
 	// console.log(date)
 	
-	// TODO create div and fill in everything
 	// Create a new div for the email
 	const post = document.createElement('div')
 	post.id = "message_" + element.id // give each message a new id
+
+	const html_str = "<h4>" + content + "</h4>" + "\n" + writer + "<br>\n" + date
+	post.innerHTML = `${html_str}`
+	document.querySelector('#index_messages').append(post);
 
 	// Attach generated HTML to the messages div
 	//document.querySelector('#index_messages').append(post);
