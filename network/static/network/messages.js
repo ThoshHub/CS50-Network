@@ -83,7 +83,7 @@ function get_user_4(id) {
 	});
 }
 
-async function get_user(id) {
+async function get_user_5(id) {
 	fetch('/users/' + id)
 	.then(res => res.json())
 	.then(data => {
@@ -94,7 +94,13 @@ async function get_user(id) {
 	return returnVal; // returnVal is blank even though it is set in the .then statement
 }
 
-function display_message(element) {
+async function get_user(id) {
+    const res = await fetch('/users/' + id);
+    const data = await res.json();
+    return data[0].name.toString();
+}
+
+async function display_message(element) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
@@ -102,7 +108,7 @@ function display_message(element) {
 	const date = element.fields.date;
 	var test = ""
 
-	// console.log(writer) // THIS FAILS
+	console.log(writer) // THIS FAILS
 
 	// Create a new div for the email
 	const post = document.createElement('div');
