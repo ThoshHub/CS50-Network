@@ -75,6 +75,7 @@ function get_user_3(id) {
     //return data;
 }
 
+// DELETE THIS
 function get_user_4(id) {
     // RETURN the promise
     return fetch('/users/' + id).then(function(response){
@@ -83,6 +84,7 @@ function get_user_4(id) {
 	});
 }
 
+// DELETE THIS
 async function get_user_5(id) {
 	fetch('/users/' + id)
 	.then(res => res.json())
@@ -108,13 +110,11 @@ async function display_message(element) {
 	const date = element.fields.date;
 	var test = ""
 
-	console.log(writer) // THIS FAILS
-
 	// Create a new div for the email
-	const post = document.createElement('div');
-	post.id = "message_" + element.id // give each message a new id
+	var post = document.createElement('div');
+	post.id = "message_" + element.pk; // give each message a new id, id = pk
 
-	const html_str = "<h4>" + content + "</h4>" + "\n" + writer_id + "<br>\n" + date;
+	const html_str = "<h4>" + content + "</h4>" + "\n" + writer + "<br>\n" + date;
 	post.innerHTML = `${html_str}`;
 
 	// Attach generated HTML to the messages div
@@ -123,13 +123,13 @@ async function display_message(element) {
 	// TODO for the first one 
 	document.getElementById(post.id).style.border = "2px solid dodgerblue";
 	document.getElementById(post.id).style.borderRadius = "15px";
-	document.getElementById(post.id).style.padding = "10px"
-	document.getElementById(post.id).style.marginBottom = "10px"
-	
+	document.getElementById(post.id).style.padding = "10px";
+	document.getElementById(post.id).style.marginBottom = "10px";
+
 	// Make link clickable
 }
 
-// REMOVE THIS FUNCTION
+// DELETE THIS
 function get_emails(mailbox){
 	fetch('/emails/' + mailbox)
 	.then(response => response.json())
