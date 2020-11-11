@@ -83,21 +83,26 @@ function get_user_4(id) {
 	});
 }
 
+async function get_user(id) {
+	fetch('/users/' + id)
+	.then(res => res.json())
+	.then(data => {
+		returnVal = data[0].name.toString()
+	})
+	console.log("returnVal: ")
+	console.log(returnVal)
+	return returnVal; // returnVal is blank even though it is set in the .then statement
+}
+
 function display_message(element) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
-	var writer = get_user_4(writer_id);
+	const writer = await get_user(writer_id);
 	const date = element.fields.date;
 	var test = ""
-	
-	// console.log(writer) // this is now a promise object
-	writer.then(function(result){
-		// console.log(result)
-		console.log(result[0].name)
-		test = result[0].name
-	})
-	// console.log(test) // THIS FAILS
+
+	// console.log(writer) // THIS FAILS
 
 	// Create a new div for the email
 	const post = document.createElement('div');
