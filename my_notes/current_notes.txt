@@ -40,6 +40,8 @@ Now the "all posts" page
 		need to dynamically generate div for each message (10 at a time)
 		all inside a bigger div that is cleared and filled everytime a user clicks next
 	
-	
+There is a problem with the posts, they have to be in date order but since they are generated
+through async, this is not enforced and they are generated in whatever order the async completes 
+in...
 
 	

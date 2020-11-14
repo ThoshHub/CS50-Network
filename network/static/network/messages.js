@@ -107,8 +107,10 @@ async function display_message(element) {
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
 	const writer = await get_user(writer_id);
-	const date = element.fields.date;
+	const date = element.fields.date; // TODO Format this date
 	var test = ""
+	
+	// TODO because of await, instead of generating html return an array of sorted html_str and generate that in the calling function
 
 	// Create a new div for the email
 	var post = document.createElement('div');
