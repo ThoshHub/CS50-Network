@@ -150,3 +150,18 @@ function get_emails(mailbox){
 function submit_message() { //unused as of 20.10.29
 	console.log("message was submitted!")
 }
+
+// DELETE THIS
+function get_emails(mailbox){
+	fetch('/emails/' + mailbox)
+	.then(response => response.json())
+	.then(emails => {
+		// Print emails
+		console.log(emails);
+		\
+		emails.forEach(element => {
+			console.log(mailbox)
+			create_email_listing(element, mailbox)
+		});
+	});
+}
