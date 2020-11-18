@@ -111,6 +111,12 @@ async function display_message(element) {
 	var test = ""
 	
 	// TODO because of await, instead of generating html return an array of sorted html_str and generate that in the calling function
+	var arr = [];
+	//array.push(value);
+	//This will add another item to it.
+	//To take one off, use array.pop();
+
+
 
 	// Create a new div for the email
 	var post = document.createElement('div');
