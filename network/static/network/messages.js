@@ -54,7 +54,7 @@ async function display_message(element) {
 	var post = document.createElement('div');
 	post.id = "message_" + element.pk; // give each message a new id, id = pk
 
-	const html_str = "<h4>" + content + "</h4>" + "\n" + writer + "<br>\n" + date;
+	const html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=\"url\">" + writer + "</a>" + "<br>\n" + date;
 	post.innerHTML = `${html_str}`;
 
 	// Attach generated HTML to the messages div
