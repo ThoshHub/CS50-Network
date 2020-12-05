@@ -9,6 +9,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+    path("userpage/<int:user_id>", views.userpage, name="userpage"),
     
 	# API Routes
     path("messages", views.return_messages, name="messages"), # returns json object of 10 messages

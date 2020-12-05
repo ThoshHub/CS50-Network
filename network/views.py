@@ -98,3 +98,8 @@ def return_user(request, user_id):
 	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # this also works
 	data = [{'name': str(writer)}] # str(writer) is the username of the id of the user that was passed in
 	return JsonResponse(data, safe=False)	
+
+def userpage(request, user_id):
+	return render(request, "network/userpage.html", {
+		
+	})
