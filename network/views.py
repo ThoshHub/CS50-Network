@@ -101,5 +101,5 @@ def return_user(request, user_id):
 
 def userpage(request, user_id):
 	return render(request, "network/userpage.html", {
-		
+		"user_id": user_id
 	})

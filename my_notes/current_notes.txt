@@ -27,6 +27,15 @@ Now the "all posts" page
 	/ UPDATE: instead chose to just use the method provided by django to make a post request from the html page directly
 	/ This forces a page refresh, but that's okay
 
+	20.12.06
+	Alternative way to display names and links is instead of having an await in the JS,
+	we can just build the return function some more,
+	right now it returns an array of objects each containing post data
+	all we need to do is modify it so that it calls the method that returns the name of the writer
+	from the writer id, and then adding that to the object bundle
+	This might be helpful, you will most likely need to reengineer a lot of the api logic
+	https://stackoverflow.com/questions/25977100/django-how-to-re-route-a-request-to-a-different-view-using-middleware
+
 	Needs to display all posts by all users
 	/on page load need to send a get request to server url
 	/Need to make an api url that returns json of Xth ten messages
