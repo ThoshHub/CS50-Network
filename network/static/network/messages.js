@@ -19,7 +19,8 @@ function load() {
 	.then(res => res.json())
 	.then(data => {
 		// Print data
-		// console.log(data);
+		console.log("line 22")
+		console.log(data);
 	
 		data.forEach(element => {
 			// Display each element
@@ -66,8 +67,6 @@ async function display_message(element) {
 	document.getElementById(post.id).style.borderRadius = "15px";
 	document.getElementById(post.id).style.padding = "10px";
 	document.getElementById(post.id).style.marginBottom = "10px";
-
-	// Make link clickable
 }
 
 function submit_message() { //unused as of 20.10.29

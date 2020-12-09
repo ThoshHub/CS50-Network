@@ -79,9 +79,17 @@ def register(request):
 def return_messages(request):
 	# messages = message.objects.all() # grab all messages, returns 1-12
 	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
+	
+	# TODO: edit messages so that the messages object contains the writer field IN ADDITION to the ID
+	# print("Line 84")
+	# for mess in messages:
+	# 	print(mess)
+	# 	# mess['WRITERID']=234
+
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
-
+	
+	# print(data_2)
 	# todo only grab 10
 	# todo print out all messages in messages
 	for m in messages:
@@ -93,7 +101,7 @@ def return_messages(request):
 def return_user(request, user_id):
 	writer = User.objects.filter(id = user_id).first()
 	# print(writer)
-	print("Got to Line 77: "+ str(writer))
+	# print("Got to Line 77: "+ str(writer))
 	# need to format the data like this
 	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # this also works
 	data = [{'name': str(writer)}] # str(writer) is the username of the id of the user that was passed in
