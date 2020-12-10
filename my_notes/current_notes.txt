@@ -40,6 +40,10 @@ Now the "all posts" page
 		but that is a more cumbersome way to do it
 		You do not have to list the people who like a post, only the number of likes, so this may be a better way after all 
 
+		alternative way to do it is to use this
+		https://stackoverflow.com/questions/8615860/calculated-field-in-django-queryset-values
+		manually creating the queryset to json (yukes)
+
 	Needs to display all posts by all users
 	/on page load need to send a get request to server url
 	/Need to make an api url that returns json of Xth ten messages

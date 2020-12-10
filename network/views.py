@@ -1,6 +1,7 @@
 from collections import UserDict
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.db.models import Value, IntegerField
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import request
 from django.shortcuts import render
@@ -77,9 +78,13 @@ def register(request):
 		return render(request, "network/register.html")
 
 def return_messages(request):
-	# messages = message.objects.all() # grab all messages, returns 1-12
-	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
-	
+	messages = message.objects.all() # grab all messages, returns 1-12
+	# messages = message.objects.order_by("-date").extra(select = {'sales': 0}) # compare this to above returns 12-1 
+	# messages = message.objects.all().annotate(SALES=Value(0, IntegerField())) # compare this to above returns 12-1 
+	# messages = message.objects.all().extra(select = {'SALES': 23}) # compare this to above returns 12-1 
+	messages2 = messages.extra(select = {'SALES': 23})
+	print(messages2)
+
 	# TODO: edit messages so that the messages object contains the writer field IN ADDITION to the ID
 	# print("Line 84")
 	# for mess in messages:
@@ -92,8 +97,6 @@ def return_messages(request):
 	# print(data_2)
 	# todo only grab 10
 	# todo print out all messages in messages
-	for m in messages:
-		print(m)
 
 	return JsonResponse(data_3, safe=False) # return the list
 
