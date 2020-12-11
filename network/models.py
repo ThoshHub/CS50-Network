@@ -14,7 +14,7 @@ class message(models.Model):
 	date = models.DateTimeField(default=timezone.now) # default time will be the time at creation
 	writer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_messages")
 	liked_by = models.ManyToManyField("User", related_name="likes")
-	
+	writername = models.CharField(blank=True, default=None, max_length=64)
 	def serialize(self):
 		return {
 			"id": self.id,
