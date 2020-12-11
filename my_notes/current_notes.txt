@@ -55,6 +55,9 @@ Now the "all posts" page
 		will get 0-10
 		then update it to +1 = 1 and it will grab messages 10-20
 		and pressing "next" again will update +1 again so it is primed to grab 20-30
+		
+		In order to update the numer use this:
+		https://stackoverflow.com/questions/11876414/update-number-in-same-place-on-web-page-with-javascript
 
 		Need to check if this is reversable too
 	

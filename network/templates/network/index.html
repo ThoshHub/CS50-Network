@@ -4,7 +4,11 @@
 {% block body %}
 	<script src="{% static 'network/messages.js' %}"></script>
 	<h2 id="index_header"><span style="color:black;">Welcome!</span></h2>
-    <form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
+    
+	{% comment %} global variable to determine which page the user is on {% endcomment %}
+	<p id="page_counter">0</p>
+	
+	<form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
     {% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
         {% csrf_token %}
 
@@ -18,5 +22,7 @@
     <div id="index_messages">
 		
 	</div>
+
+
 	
 {% endblock %}

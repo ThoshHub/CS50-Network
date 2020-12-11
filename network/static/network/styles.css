@@ -25,3 +25,7 @@
 #index_messages{
 	padding: 20px;
 }
+
+#page_counter{
+	display: none;
+}

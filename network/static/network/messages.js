@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-	console.log("page loaded!");
+	// console.log("page loaded!");
 	load() // load messages on page load
+	
+	var page_counter = document.querySelector('#page_counter')
+	console.log(page_counter)
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -19,8 +22,7 @@ function load() {
 	.then(res => res.json())
 	.then(data => {
 		// Print data
-		console.log("line 22")
-		console.log(data);
+		// console.log(data);
 	
 		data.forEach(element => {
 			// Display each element
@@ -43,14 +45,6 @@ async function display_message(element) {
 	// const writer = "1";
 	const date = element.fields.date; // TODO Format this date
 	var test = ""
-	
-	// TODO because of await, instead of generating html return an array of sorted html_str and generate that in the calling function
-	var arr = [];
-	//array.push(value);
-	//This will add another item to it.
-	//To take one off, use array.pop();
-
-
 
 	// Create a new div for the email
 	var post = document.createElement('div');
