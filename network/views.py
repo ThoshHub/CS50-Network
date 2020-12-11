@@ -22,7 +22,8 @@ def index(request):
 			return_message = form.cleaned_data["message"] # get the message that the user submitted
 			# print("DEBUG STATEMENT: The Mesage Returned was: \n\"" + return_message + "\"")
 			current_user = request.user
-			posted_message = message(content=str(return_message), writer=current_user)
+			current_user_name = return_user_name(current_user.id)
+			posted_message = message(content=str(return_message), writer=current_user, writername=current_user_name)
 			posted_message.save()
 	return render(request, "network/index.html", {"form": messageForm()})
 
@@ -78,18 +79,8 @@ def register(request):
 		return render(request, "network/register.html")
 
 def return_messages(request):
-	messages = message.objects.all() # grab all messages, returns 1-12
-	# messages = message.objects.order_by("-date").extra(select = {'sales': 0}) # compare this to above returns 12-1 
-	# messages = message.objects.all().annotate(SALES=Value(0, IntegerField())) # compare this to above returns 12-1 
-	# messages = message.objects.all().extra(select = {'SALES': 23}) # compare this to above returns 12-1 
-	messages2 = messages.extra(select = {'SALES': 23})
-	print(messages2)
-
-	# TODO: edit messages so that the messages object contains the writer field IN ADDITION to the ID
-	# print("Line 84")
-	# for mess in messages:
-	# 	print(mess)
-	# 	# mess['WRITERID']=234
+	# messages = message.objects.all() # grab all messages, returns 1-12
+	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
 
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
@@ -99,6 +90,17 @@ def return_messages(request):
 	# todo print out all messages in messages
 
 	return JsonResponse(data_3, safe=False) # return the list
+
+# returns user name from user id,
+# differs from return_user method because
+# this one doesn't take a request, just the user id to be 
+# used locally by the server
+def return_user_name(user_id):
+	writer = User.objects.filter(id = user_id).first()
+	if writer is None:
+		return "user_undefined"
+	else:
+		return writer
 
 # This model 
 def return_user(request, user_id):
