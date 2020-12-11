@@ -39,8 +39,8 @@ async function display_message(element) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
-	// const writer = await get_user(writer_id);
-	const writer = "1";
+	const writer = capitalizeFirstLetter(element.fields.writername);
+	// const writer = "1";
 	const date = element.fields.date; // TODO Format this date
 	var test = ""
 	
@@ -68,6 +68,10 @@ async function display_message(element) {
 	document.getElementById(post.id).style.borderRadius = "15px";
 	document.getElementById(post.id).style.padding = "10px";
 	document.getElementById(post.id).style.marginBottom = "10px";
+}
+
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function submit_message() { //unused as of 20.10.29

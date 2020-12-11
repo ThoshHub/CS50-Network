@@ -28,26 +28,36 @@ Now the "all posts" page
 	/ This forces a page refresh, but that's okay
 
 	20.12.07
-	Alternative way to display names and links is instead of having an await in the JS,
-	we can just build the return function some more,
-	right now it returns an array of objects each containing post data
-	all we need to do is modify it so that it calls the method that returns the name of the writer
-	from the writer id, and then adding that to the object bundle
-	This might be helpful, you will most likely need to reengineer a lot of the api logic
-	https://stackoverflow.com/questions/25977100/django-how-to-re-route-a-request-to-a-different-view-using-middleware
+	/Alternative way to display names and links is instead of having an await in the JS,
+	/we can just build the return function some more,
+	/right now it returns an array of objects each containing post data
+	/all we need to do is modify it so that it calls the method that returns the name of the writer
+	/from the writer id, and then adding that to the object bundle
+	/This might be helpful, you will most likely need to reengineer a lot of the api logic
+	/https://stackoverflow.com/questions/25977100/django-how-to-re-route-a-request-to-a-different-view-using-middleware
 
-		An alternative way might be to edit the model so that for each message, both the id and name of the writer are stored
-		but that is a more cumbersome way to do it
-		You do not have to list the people who like a post, only the number of likes, so this may be a better way after all 
+		/An alternative way might be to edit the model so that for each message, both the id and name of the writer are stored
+		/but that is a more cumbersome way to do it
+		/You do not have to list the people who like a post, only the number of likes, so this may be a better way after all 
 
-		alternative way to do it is to use this
-		https://stackoverflow.com/questions/8615860/calculated-field-in-django-queryset-values
-		manually creating the queryset to json (yukes)
+		/alternative way to do it is to use this
+		/https://stackoverflow.com/questions/8615860/calculated-field-in-django-queryset-values
+		/manually creating the queryset to json (yukes)
 
 	Needs to display all posts by all users
 	/on page load need to send a get request to server url
 	/Need to make an api url that returns json of Xth ten messages
 	Need to modify api url to only get 10 at a time
+	
+		20.12.10
+		I think the best way to do this is to have a global hidden number in the html
+		Start that number at 0 and pass that into the method that returns messages, and it
+		will get 0-10
+		then update it to +1 = 1 and it will grab messages 10-20
+		and pressing "next" again will update +1 again so it is primed to grab 20-30
+
+		Need to check if this is reversable too
+	
 	Need to modify api url to take a second parameter equal to the number of times the user has clicked next x 110
 		The api url should return that x10th 
 		for example clicking next twice should give us messages 20-30
