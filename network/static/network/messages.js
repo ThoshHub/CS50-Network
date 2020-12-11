@@ -39,7 +39,8 @@ async function display_message(element) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
-	const writer = await get_user(writer_id);
+	// const writer = await get_user(writer_id);
+	const writer = "1";
 	const date = element.fields.date; // TODO Format this date
 	var test = ""
 	

@@ -81,13 +81,13 @@ def register(request):
 def return_messages(request):
 	# messages = message.objects.all() # grab all messages, returns 1-12
 	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
-
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
-	
-	# print(data_2)
+
 	# todo only grab 10
 	# todo print out all messages in messages
+	for m in messages:
+		print(m)
 
 	return JsonResponse(data_3, safe=False) # return the list
 
