@@ -83,7 +83,7 @@ def return_messages(request, message_number):
 	print(message_number) # 0 should return first 10, 1 should return 10-20 etc.
 
 	# messages = message.objects.all() # grab all messages, returns 1-12
-	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
+	messages = message.objects.order_by("-date")[:10] # compare this to above returns 12-1 
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string
 	data_3 = json.loads(data_2) # convert json string into a list
 
