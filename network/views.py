@@ -78,7 +78,10 @@ def register(request):
 	else:
 		return render(request, "network/register.html")
 
-def return_messages(request):
+def return_messages(request, message_number):
+
+	print(message_number) # 0 should return first 10, 1 should return 10-20 etc.
+
 	# messages = message.objects.all() # grab all messages, returns 1-12
 	messages = message.objects.order_by("-date") # compare this to above returns 12-1 
 	data_2 = serializers.serialize("json", messages) # serialize them into a json string

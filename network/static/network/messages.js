@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 	// console.log("page loaded!");
-	load() // load messages on page load
-	
-	var page_counter = document.querySelector('#page_counter')
+	var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon load
 	console.log(page_counter)
+	load(page_counter) // load messages on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -17,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
   })
 });
 
-function load() {
-	fetch('/messages')
+function load(page_counter) {
+	fetch('/messages/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
 		// Print data
