@@ -1,19 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
 	// console.log("page loaded!");
 	var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon load
-	console.log(page_counter)
+	// console.log(page_counter)
 	load(page_counter) // load messages on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
 		console.log("Something was clicked")
-		
-		// Unused
-		// if (element.id == "submit_message_button") {
-		// 	// submit_message()	
-		// }
-
-  })
+	})
 });
 
 function load(page_counter) {
@@ -67,6 +61,10 @@ function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function submit_message() { //unused as of 20.10.29
-	console.log("message was submitted!")
+function next_page(){
+	console.log("You Clicked On Next Page!")
+}
+
+function previous_page(){
+	console.log("You Clicked On Previous Page!")
 }

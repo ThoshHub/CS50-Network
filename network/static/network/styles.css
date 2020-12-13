@@ -30,8 +30,8 @@
 	display: none;
 }
 
-#btnSearch,
-#btnClear{
+#btnPrevious,
+#btnNext{
     display: inline-block;
     vertical-align: top;
 }
