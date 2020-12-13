@@ -1,5 +1,5 @@
-Data Model:
-Going with data model where tweet is dependent on user
+/Data Model:
+/Going with data model where tweet is dependent on user
 /    User:
 /		id
 /		name
@@ -14,7 +14,7 @@ Going with data model where tweet is dependent on user
 /		creator -> foreign key to user
 /		likes -> [] array of foreign keys to users
 
-Now the "all posts" page 
+/Now the "all posts" page 
 	Needs to have a form for creating posts
 	/	Need to create a new form in forms.py
 	/	Need to send that form to the view
@@ -27,7 +27,7 @@ Now the "all posts" page
 	/ UPDATE: instead chose to just use the method provided by django to make a post request from the html page directly
 	/ This forces a page refresh, but that's okay
 
-	20.12.07
+	/20.12.07
 	/Alternative way to display names and links is instead of having an await in the JS,
 	/we can just build the return function some more,
 	/right now it returns an array of objects each containing post data
@@ -44,34 +44,65 @@ Now the "all posts" page
 		/https://stackoverflow.com/questions/8615860/calculated-field-in-django-queryset-values
 		/manually creating the queryset to json (yukes)
 
-	Needs to display all posts by all users
+	/Needs to display all posts by all users
 	/on page load need to send a get request to server url
 	/Need to make an api url that returns json of Xth ten messages
-	Need to modify api url to only get 10 at a time
+	/Need to modify api url to only get 10 at a time
 	
-		20.12.10
-		I think the best way to do this is to have a global hidden number in the html
-		Start that number at 0 and pass that into the method that returns messages, and it
-		will get 0-10
-		then update it to +1 = 1 and it will grab messages 10-20
-		and pressing "next" again will update +1 again so it is primed to grab 20-30
+		/20.12.10
+		/I think the best way to do this is to have a global hidden number in the html
+		/Start that number at 0 and pass that into the method that returns messages, and it
+		/will get 0-10
+		/then update it to +1 = 1 and it will grab messages 10-20
+		/and pressing "next" again will update +1 again so it is primed to grab 20-30
 		
-		In order to update the numer use this:
-		https://stackoverflow.com/questions/11876414/update-number-in-same-place-on-web-page-with-javascript
+		/In order to update the numer use this:
+		/https://stackoverflow.com/questions/11876414/update-number-in-same-place-on-web-page-with-javascript
 
-		Need to check if this is reversable too
+		/Need to check if this is reversable too
 	
-	Need to modify api url to take a second parameter equal to the number of times the user has clicked next x 110
-		The api url should return that x10th 
-		for example clicking next twice should give us messages 20-30
-	Need to create a "next button" and bind it to this api action
+	/Need to modify api url to take a second parameter equal to the number of times the user has clicked next x 110
+	/	The api url should return that x10th 
+	/	for example clicking next twice should give us messages 20-30
+	/Need to create a "next button" and bind it to this api action
 	
-	Need to display the messages in the front end
-		need to dynamically generate div for each message (10 at a time)
-		all inside a bigger div that is cleared and filled everytime a user clicks next
+	/Need to display the messages in the front end
+	/	need to dynamically generate div for each message (10 at a time)
+	/	all inside a bigger div that is cleared and filled everytime a user clicks next
 	
-There is a problem with the posts, they have to be in date order but since they are generated
-through async, this is not enforced and they are generated in whatever order the async completes 
-in...
+/There is a problem with the posts, they have to be in date order but since they are generated
+/through async, this is not enforced and they are generated in whatever order the async completes 
+/in...
 
-	
+//----------------------------------------------------------------------//
+Need to display user pages:
+	Name
+	Need to display number of followers user has
+		Couple ways to do this
+		1) Add a "number of followers" field to the model
+			and update this value through the api
+
+		2) Create a url api that requests the number of followers
+		 and return the count
+	Need to display number of people user follows
+		See above, the same thing
+
+	Follow or unfollow the user (unless the profile is your own)
+	Need to create api for this
+		the actual javascript for this will call the api 
+		and then disable the follow button
+		and replace it with an unfollow button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
