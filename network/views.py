@@ -109,11 +109,12 @@ def return_user_name(user_id):
 # This model 
 def return_user(request, user_id):
 	writer = User.objects.filter(id = user_id).first()
-	# print(writer)
-	# print("Got to Line 77: "+ str(writer))
-	# need to format the data like this
-	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # this also works
-	data = [{'name': str(writer)}] # str(writer) is the username of the id of the user that was passed in
+	numOfFollowing = len(User.objects.filter(id = user_id).values('following')) # returns ids of following
+	numOfFollowers = len(User.objects.filter(id = user_id).values('followers')) # returns ids of followers
+	# print(str(writer) + ", " + str(numOfFollowing) + ", " + str(numOfFollowers))
+	
+	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # Format Data Like This
+	data = [{'name': str(writer), 'numFollowing': str(numOfFollowing), 'numFollowers': str(numOfFollowers)}] # str(writer) is the username of the id of the user that was passed in
 	return JsonResponse(data, safe=False)	
 
 def userpage(request, user_id):
