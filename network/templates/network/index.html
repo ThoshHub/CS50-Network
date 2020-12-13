@@ -11,18 +11,14 @@
 	<form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
     {% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
         {% csrf_token %}
-
         {{ form.as_p }}
-
         <input id="submit_message_button" class="btn btn-primary" value="Post Message!" type="Submit">
     </form>
     
-    <a href="{% url 'userpage' 1 %}">Click here to go to userpage 1, remove this link later</a>
-    
     <div id="index_messages">
-		
-	</div>
+    </div>
+    
+    <button id="next_page" class="btn btn-primary" type="button">Next ></button>
+    <br>
 
-
-	
 {% endblock %}
