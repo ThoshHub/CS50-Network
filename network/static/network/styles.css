@@ -30,16 +30,8 @@
 	display: none;
 }
 
-#next_page{
-	float: right;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
-#previous_page{
-	float: right;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 20px;
+#btnSearch,
+#btnClear{
+    display: inline-block;
+    vertical-align: top;
 }
