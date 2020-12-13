@@ -20,6 +20,8 @@ async function get_user(id) {
 	user_name = data[0].name.toString();
 	num_of_followers = data[0].numFollowers.toString();
 	num_of_following = data[0].numFollowing.toString();
+	//TODO add these to an array and return that instead of string
+
 	// console.log(user_name + ", " + num_of_followers + ", " + num_of_following)
 	// return data[0].name.toString();
 	return 'DUMMY VARIABLE'
