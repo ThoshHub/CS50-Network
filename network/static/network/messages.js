@@ -62,9 +62,33 @@ function capitalizeFirstLetter(string) {
 }
 
 function next_page(){
-	console.log("You Clicked On Next Page!")
+	// console.log("You Clicked On Next Page!")
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
+	// Store and increment
+	var new_counter = page_counter + 1;
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#index_messages').innerHTML = ""
+	// Load new posts
+	load(new_counter);
+	// Log which page you're on
+	console.log(new_counter);
 }
 
 function previous_page(){
-	console.log("You Clicked On Previous Page!")
+	// console.log("You Clicked On Previous Page!")
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
+	// Store and decrement
+	var new_counter = page_counter - 1;
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#index_messages').innerHTML = ""
+	// Load new posts
+	load(new_counter);
+	// Log which page you're on
+	console.log(new_counter);
 }
