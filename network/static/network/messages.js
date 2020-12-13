@@ -24,6 +24,7 @@ function load(page_counter) {
 	});
 }
 
+// NOT USED as of 20.12.13 (also I have change the API so this function doesn't work anymore)
 async function get_user(id) {
     const res = await fetch('/users/' + id);
     const data = await res.json();

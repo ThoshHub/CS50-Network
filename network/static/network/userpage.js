@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	// console.log("page loaded!");
-    loadUserData(page_counter) // load messages on page load
+    loadUserData() // load messages on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -9,5 +9,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadUserData(){
-    
+    // need to call api here
 }
