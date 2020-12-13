@@ -81,14 +81,14 @@ def register(request):
 def return_messages(request, message_number):
 	number_of_messages = message.objects.all().count() # Total number of messages in the database
 	begin = message_number * 10 # first index of message
-	end = message_number + 10  # last index of message
-	# print(str(begin) + ", " + str(end))
+	end = begin + 10  # last index of message
 	
 	# if the last index is greater than the total number of messages, 
 	# then set it to the max number of messages
 	# for example if 75 messages exist, and 70-79 is requested, 70-75 will be requested instead
 	if end > number_of_messages:
 		end = number_of_messages 
+	# print("MAX: " + str(number_of_messages) + ", START: " + str(begin) + ", END: " + str(end)) # debug
 
 	messages = message.objects.order_by("-date")[begin:end] # The messages object is requested from the database
 	messages_json = serializers.serialize("json", messages) # serialize them into a json string
