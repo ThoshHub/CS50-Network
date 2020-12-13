@@ -79,20 +79,21 @@ def register(request):
 		return render(request, "network/register.html")
 
 def return_messages(request, message_number):
+	number_of_messages = message.objects.all().count() # Total number of messages in the database
+	begin = message_number * 10 # first index of message
+	end = message_number + 10  # last index of message
+	# print(str(begin) + ", " + str(end))
+	
+	# if the last index is greater than the total number of messages, 
+	# then set it to the max number of messages
+	# for example if 75 messages exist, and 70-79 is requested, 70-75 will be requested instead
+	if end > number_of_messages:
+		end = number_of_messages 
 
-	print(message_number) # 0 should return first 10, 1 should return 10-20 etc.
-
-	# messages = message.objects.all() # grab all messages, returns 1-12
-	messages = message.objects.order_by("-date")[:10] # compare this to above returns 12-1 
-	data_2 = serializers.serialize("json", messages) # serialize them into a json string
-	data_3 = json.loads(data_2) # convert json string into a list
-
-	# todo only grab 10
-	# todo print out all messages in messages
-	for m in messages:
-		print(m)
-
-	return JsonResponse(data_3, safe=False) # return the list
+	messages = message.objects.order_by("-date")[begin:end] # The messages object is requested from the database
+	messages_json = serializers.serialize("json", messages) # serialize them into a json string
+	messages_list = json.loads(messages_json) # convert json string into a list
+	return JsonResponse(messages_list, safe=False) # return the list
 
 # returns user name from user id,
 # differs from return_user method because
