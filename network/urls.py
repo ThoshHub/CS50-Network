@@ -13,5 +13,5 @@ urlpatterns = [
     
 	# API Routes
     path("messages/<int:message_number>", views.return_messages, name="messages"), # return message content when id passed in
-	path("users/<int:user_id>", views.return_user, name="users") # return user content when id passed in
+	path("users/pageinfo/<int:user_id>", views.return_user, name="users") # return user content when id passed in
 ]
