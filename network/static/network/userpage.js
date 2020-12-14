@@ -1,17 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-	// console.log("page loaded!");
-    loadUserData() // load messages on page load
+    // Get URL minus the domain name, convert it to string and then split it with "/"
+    var urlArr = window.location.pathname.toString().split("/");
+    // Get final index of urlArr which gives us the ID of the user
+    var user_id = urlArr[urlArr.length - 1] ;
+    // console.log(user_id)
+    loadUserData(user_id); // loads user data on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
-		console.log("Something was clicked")
+		console.log("Something was clicked");
 	})
 });
 
-async function loadUserData(){
-	// need to call api here
-	const userData = await get_user(2); //TODO CHANGE THIS TO GET CURRENT USER NOT '2'
-	console.log(userData);
+async function loadUserData(user_id){
+	// Request data from Server
+	const user_data = await get_user(user_id);
+    // console.log(user_data);
+    
+    // Generate and set HTML for user profile
+    // document.getElementById("#user_information").innerHTML = "<p>TEST TEST TEST</p>";
+    // console.log(user_information_block)
+    document.querySelector('#user_information').append("testtesttest");
+}
+
+async function loadUserPosts(user_id){
+    console.log("TODO");
 }
 
 async function get_user(id) {

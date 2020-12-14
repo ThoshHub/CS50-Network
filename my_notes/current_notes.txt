@@ -93,7 +93,9 @@ Need to display user pages:
 		and then disable the follow button
 		and replace it with an unfollow button
 
-
+	20.12.13
+		Left off on userpage.js on "loadUserData()"
+		trying to set the inner html of the userpage div
 
 
 
