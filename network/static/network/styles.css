@@ -35,3 +35,7 @@
     display: inline-block;
     vertical-align: top;
 }
+
+#user_information{
+	padding: 20px;
+}

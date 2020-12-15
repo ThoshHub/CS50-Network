@@ -97,7 +97,10 @@ Need to display user pages:
 		Left off on userpage.js on "loadUserData()"
 		trying to set the inner html of the userpage div
 
-
+	20.12.14 
+		Left off trying to edit CSS of the "#user_information" id on the userpage.html page
+		I want a blue border and padding
+		Also need to display rest of information like number of followers etc.	
 
 
 

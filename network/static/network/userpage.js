@@ -14,13 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadUserData(user_id){
 	// Request data from Server
-	const user_data = await get_user(user_id);
+	const user_data = await get_user(user_id); // array of 3 items, first item is the name, second is the number of followers, third is the number that the user follows
     // console.log(user_data);
     
+    const user_name = user_data[0];
+    const user_followers = user_data[1];
+    const user_following = user_data[2];
+    console.log(user_name + ", " + user_followers + ", " + user_following);
+
     // Generate and set HTML for user profile
-    // document.getElementById("#user_information").innerHTML = "<p>TEST TEST TEST</p>";
-    // console.log(user_information_block)
-    document.querySelector('#user_information').append("testtesttest");
+    var post = document.createElement('div');
+    var user_profile_html = "<h1>" + capitalizeFirstLetter(user_name) + "</h1>"
+    post.innerHTML = `${user_profile_html}`;
+    document.querySelector('#user_information').append(post);
+
 }
 
 async function loadUserPosts(user_id){
@@ -37,4 +44,8 @@ async function get_user(id) {
     
     // returns an array of 3 items, first item is the name, second is the number of followers, third is the number that the user follows
 	return [user_name, num_of_followers, num_of_following]
+}
+
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
 }
