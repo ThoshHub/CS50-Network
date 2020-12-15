@@ -23,11 +23,19 @@ async function loadUserData(user_id){
     console.log(user_name + ", " + user_followers + ", " + user_following);
 
     // Generate and set HTML for user profile
-    var post = document.createElement('div');
-    var user_profile_html = "<h1>" + capitalizeFirstLetter(user_name) + "</h1>"
-    post.innerHTML = `${user_profile_html}`;
-    document.querySelector('#user_information').append(post);
+	var post = document.createElement('div');
+	post.id = "user_profile_information";
+	post.style.cssText = 'margin: auto;width: 50%;border: 3px solid blue;padding: 20px; border-radius: 15px;';
 
+	var user_profile_html = '<img src="https://i.imgur.com/04baa1h.png" width="240px" height="240px" style="display: block; margin-left: auto; margin-right: auto; border-radius: 10%;">' 
+	user_profile_html += '<h1 style="text-align: center;">' + capitalizeFirstLetter(user_name) + '</h1>\n'
+	user_profile_html += '<h5 style="text-align: center;">Followers: ' + user_followers.toString() + '<h5>\n'
+	user_profile_html += '<h5 style="text-align: center;">Following: ' + user_following.toString() + '<h5>'
+    post.innerHTML = `${user_profile_html}`;
+    document.querySelector('#user_profile').append(post);
+
+	// After loading the user's profile, load their posts
+	loadUserPosts(user_id);
 }
 
 async function loadUserPosts(user_id){
