@@ -102,7 +102,8 @@ Need to display user pages:
 		I want a blue border and padding
 		Also need to display rest of information like number of followers etc.	
 
-
+	20.12.15
+		Left off trying to piece together the message response api for users
 
 
 

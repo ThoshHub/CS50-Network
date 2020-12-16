@@ -95,6 +95,11 @@ def return_messages(request, message_number):
 	messages_list = json.loads(messages_json) # convert json string into a list
 	return JsonResponse(messages_list, safe=False) # return the list
 
+def return_user_messages(request, user_id, message_number):
+	print("Got to Line 99")
+	dummy_return_value = "{name: \"John\", age: 31, city: \"New York\"}"
+	return JsonResponse(dummy_return_value, safe=False)
+
 # returns user name from user id,
 # differs from return_user method because
 # this one doesn't take a request, just the user id to be 

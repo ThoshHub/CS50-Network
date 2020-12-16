@@ -39,7 +39,27 @@ async function loadUserData(user_id){
 }
 
 async function loadUserPosts(user_id){
-    console.log("TODO");
+	var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon first page load
+	
+	// Debug Values
+	user_id = 1
+	page_counter = 1
+
+	fetch('/messages/' + user_id + '/' + page_counter)
+	.then(res => res.json())
+	.then(data => {
+		// Print data
+		console.log(data);
+	
+		data.forEach(element => {
+			// Display each element
+			// display_message(element)
+		});
+	});
+
+	console.log("TODO");
+	
+
 }
 
 async function get_user(id) {

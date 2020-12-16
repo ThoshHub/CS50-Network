@@ -4,6 +4,9 @@
 {% block body %}
 	<script src="{% static 'network/userpage.js' %}"></script>
 
+	{% comment %} global variable to determine which page the user is on {% endcomment %}
+	<p id="page_counter">0</p>
+
 	<div id="user_profile">
 	</div>
 	
