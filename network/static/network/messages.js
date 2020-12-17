@@ -85,6 +85,10 @@ function previous_page(){
 	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
 	// Store and decrement
 	var new_counter = page_counter - 1;
+    // Prevent negative numbers
+    if(new_counter < 0) {
+        new_counter = 0;
+    }
 	// Set element to updated number
 	document.querySelector('#page_counter').innerHTML = new_counter.toString();
 	// Clear current posts

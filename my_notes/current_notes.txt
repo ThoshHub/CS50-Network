@@ -99,6 +99,17 @@ Need to display user pages:
 	/20.12.15
 	/	Left off trying to piece together the message response api for users
 
+	20.12.16
+		/Just realized the post order/time-sort-display is messed up
+		/It works as intended but is hard to edit because the way I named things is unintuitive 
+		Left off with ability to move back and forth in users posts
+		Now need to implement the ability to follow a user
+		After need follow page which shows posts by users that are followed only
+			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
+			Documentation says:
+			https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
+			https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
+
 	Follow or unfollow the user (unless the profile is your own)
 	Need to create api for this
 		the actual javascript for this will call the api 
