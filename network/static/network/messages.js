@@ -38,7 +38,8 @@ async function display_message(element) {
 	const writer = capitalizeFirstLetter(element.fields.writername);
 	// const writer = "1";
 	const date = element.fields.date; // TODO Format this date
-	var test = ""
+    const formatted_date = formatDate(date)
+	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Formatted Date: " + formatted_date)
 
 	// Create a new div for the email
 	var post = document.createElement('div');
@@ -92,4 +93,18 @@ function previous_page(){
 	load(new_counter);
 	// Log which page you're on
 	console.log(new_counter);
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }

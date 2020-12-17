@@ -66,8 +66,9 @@ async function display_message(element) {
 	const writer_id = element.fields.writer;
 	const writer = capitalizeFirstLetter(element.fields.writername);
 	// const writer = "1";
-	const date = element.fields.date; // TODO Format this date
-	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Date: " + date)
+    const date = element.fields.date; // TODO Format this date
+    const formatted_date = formatDate(date)
+	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Formatted Date: " + formatted_date)
 
 	// Create a new div for the email
 	var post = document.createElement('div');
@@ -101,4 +102,18 @@ async function get_user(id) {
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
