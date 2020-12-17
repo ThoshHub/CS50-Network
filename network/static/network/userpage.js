@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Get URL minus the domain name, convert it to string and then split it with "/"
-    var urlArr = window.location.pathname.toString().split("/");
-    // Get final index of urlArr which gives us the ID of the user
-    var user_id = urlArr[urlArr.length - 1] ;
-    // console.log(user_id)
-    loadUserData(user_id); // loads user data on page load
+	var page_counter = return_page_counter();
+    var user_id = return_user_id();
+    loadUserData(user_id, page_counter); // loads user data on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -12,7 +9,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 });
 
-async function loadUserData(user_id){
+function return_user_id(){
+        // Get URL minus the domain name, convert it to string and then split it with "/"
+        var urlArr = window.location.pathname.toString().split("/");
+        // Get final index of urlArr which gives us the ID of the user
+        var user_id = urlArr[urlArr.length - 1] ;
+        // console.log(user_id)
+        return user_id
+}
+
+function return_page_counter(){
+    var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon first page load
+    return page_counter
+}
+
+async function loadUserData(user_id, page_counter){
 	// Request data from Server
 	const user_data = await get_user(user_id); // array of 3 items, first item is the name, second is the number of followers, third is the number that the user follows
     // console.log(user_data);
@@ -35,12 +46,10 @@ async function loadUserData(user_id){
     document.querySelector('#user_profile').append(post);
 
 	// After loading the user's profile, load their posts
-	loadUserPosts(user_id);
+	loadUserPosts(user_id, page_counter);
 }
 
-async function loadUserPosts(user_id){
-	var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon first page load
-	
+async function loadUserPosts(user_id, page_counter){
 	// Debug Values
 	// user_id = 2 // mercury
     // page_counter = 0 // page 1
@@ -102,6 +111,42 @@ async function get_user(id) {
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function next_page(){
+    // console.log("You Clicked On Next Page!")
+    // Get User ID
+    var user_id = return_user_id();
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
+	// Store and increment
+	var new_counter = page_counter + 1;
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#user_posts').innerHTML = ""
+	// Load new posts
+	loadUserPosts(user_id, new_counter);
+	// Log which page you're on
+	console.log(new_counter);
+}
+
+function previous_page(){
+    // console.log("You Clicked On Previous Page!")
+    // Get User ID
+    var user_id = return_user_id();
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
+	// Store and decrement
+	var new_counter = page_counter - 1;
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#user_posts').innerHTML = ""
+	// Load new posts
+	loadUserPosts(user_id, new_counter);
+	// Log which page you're on
+	console.log(new_counter);
 }
 
 function formatDate(date) {

@@ -100,6 +100,7 @@ def return_user_messages(request, user_id, message_number): # you can think of "
 	
 	# calculate pages
 	number_of_messages = message.objects.filter(writer = user_id).count()
+
 	begin = message_number * 10 # first index of message
 	end = begin + 10  # last index of message
 

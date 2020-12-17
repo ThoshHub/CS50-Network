@@ -87,23 +87,25 @@ Need to display user pages:
 	Need to display number of people user follows
 		See above, the same thing
 
+	/20.12.13
+	/	Left off on userpage.js on "loadUserData()"
+	/	trying to set the inner html of the userpage div
+
+	/20.12.14 
+	/	Left off trying to edit CSS of the "#user_information" id on the userpage.html page
+	/	I want a blue border and padding
+	/	Also need to display rest of information like number of followers etc.	
+
+	/20.12.15
+	/	Left off trying to piece together the message response api for users
+
 	Follow or unfollow the user (unless the profile is your own)
 	Need to create api for this
 		the actual javascript for this will call the api 
 		and then disable the follow button
 		and replace it with an unfollow button
 
-	20.12.13
-		Left off on userpage.js on "loadUserData()"
-		trying to set the inner html of the userpage div
 
-	20.12.14 
-		Left off trying to edit CSS of the "#user_information" id on the userpage.html page
-		I want a blue border and padding
-		Also need to display rest of information like number of followers etc.	
-
-	20.12.15
-		Left off trying to piece together the message response api for users
 
 
 
