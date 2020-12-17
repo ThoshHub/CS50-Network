@@ -42,24 +42,49 @@ async function loadUserPosts(user_id){
 	var page_counter = document.querySelector('#page_counter').innerHTML // returns 0 upon first page load
 	
 	// Debug Values
-	user_id = 1
-	page_counter = 1
+	// user_id = 2 // mercury
+    // page_counter = 0 // page 1
+    // console.log("User ID: " + user_id.toString() + ", Page Counter: " + page_counter.toString());
 
-	fetch('/messages/' + user_id + '/' + page_counter)
+	// fetch('/messages/' + user_id) // calls original API, this works
+	fetch('/messages/user/' + user_id + '/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
 		// Print data
-		console.log(data);
+		// console.log(data);
 	
 		data.forEach(element => {
 			// Display each element
-			// display_message(element)
+			display_message(element);
 		});
 	});
+}
 
-	console.log("TODO");
-	
+async function display_message(element) {
+	//console.log(element);
+	const content = element.fields.content;
+	const writer_id = element.fields.writer;
+	const writer = capitalizeFirstLetter(element.fields.writername);
+	// const writer = "1";
+	const date = element.fields.date; // TODO Format this date
+	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Date: " + date)
 
+	// Create a new div for the email
+	var post = document.createElement('div');
+	post.id = "message_" + element.pk; // give each message a new id, id = pk
+
+	// url is a placeholder
+	const html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + date;
+	post.innerHTML = `${html_str}`;
+
+	// Attach generated HTML to the messages div
+	document.querySelector('#user_posts').append(post);
+
+	// TODO for the first one 
+	document.getElementById(post.id).style.border = "2px solid dodgerblue";
+	document.getElementById(post.id).style.borderRadius = "15px";
+	document.getElementById(post.id).style.padding = "10px";
+	document.getElementById(post.id).style.marginBottom = "10px";
 }
 
 async function get_user(id) {

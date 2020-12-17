@@ -95,10 +95,26 @@ def return_messages(request, message_number):
 	messages_list = json.loads(messages_json) # convert json string into a list
 	return JsonResponse(messages_list, safe=False) # return the list
 
-def return_user_messages(request, user_id, message_number):
-	print("Got to Line 99")
-	dummy_return_value = "{name: \"John\", age: 31, city: \"New York\"}"
-	return JsonResponse(dummy_return_value, safe=False)
+def return_user_messages(request, user_id, message_number): # you can think of "message_number"  as 'Page Number'
+	# print("User ID: " + str(user_id) + ", Message Number: " + str(message_number))
+	
+	# calculate pages
+	number_of_messages = message.objects.filter(writer = user_id).count()
+	begin = message_number * 10 # first index of message
+	end = begin + 10  # last index of message
+
+	# if the last index is greater than the total number of messages, 
+	# then set it to the max number of messages
+	# for example if 75 messages exist, and 70-79 is requested, 70-75 will be requested instead
+	if end > number_of_messages:
+		end = number_of_messages 
+	print("MAX: " + str(number_of_messages) + ", START: " + str(begin) + ", END: " + str(end)) # debug
+
+	# get messages for a specific user
+	messages = message.objects.filter(writer = user_id).order_by("-date")[begin:end] # The messages object is requested from the database
+	messages_json = serializers.serialize("json", messages) # serialize them into a json string
+	messages_list = json.loads(messages_json) # convert json string into a list
+	return JsonResponse(messages_list, safe=False) # return the list
 
 # returns user name from user id,
 # differs from return_user method because
