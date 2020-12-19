@@ -142,3 +142,10 @@ def userpage(request, user_id):
 	return render(request, "network/userpage.html", {
 		"user_id": user_id
 	})
+
+def return_follows_status(request, user_id_1, user_id_2):
+	# DUMMY VALUES ATM
+	print("Got to lin 148")
+	return render(request, "network/userpage.html", {
+		"user_id": user_id_1
+	})
