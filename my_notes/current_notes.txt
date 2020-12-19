@@ -102,7 +102,8 @@ Need to display user pages:
 	20.12.16
 		/Just realized the post order/time-sort-display is messed up
 		/It works as intended but is hard to edit because the way I named things is unintuitive 
-		Left off with ability to move back and forth in users posts
+		/Left off with ability to move back and forth in users posts
+		
 		Now need to implement the ability to follow a user
 		After need follow page which shows posts by users that are followed only
 			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
@@ -112,9 +113,23 @@ Need to display user pages:
 
 	Follow or unfollow the user (unless the profile is your own)
 	Need to create api for this
+		On page load, a get request to see if the user logged in currently follows the user on the page
+		if the user does follow:
+			return true
+			display "unfollow" button
+		if the user does not follow:
+			return false
+			dispay "follow" button
+		if they are the same user (user logged in is on their own page):
+			return something else??
+			do not display anything
+
+		any time a button is clicked, it creates a post request tha t
+		
 		the actual javascript for this will call the api 
 		and then disable the follow button
 		and replace it with an unfollow button
+		
 
 
 
