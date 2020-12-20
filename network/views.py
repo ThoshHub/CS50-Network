@@ -145,10 +145,10 @@ def userpage(request, user_id):
 
 def return_follows_status(request, user_id_1, user_id_2):
 	print("Views.py: line 148")
-	# Check whether user_id_1 follows user_id_2
+	# Check whether user_id_1 is FOLLOWING user_id_2
 	
 	visitor = User.objects.filter(id = user_id_1)
-	print(visitor.values("followers"))
+	print(visitor.values("following"))
 	
 	data = "{\"name\":\"John\", \"age\":31, \"city\":\"New Yorkk\"}"
 	return JsonResponse(data, safe=False)

@@ -5,8 +5,8 @@ from datetime import date, datetime
 from django.utils import timezone
 
 class User(AbstractUser):
-	followers = models.ManyToManyField("User", related_name="followedby")
-	following = models.ManyToManyField("User", related_name="follows")
+	followers = models.ManyToManyField("User", related_name="followedby", blank=True)
+	following = models.ManyToManyField("User", related_name="follows", blank=True)
 	# temp = models.CharField(max_length=64)
 
 class message(models.Model):
