@@ -143,12 +143,27 @@ def userpage(request, user_id):
 		"user_id": user_id
 	})
 
-def return_follows_status(request, user_id_1, user_id_2):
-	print("Views.py: line 148")
-	# Check whether user_id_1 is FOLLOWING user_id_2
+def return_current_user(request): # Serves the id of the current user
+	current_user = request.user
+	data = {'loggedin': str(current_user.id)}
+	return JsonResponse(data, safe=False)
+
+def return_follows_status(request, user_id_1, user_id_2): # Check whether user_id_1 is FOLLOWING user_id_2
+	# Get List of People that "user_id_1" follows in a list
+	visitor = User.objects.filter(id = user_id_1).values_list("following", flat=True)
+	# print(visitor)
+
+	returnvar = ""
+	# DEBUG: Print Out Results
+	if user_id_1 == user_id_2:
+		returnvar = "same"
+	elif user_id_2 in visitor:
+		returnvar = "yes"
+	else: 
+		returnvar = "no"
+	# print("User 1 Follows User 2: " + returnvar)
 	
-	visitor = User.objects.filter(id = user_id_1)
-	print(visitor.values("following"))
-	
-	data = "{\"name\":\"John\", \"age\":31, \"city\":\"New Yorkk\"}"
+	# data = "{\"name\":\"John\", \"age\":31, \"city\":\"New Yorkk\"}" # Dummy Data for Debugging
+	# data = [{'follows': str(returnvar)}] # Alternative option
+	data = {'follows': str(returnvar)}
 	return JsonResponse(data, safe=False)

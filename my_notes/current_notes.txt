@@ -135,6 +135,11 @@ Need to display user pages:
 	20.20.17
 		Left off on making the user follows api
 		Need to make it asynchronous so the value can be returned!
+		
+		In the models I have followers and following
+			I think I will only use following that way when doing api calls
+			I am at most editing 1 object (the user object of the user logged in)
+			as opposed to all other user objects
 
 
 

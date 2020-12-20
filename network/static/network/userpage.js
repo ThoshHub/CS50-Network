@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // return which page the user is on
     var page_counter = return_page_counter();
+    // return which user the user page is of
     var user_id = return_user_id();
     
+    // return the id of the logged in user
+    var current_id = return_current_user_id()
+    console.log(current_id)
     // determine whether the visting user follows the page user or not
-    determine_follow()
+    // determine_follow()
     
     loadUserData(user_id, page_counter); // loads user data on page load
 
@@ -30,6 +35,11 @@ async function determine_follow(){
 		// 	display_message(element);
 		// });
 	});
+}
+
+async function return_current_user_id(){
+    console.log("Line 40")
+    return "TEST"
 }
 
 function return_user_id(){
