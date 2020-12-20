@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-	var page_counter = return_page_counter();
+    var page_counter = return_page_counter();
     var user_id = return_user_id();
+    
+    // determine whether the visting user follows the page user or not
+    determine_follow()
+    
     loadUserData(user_id, page_counter); // loads user data on page load
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
@@ -8,6 +12,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log("Something was clicked");
 	})
 });
+
+// determines whether the current user follow
+async function determine_follow(){
+    console.log("Userpage.js: Line 18")
+    user_id_1 = "1"
+    user_id_2 = "2"
+	fetch('/following/user/' + user_id_1 + '/' + user_id_2)
+	.then(res => res.json())
+	.then(data => {
+        // Print data
+        console.log("Userpage.js: Line 23")
+		console.log(data);
+	
+		// data.forEach(element => {
+		// 	// Display each element
+		// 	display_message(element);
+		// });
+	});
+}
 
 function return_user_id(){
         // Get URL minus the domain name, convert it to string and then split it with "/"
@@ -31,7 +54,7 @@ async function loadUserData(user_id, page_counter){
     const user_name = user_data[0];
     const user_followers = user_data[1];
     const user_following = user_data[2];
-    console.log(user_name + ", " + user_followers + ", " + user_following);
+    // console.log(user_name + ", " + user_followers + ", " + user_following);
 
     // Generate and set HTML for user profile
 	var post = document.createElement('div');

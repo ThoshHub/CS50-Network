@@ -129,8 +129,12 @@ Need to display user pages:
 		the actual javascript for this will call the api 
 		and then disable the follow button
 		and replace it with an unfollow button
-		
 
+		Perhaps you can get the user ids and then set them as global variabls in the html to reference them?
+		
+	20.20.17
+		Left off on making the user follows api
+		Need to make it asynchronous so the value can be returned!
 
 
 
