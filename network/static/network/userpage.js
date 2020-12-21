@@ -144,7 +144,11 @@ async function get_user(id) {
 
 function loadFollowStatus(user_id, current_id, follows){
     console.log("User Visiting ID: \t" + user_id + "\nUser Profile ID: \t" + current_id + "\nFollows? \t\t" + follows);
+    
     // Need to fill in div #follow_option and create css for it too!
+    var post = document.createElement('div');
+	post.id = "follow_button"; // give this div an id
+
 }
 
 function capitalizeFirstLetter(string) {
