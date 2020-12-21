@@ -18,10 +18,11 @@ async function initialize(){
         // console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
         
         // determine whether the visting user follows the page user or not
-        const follows = await determine_follow(current_id, user_id) // UNCOMMENT
-        console.log("Follows? " + follows)
+        const follows = await determine_follow(current_id, user_id)
+        // console.log("Follows? " + follows)
 
-        // loadUserData(user_id, page_counter); // loads user data on page load // UNCOMMENT
+        loadUserData(user_id, page_counter); // loads user data on page load
+        loadFollowStatus(user_id, current_id, follows) // loads the follow button and associated logic
 }
 
 async function return_current_user_id(){
@@ -34,7 +35,7 @@ async function return_current_user_id(){
 
 // determines whether the current user (user_id_1) follows the user of the profile (user_id_2)
 async function determine_follow(user_id_1, user_id_2){
-    console.log("User Visiting: " + user_id_1 + " User Being Visited: " + user_id_2);
+    // console.log("User Visiting: " + user_id_1 + " User Being Visited: " + user_id_2);
 	const follows = await fetch('/following/user/' + user_id_1 + '/' + user_id_2);
     const data = await follows.json();
     // console.log(data);
@@ -139,6 +140,11 @@ async function get_user(id) {
     
     // returns an array of 3 items, first item is the name, second is the number of followers, third is the number that the user follows
 	return [user_name, num_of_followers, num_of_following]
+}
+
+function loadFollowStatus(user_id, current_id, follows){
+    console.log("User Visiting ID: \t" + user_id + "\nUser Profile ID: \t" + current_id + "\nFollows? \t\t" + follows);
+    // Need to fill in div #follow_option and create css for it too!
 }
 
 function capitalizeFirstLetter(string) {
