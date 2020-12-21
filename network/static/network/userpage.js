@@ -18,8 +18,9 @@ async function initialize(){
         // console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
         
         // determine whether the visting user follows the page user or not
-        determine_follow(current_id, user_id) // UNCOMMENT
-        
+        const follows = await determine_follow(current_id, user_id) // UNCOMMENT
+        console.log("Follows? " + follows)
+
         // loadUserData(user_id, page_counter); // loads user data on page load // UNCOMMENT
 }
 
@@ -28,23 +29,16 @@ async function return_current_user_id(){
     const id = await fetch('/user/current');
     const data = await id.json();
     // console.log(data)
-    return data.loggedin;
+    return data.loggedin; // loggedin is the actual attribute name  of the id
 }
 
 // determines whether the current user (user_id_1) follows the user of the profile (user_id_2)
 async function determine_follow(user_id_1, user_id_2){
     console.log("User Visiting: " + user_id_1 + " User Being Visited: " + user_id_2);
-	fetch('/following/user/' + user_id_1 + '/' + user_id_2)
-	.then(res => res.json())
-	.then(data => {
-        // Print data
-		console.log(data);
-	
-		// data.forEach(element => {
-		// 	// Display each element
-		// 	display_message(element);
-		// });
-	});
+	const follows = await fetch('/following/user/' + user_id_1 + '/' + user_id_2);
+    const data = await follows.json();
+    // console.log(data);
+    return data.follows; // follows is the actual attribute name 
 }
 
 function return_user_id(){
