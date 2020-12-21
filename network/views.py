@@ -145,7 +145,8 @@ def userpage(request, user_id):
 
 def return_current_user(request): # Serves the id of the current user
 	current_user = request.user
-	data = {'loggedin': str(current_user.id)}
+	data = {'loggedin': current_user.id}
+	print(data)
 	return JsonResponse(data, safe=False)
 
 def return_follows_status(request, user_id_1, user_id_2): # Check whether user_id_1 is FOLLOWING user_id_2

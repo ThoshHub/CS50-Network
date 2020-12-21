@@ -1,16 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // return which page the user is on
-    var page_counter = return_page_counter();
-    // return which user the user page is of
-    var user_id = return_user_id();
-    
-    // return the id of the logged in user
-    var current_id = return_current_user_id()
-    console.log(current_id)
-    // determine whether the visting user follows the page user or not
-    // determine_follow()
-    
-    loadUserData(user_id, page_counter); // loads user data on page load
+    initialize();
 
 	document.addEventListener('click', event => { //unused as of 20.10.29
 		const element = event.target;
@@ -18,16 +7,37 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 });
 
-// determines whether the current user follow
-async function determine_follow(){
-    console.log("Userpage.js: Line 18")
-    user_id_1 = "1"
-    user_id_2 = "2"
+async function initialize(){
+        // return which page the user is on
+        var page_counter = return_page_counter();
+        // return which user the user page is of
+        const user_id = return_user_id();
+        
+        // return the id of the logged in user
+        const current_id = await return_current_user_id();
+        // console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
+        
+        // determine whether the visting user follows the page user or not
+        determine_follow(current_id, user_id) // UNCOMMENT
+        
+        // loadUserData(user_id, page_counter); // loads user data on page load // UNCOMMENT
+}
+
+async function return_current_user_id(){
+    //console.log("3 About To Fetch")
+    const id = await fetch('/user/current');
+    const data = await id.json();
+    // console.log(data)
+    return data.loggedin;
+}
+
+// determines whether the current user (user_id_1) follows the user of the profile (user_id_2)
+async function determine_follow(user_id_1, user_id_2){
+    console.log("User Visiting: " + user_id_1 + " User Being Visited: " + user_id_2);
 	fetch('/following/user/' + user_id_1 + '/' + user_id_2)
 	.then(res => res.json())
 	.then(data => {
         // Print data
-        console.log("Userpage.js: Line 23")
 		console.log(data);
 	
 		// data.forEach(element => {
@@ -35,11 +45,6 @@ async function determine_follow(){
 		// 	display_message(element);
 		// });
 	});
-}
-
-async function return_current_user_id(){
-    console.log("Line 40")
-    return "TEST"
 }
 
 function return_user_id(){
