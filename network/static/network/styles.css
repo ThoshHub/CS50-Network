@@ -39,3 +39,8 @@
 #user_profile{
 	padding: 20px;
 }
+
+#follow_button, #unfollow_button{
+	display: inline-block;
+    vertical-align: top;
+}

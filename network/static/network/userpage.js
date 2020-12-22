@@ -22,7 +22,7 @@ async function initialize(){
         // console.log("Follows? " + follows)
 
         loadUserData(user_id, page_counter); // loads user data on page load
-        loadFollowStatus(user_id, current_id, follows) // loads the follow button and associated logic
+        loadFollowStatus(current_id, user_id, follows) // loads the follow button and associated logic
 }
 
 async function return_current_user_id(){
@@ -142,13 +142,32 @@ async function get_user(id) {
 	return [user_name, num_of_followers, num_of_following]
 }
 
-function loadFollowStatus(user_id, current_id, follows){
+function loadFollowStatus(current_id, user_id, follows){
     console.log("User Visiting ID: \t" + user_id + "\nUser Profile ID: \t" + current_id + "\nFollows? \t\t" + follows);
     
     // Need to fill in div #follow_option and create css for it too!
-    var post = document.createElement('div');
-	post.id = "follow_button"; // give this div an id
+    var follow_button = document.createElement('input');
+    follow_button.type = "button";
+    follow_button.innerHTML = "Follow";
+    follow_button.id = "follow_button"; // give this div an id
+    follow_button.addEventListener('click', function(){
+        followUser(current_id, user_id)
+    });
 
+    // Attach button to "follow_option" div
+	document.querySelector('#follow_option').append(follow_button);
+
+    document.getElementById("follow_button").innerHTML = "Follow 2";
+    console.log(follow_button.innerHTML)
+}
+
+// makes current_id follow
+async function followUser(current_id, user_id){
+    console.log(current_id + " will now FOLLOW " + user_id)
+}
+
+async function unfollowUser(current_id, user_id){
+    console.log(current_id + " will now UNFOLLOW " + user_id)
 }
 
 function capitalizeFirstLetter(string) {
