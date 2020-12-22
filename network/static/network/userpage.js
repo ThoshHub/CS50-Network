@@ -145,20 +145,42 @@ async function get_user(id) {
 function loadFollowStatus(current_id, user_id, follows){
     console.log("User Visiting ID: \t" + user_id + "\nUser Profile ID: \t" + current_id + "\nFollows? \t\t" + follows);
     
-    // Need to fill in div #follow_option and create css for it too!
-    var follow_button = document.createElement('input');
-    follow_button.type = "button";
-    follow_button.innerHTML = "Follow";
-    follow_button.id = "follow_button"; // give this div an id
-    follow_button.addEventListener('click', function(){
-        followUser(current_id, user_id)
-    });
+    if(follows == "no"){
+        console.log("entered path 1")
+        // Need to fill in div #follow_option and create css for it too!
+        var follow_button = document.createElement('button');
+        follow_button.type = "button";
+        follow_button.innerHTML = "Follow";
+        follow_button.id = "follow_button"; // give this div an id
+        follow_button.className = "btn btn-primary";
+        follow_button.style.cssText = 'margin:0 auto;display: block;';
+        follow_button.addEventListener('click', function(){
+            followUser(current_id, user_id)
+        });
 
-    // Attach button to "follow_option" div
-	document.querySelector('#follow_option').append(follow_button);
+        // Attach button to "follow_option" div
+        document.querySelector('#follow_option').append(follow_button);
+    } 
+    else if (follows == "yes"){
+        console.log("entered path 2")
+        // Need to fill in div #follow_option and create css for it too!
+        var unfollow_button = document.createElement('button');
+        unfollow_button.type = "button";
+        unfollow_button.innerHTML = "Unfollow";
+        unfollow_button.id = "follow_button"; // give this div an id
+        unfollow_button.className = "btn btn-danger";
+        unfollow_button.style.cssText = 'margin:0 auto;display: block;';
+        unfollow_button.addEventListener('click', function(){
+            unfollowUser(current_id, user_id)
+        });
 
-    document.getElementById("follow_button").innerHTML = "Follow 2";
-    console.log(follow_button.innerHTML)
+        // Attach button to "follow_option" div
+        document.querySelector('#follow_option').append(unfollow_button);
+    }
+    else {
+        console.log("Same User, not adding a button")
+    }
+
 }
 
 // makes current_id follow
