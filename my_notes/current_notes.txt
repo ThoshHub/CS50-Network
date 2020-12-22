@@ -133,14 +133,25 @@ Need to display user pages:
 		Perhaps you can get the user ids and then set them as global variabls in the html to reference them?
 		
 	20.20.17
-		Left off on making the user follows api
-		Need to make it asynchronous so the value can be returned!
+		//Left off on making the user follows api
+		//Need to make it asynchronous so the value can be returned!
 		
-		In the models I have followers and following
-			I think I will only use following that way when doing api calls
-			I am at most editing 1 object (the user object of the user logged in)
-			as opposed to all other user objects
+		//In the models I have followers and following
+			//I think I will only use following that way when doing api calls
+			//I am at most editing 1 object (the user object of the user logged in)
+			//as opposed to all other user objects
 
+	20.20.22
+		Left off after finishing the buttons for follow/unfollow
+		Now I need to create the api to follow/unfollow
+		It will have to be a post request
+			A post request is made
+			the URL calls the proper view
+			which edits the database
+			then sends back a "success" message, or it can be specific like "followed"/"unfollowed"
+		afterwards the button is changed (I think this can just be done by recalling loadFollowStatus()
+		and passing in the opposite value of the "follows" parameter)
+			Hardest part of this will be the database edit
 
 
 
