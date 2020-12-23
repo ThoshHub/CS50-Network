@@ -76,16 +76,16 @@
 
 //----------------------------------------------------------------------//
 Need to display user pages:
-	Name
-	Need to display number of followers user has
-		Couple ways to do this
-		1) Add a "number of followers" field to the model
-			and update this value through the api
+	//Name
+	//Need to display number of followers user has
+	//	Couple ways to do this
+	//	1) Add a "number of followers" field to the model
+	//		and update this value through the api
 
-		2) Create a url api that requests the number of followers
-		 and return the count
-	Need to display number of people user follows
-		See above, the same thing
+	//	2) Create a url api that requests the number of followers
+	//	 and return the count
+	//Need to display number of people user follows
+	//	See above, the same thing
 
 	/20.12.13
 	/	Left off on userpage.js on "loadUserData()"
@@ -104,33 +104,33 @@ Need to display user pages:
 		/It works as intended but is hard to edit because the way I named things is unintuitive 
 		/Left off with ability to move back and forth in users posts
 		
-		Now need to implement the ability to follow a user
+	//	Now need to implement the ability to follow a user
 		After need follow page which shows posts by users that are followed only
 			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
 			Documentation says:
 			https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
 			https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
 
-	Follow or unfollow the user (unless the profile is your own)
-	Need to create api for this
-		On page load, a get request to see if the user logged in currently follows the user on the page
-		if the user does follow:
-			return true
-			display "unfollow" button
-		if the user does not follow:
-			return false
-			dispay "follow" button
-		if they are the same user (user logged in is on their own page):
-			return something else??
-			do not display anything
+	//Follow or unfollow the user (unless the profile is your own)
+	//Need to create api for this
+	//	On page load, a get request to see if the user logged in currently follows the user on the page
+	//	if the user does follow:
+	//		return true
+	//		display "unfollow" button
+	//	if the user does not follow:
+	//		return false
+	//		dispay "follow" button
+	//	if they are the same user (user logged in is on their own page):
+	//		return something else??
+	//		do not display anything
 
-		any time a button is clicked, it creates a post request tha t
-		
-		the actual javascript for this will call the api 
-		and then disable the follow button
-		and replace it with an unfollow button
+	//	any time a button is clicked, it creates a post request tha t
+	//	
+	//	the actual javascript for this will call the api 
+	//	and then disable the follow button
+	//	and replace it with an unfollow button
 
-		Perhaps you can get the user ids and then set them as global variabls in the html to reference them?
+	//	Perhaps you can get the user ids and then set them as global variabls in the html to reference them?
 		
 	20.20.17
 		//Left off on making the user follows api
@@ -142,18 +142,31 @@ Need to display user pages:
 			//as opposed to all other user objects
 
 	20.20.22
-		Left off after finishing the buttons for follow/unfollow
-		Now I need to create the api to follow/unfollow
-		It will have to be a post request
-			A post request is made
-			the URL calls the proper view
-			which edits the database
-			then sends back a "success" message, or it can be specific like "followed"/"unfollowed"
-		afterwards the button is changed (I think this can just be done by recalling loadFollowStatus()
-		and passing in the opposite value of the "follows" parameter)
-			Hardest part of this will be the database edit
+		//Left off after finishing the buttons for follow/unfollow
+		//Now I need to create the api to follow/unfollow
+		//It will have to be a post request
+		//	A post request is made
+		//	the URL calls the proper view
+		//	which edits the database
+		//	then sends back a "success" message, or it can be specific like "followed"/"unfollowed"
+		//afterwards the button is changed (I think this can just be done by recalling loadFollowStatus()
+		//and passing in the opposite value of the "follows" parameter)
+		//	Hardest part of this will be the database edit
 
-
+	20.20.23
+		// Can now follow and unfollow users
+		Next need to be able to edit posts
+			First need to have "edit post" button for every post
+				"When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
+				The user should then be able to “Save” the edited post. Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.
+				For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts."
+			
+			I think the best way to do this is to 
+				append the user id to a hidden <span> next to each message
+				when generating the posts, id is checked with the current user id 
+					(which is available on page load)
+				if they are the same value, 
+					add an edit button which calls a function with the desired behavior
 
 
 
