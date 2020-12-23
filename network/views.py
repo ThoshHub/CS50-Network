@@ -170,13 +170,25 @@ def return_follows_status(request, user_id_1, user_id_2): # Check whether user_i
 	return JsonResponse(data, safe=False)
 
 def follow(request, user_id_1, user_id_2):
-	print(str(user_id_1) + " Will Now Follow " + str(user_id_2))
+	# print(str(user_id_1) + " Will Now Follow " + str(user_id_2))
 	
+	# https://docs.djangoproject.com/en/dev/ref/models/relations/#django.db.models.fields.related.RelatedManager.add
+	# Edit the following list of "user_id_1" to add "user_id_2"
+	user_1 = User.objects.get(id = user_id_1)
+	user_2 = User.objects.get(id = user_id_2)
+	user_1.following.add(user_2)
+
 	data = {'follows_success': "true"}
 	return JsonResponse(data, safe=False)
 
 def unfollow(request, user_id_1, user_id_2):
 	print(str(user_id_1) + " Will Now Unfollow " + str(user_id_2))
+
+	# https://docs.djangoproject.com/en/dev/ref/models/relations/#django.db.models.fields.related.RelatedManager.add
+	# Edit the following list of "user_id_1" to remove "user_id_2"
+	user_1 = User.objects.get(id = user_id_1)
+	user_2 = User.objects.get(id = user_id_2)
+	user_1.following.remove(user_2)
 
 	data = {'unfollows_success': "true"}
 	return JsonResponse(data, safe=False)
