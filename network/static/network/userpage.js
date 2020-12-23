@@ -193,7 +193,11 @@ async function followUser(current_id, user_id){
 	.then(data => {
 		// Print data
 		console.log(data);
-    
+        
+        // after following, clear the current follow button and add unfollow button
+        // document.getElementById('#follow_option').innerHTML = ""; 
+        // document.querySelector('#follow_option').innerHTML = "";
+        loadFollowStatus(current_id, user_id, "yes") // will now display unfollow button
     });
 }
 
@@ -208,6 +212,10 @@ async function unfollowUser(current_id, user_id){
 		// Print data
 		console.log(data);
     
+        // after following, clear the current follow button and add unfollow button
+        // document.getElementById('#follow_option').innerHTML = ""; 
+        // document.querySelector('#follow_option').innerHTML = "";
+        loadFollowStatus(current_id. user_id, "no") // will now display follow button
     });
 }
 
