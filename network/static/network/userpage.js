@@ -183,13 +183,32 @@ function loadFollowStatus(current_id, user_id, follows){
 
 }
 
-// makes current_id follow
+// makes current_id follow user_id
 async function followUser(current_id, user_id){
-    console.log(current_id + " will now FOLLOW " + user_id)
+    console.log(current_id + " Will Now Follow: " + user_id)
+    
+    // Call API to make change
+    fetch('/follow/' + current_id + '/' + user_id)
+	.then(res => res.json())
+	.then(data => {
+		// Print data
+		console.log(data);
+    
+    });
 }
 
+// makes current_id unfollow user_id
 async function unfollowUser(current_id, user_id){
-    console.log(current_id + " will now UNFOLLOW " + user_id)
+    console.log(current_id + " Will Now Unfollow: " + user_id)
+
+    // Call API to make change
+    fetch('/unfollow/' + current_id + '/' + user_id)
+	.then(res => res.json())
+	.then(data => {
+		// Print data
+		console.log(data);
+    
+    });
 }
 
 function capitalizeFirstLetter(string) {

@@ -168,3 +168,15 @@ def return_follows_status(request, user_id_1, user_id_2): # Check whether user_i
 	# data = [{'follows': str(returnvar)}] # Alternative option
 	data = {'follows': str(returnvar)}
 	return JsonResponse(data, safe=False)
+
+def follow(request, user_id_1, user_id_2):
+	print(str(user_id_1) + " Will Now Follow " + str(user_id_2))
+	
+	data = {'follows_success': "true"}
+	return JsonResponse(data, safe=False)
+
+def unfollow(request, user_id_1, user_id_2):
+	print(str(user_id_1) + " Will Now Unfollow " + str(user_id_2))
+
+	data = {'unfollows_success': "true"}
+	return JsonResponse(data, safe=False)

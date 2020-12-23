@@ -24,5 +24,10 @@ urlpatterns = [
     # if both users are the same aka "following/users/1/1", then the result will always be "same"
     # to indicate that it is the same user
     path("following/user/<int:user_id_1>/<int:user_id_2>", views.return_follows_status, name="follows"),
-    path("user/current", views.return_current_user, name="current_user")
+    path("user/current", views.return_current_user, name="current_user"),
+
+    # This makes user_id_1 follow user_id_2 
+    path("follow/<int:user_id_1>/<int:user_id_2>", views.follow, name="followuser"),
+     # This makes user_id_1 unfollow user_id_2
+    path("unfollow/<int:user_id_1>/<int:user_id_2>", views.unfollow, name="unfollowuser")
 ]
