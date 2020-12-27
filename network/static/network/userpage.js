@@ -146,7 +146,7 @@ function loadFollowStatus(current_id, user_id, follows){
     console.log("User Visiting ID: \t" + user_id + "\nUser Profile ID: \t" + current_id + "\nFollows? \t\t" + follows);
     
     if(follows == "no"){
-        console.log("entered path 1")
+        console.log("entered path to follow")
         // Need to fill in div #follow_option and create css for it too!
         var follow_button = document.createElement('button');
         follow_button.type = "button";
@@ -162,7 +162,7 @@ function loadFollowStatus(current_id, user_id, follows){
         document.querySelector('#follow_option').append(follow_button);
     } 
     else if (follows == "yes"){
-        console.log("entered path 2")
+        console.log("entered path to unfollow")
         // Need to fill in div #follow_option and create css for it too!
         var unfollow_button = document.createElement('button');
         unfollow_button.type = "button";

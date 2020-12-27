@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function load(page_counter) {
-	console.log("About to request User ID");
-
 	// return the id of the logged in user
 	const current_id = await return_current_user_id();
 	// console.log("User Visiting: " + current_id);
@@ -47,7 +45,8 @@ async function get_user(id) {
 
 async function display_message(element, current_id) {
 	//console.log(element);
-	console.log("User Visiting: " + current_id);
+	//console.log("User Visiting: " + current_id);
+	
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
 	const writer = capitalizeFirstLetter(element.fields.writername);
@@ -61,17 +60,32 @@ async function display_message(element, current_id) {
 	post.id = "message_" + element.pk; // give each message a new id, id = pk
 
 	// url is a placeholder
-	const html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + date;
+	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	// Add Button to edit if it is the currently logged in user's own post
+	if(writer_id == current_id){
+		html_str += "<br>";
+		html_str += "<button" 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-success\""
+		html_str += " onclick=\"edit_post()\""
+		html_str += ">";
+		html_str += "Edit"
+		html_str +=  "</button>"
+	}
 	post.innerHTML = `${html_str}`;
 
 	// Attach generated HTML to the messages div
 	document.querySelector('#index_messages').append(post);
 
-	// TODO for the first one 
+	// Styling
 	document.getElementById(post.id).style.border = "2px solid dodgerblue";
 	document.getElementById(post.id).style.borderRadius = "15px";
 	document.getElementById(post.id).style.padding = "10px";
 	document.getElementById(post.id).style.marginBottom = "10px";
+}
+
+function edit_post(){
+	console.log("Edit Post Button Clicked")
 }
 
 function capitalizeFirstLetter(string) {
