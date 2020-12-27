@@ -94,6 +94,9 @@ function edit_post(message_id){
 	console.log("Editing Post: " + post_id);
 	post = document.getElementById(post_id);
 	
+	var edit_post_area = ""
+
+
 	post.innerHTML = "TEST"; 
 	
 	console.log("cleared");	

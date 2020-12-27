@@ -192,3 +192,8 @@ def unfollow(request, user_id_1, user_id_2):
 
 	data = {'unfollows_success': "true"}
 	return JsonResponse(data, safe=False)
+
+def edit_message(request, message_id):
+	print("edit_message() function has been called, message_id: " + message_id)
+	data = {'DUMMY_KEY': "DUMMY_VALUE"}
+	return JsonResponse(data, safe=False)
