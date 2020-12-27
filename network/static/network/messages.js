@@ -10,7 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 });
 
-function load(page_counter) {
+async function load(page_counter) {
+	console.log("About to request User ID");
+
+	// return the id of the logged in user
+	const current_id = await return_current_user_id();
+	// console.log("User Visiting: " + current_id);
+
 	fetch('/messages/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
@@ -19,9 +25,17 @@ function load(page_counter) {
 	
 		data.forEach(element => {
 			// Display each element
-			display_message(element)
+			display_message(element, current_id)
 		});
 	});
+}
+
+async function return_current_user_id(){
+    //console.log("3 About To Fetch")
+    const id = await fetch('/user/current');
+    const data = await id.json();
+    // console.log(data)
+    return data.loggedin; // loggedin is the actual attribute name  of the id
 }
 
 // NOT USED as of 20.12.13 (also I have change the API so this function doesn't work anymore)
@@ -31,8 +45,9 @@ async function get_user(id) {
     return data[0].name.toString();
 }
 
-async function display_message(element) {
+async function display_message(element, current_id) {
 	//console.log(element);
+	console.log("User Visiting: " + current_id);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
 	const writer = capitalizeFirstLetter(element.fields.writername);
