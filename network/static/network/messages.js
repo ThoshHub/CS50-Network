@@ -64,7 +64,7 @@ async function display_message(element, current_id) {
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
 	// Add Button to edit if it is the currently logged in user's own post
 	if(writer_id == current_id){
-		const onclick_str = " onclick=\"edit_post('" + post.id + "')\"" // calling the proper editing function
+		const onclick_str = " onclick=\"edit_post('" + element.pk + "')\"" // calling the proper editing function
 		// console.log(onclick_str)
 		
 		// building the button
@@ -89,11 +89,14 @@ async function display_message(element, current_id) {
 	document.getElementById(post.id).style.marginBottom = "10px";
 }
 
-function edit_post(post_id){
-	console.log("Editing Post: " + post_id)
-	post = document.getElementById(post_id)
+function edit_post(message_id){
+	const post_id = "message_" + post_id;
+	console.log("Editing Post: " + post_id);
+	post = document.getElementById(post_id);
+	
 	post.innerHTML = "TEST"; 
-	console.log("cleared")
+	
+	console.log("cleared");	
 }
 
 function capitalizeFirstLetter(string) {
