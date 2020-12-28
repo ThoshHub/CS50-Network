@@ -64,7 +64,7 @@ async function display_message(element, current_id) {
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
 	// Add Button to edit if it is the currently logged in user's own post
 	if(writer_id == current_id){
-		const onclick_str = " onclick=\"edit_post('" + element.pk + "')\"" // calling the proper editing function
+		const onclick_str = " onclick=\"edit_post('" + element.pk + "','" + content+ "')\"" // calling the proper editing function
 		// console.log(onclick_str)
 		
 		// building the button
@@ -89,17 +89,49 @@ async function display_message(element, current_id) {
 	document.getElementById(post.id).style.marginBottom = "10px";
 }
 
-function edit_post(message_id){
-	const post_id = "message_" + post_id;
-	console.log("Editing Post: " + post_id);
+function edit_post(message_id, init_content){
+	const post_id = "message_" + message_id;
+	// console.log("Editing Post: " + message_id + ", Content: " + init_content);
 	post = document.getElementById(post_id);
-	
-	var edit_post_area = ""
+	const message_text = init_content //this is the original text from the message
 
+	var edit_post_area = "";
+	edit_post_area += "<textarea";
+	edit_post_area += " id='message_edit_" + message_id +"'";
+	edit_post_area += " rows='2'";
+	edit_post_area += " columns='100'";
+	edit_post_area += " class='form-control'>";
+	edit_post_area += init_content // text which appears in textarea
+	edit_post_area += "</textarea>";
 
-	post.innerHTML = "TEST"; 
+	const onclick_str = " onclick=\"submit_edit('" + message_id + "','message_edit_" + message_id + "')\"" // calling the proper editing function
+	var edit_post_button = "";
+	edit_post_button += "<br>";
+	edit_post_button += "<button" 
+	edit_post_button += " type=\"button\"";
+	edit_post_button += " class=\"btn btn-info\""
+	edit_post_button += onclick_str;
+	edit_post_button += ">";
+	edit_post_button += "Submit"
+	edit_post_button +=  "</button>"
+
+	edit_post_area += edit_post_button;
+	// console.log(edit_post_area);
+
+	// post.innerHTML = "TEST"; 
+	post.innerHTML = edit_post_area; 
 	
-	console.log("cleared");	
+	// console.log("cleared");	
+}
+
+async function submit_edit(message_id, textarea_id){
+	// message_id is the object id of the message that is being edited (needs to be sent to api)
+	// textarea_id is the css id of the textarea field where the new message is
+	console.log("message_id: " + message_id + ", textarea_id: " + textarea_id);
+
+	// Need to make post request here
+	
+
 }
 
 function capitalizeFirstLetter(string) {

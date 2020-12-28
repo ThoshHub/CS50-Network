@@ -168,6 +168,9 @@ Need to display user pages:
 				if they are the same value, 
 					add an edit button which calls a function with the desired behavior
 
+	20.20.27
+		Left off on the edit function
+		I need to send a post request with the content of whatever the user posts
 
 
 
