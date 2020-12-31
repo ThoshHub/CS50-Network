@@ -131,8 +131,12 @@ async function submit_edit(message_id, textarea_id){
 	const csrftoken = getCookie('csrftoken');
 	// console.log(csrftoken);
 
-	// TODO grab the new text inputted by the user om the 'textarea_id' textarea
-	// then store it in a variable and replace "test_value" with that var in the xhr.send below
+	var textarea_sel = document.getElementById(textarea_id); // grab the textarea element
+	const edited_message = textarea_sel.value; // the edited message
+	// console.log("Written Text: " + edited_message); // Prints out the current text in the textarea box
+
+	/// TODO grab the new text inputted by the user om the 'textarea_id' textarea
+	/// then store it in a variable and replace "test_value" with that var in the xhr.send below
 	// then need to edit the views.py to make the change in the database
 	// finally need to reset the div holding the message to whatever the new message
 
@@ -143,7 +147,7 @@ async function submit_edit(message_id, textarea_id){
 	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.send(JSON.stringify({
-		"new_message": "test_value"
+		"new_message": edited_message
 	}));
 	
 	console.log("submitted POST request");
