@@ -30,5 +30,5 @@ urlpatterns = [
     path("follow/<int:user_id_1>/<int:user_id_2>", views.follow, name="followuser"),
      # This makes user_id_1 unfollow user_id_2
     path("unfollow/<int:user_id_1>/<int:user_id_2>", views.unfollow, name="unfollowuser"),
-    path("message/edit/<int:used_id>", views.edit_message, name="edit_message")
+    path("message/edit/<int:message_id>", views.edit_message, name="edit_message")
 ]

@@ -128,10 +128,36 @@ async function submit_edit(message_id, textarea_id){
 	// message_id is the object id of the message that is being edited (needs to be sent to api)
 	// textarea_id is the css id of the textarea field where the new message is
 	console.log("message_id: " + message_id + ", textarea_id: " + textarea_id);
+	const csrftoken = getCookie('csrftoken');
+	// console.log(csrftoken);
 
 	// Need to make post request here
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", 'message/edit/1', true);
+	xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.send(JSON.stringify({
+		"test_key": "test_value"
+	}));
 	
+	console.log("submitted POST request");
+}
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 function capitalizeFirstLetter(string) {
