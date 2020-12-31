@@ -142,14 +142,20 @@ async function submit_edit(message_id, textarea_id){
 
 	// Need to make post request here
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", 'message/edit/1', true);
+	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			// alert(xhr.responseText);
+			console.log("Recieved POST Response from Server: " + xhr.responseText);
+		}
+	}
+	xhr.open("POST", 'message/edit/' + message_id.toString(), true);
 	xhr.setRequestHeader('X-CSRFToken', csrftoken);
 	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.send(JSON.stringify({
 		"new_message": edited_message
 	}));
-	
+
 	console.log("submitted POST request");
 }
 

@@ -194,14 +194,22 @@ def unfollow(request, user_id_1, user_id_2):
 	return JsonResponse(data, safe=False)
 
 def edit_message(request, message_id):
-	print("edit_message() function has been called, message_id: " + str(message_id))
+	# print("edit_message() function has been called, message_id: " + str(message_id))
 	# if request.method == "POST":
 	# 	print("Method is POST")
 	# else:
 	# 	print("Method is NOT POST")
 
 	received_json_data = json.loads(request.body.decode("utf-8"))
-	print(str(received_json_data))
+	new_message = received_json_data["new_message"] # This is the message recieved
+	# print("RECIEVED MESSAGE: " + str(new_message) + ", MESSAGE ID: " + str(message_id))
 
-	data = {'DUMMY_KEY': "DUMMY_VALUE"}
-	return JsonResponse(data, safe=False)
+	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
+	# print(cur_message.content) # print the message (debug)
+	cur_message.content = new_message # set the message content equal to the new message
+	cur_message.save() # save the new message
+
+	# data = {'Message Completed': "True"}
+	# return JsonResponse(data, safe=False)
+	# return HttpResponse("OK")
+	return HttpResponse("Message Recieved")
