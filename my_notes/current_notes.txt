@@ -171,9 +171,9 @@ Need to display user pages:
 	20.20.27
 		//Left off on the edit function
 		//I need to send a post request with the content of whatever the user posts
-		TODO grab the new text inputted by the user om the 'textarea_id' textarea
-		then store it in a variable and replace "test_value" with that var in the xhr.send below
-		then need to edit the views.py to make the change in the database
+		//TODO grab the new text inputted by the user om the 'textarea_id' textarea
+		//then store it in a variable and replace "test_value" with that var in the xhr.send below
+		//then need to edit the views.py to make the change in the database
 		finally need to reset the div holding the message to whatever the new message
 
 
