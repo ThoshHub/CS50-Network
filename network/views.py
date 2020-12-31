@@ -195,9 +195,13 @@ def unfollow(request, user_id_1, user_id_2):
 
 def edit_message(request, message_id):
 	print("edit_message() function has been called, message_id: " + str(message_id))
-	if request.method == "POST":
-		print("Method is POST")
-	else:
-		print("Method is NOT POST")
+	# if request.method == "POST":
+	# 	print("Method is POST")
+	# else:
+	# 	print("Method is NOT POST")
+
+	received_json_data = json.loads(request.body.decode("utf-8"))
+	print(str(received_json_data))
+
 	data = {'DUMMY_KEY': "DUMMY_VALUE"}
 	return JsonResponse(data, safe=False)
