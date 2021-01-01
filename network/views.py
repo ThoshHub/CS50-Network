@@ -215,8 +215,12 @@ def edit_message(request, message_id):
 	return HttpResponse("Message Recieved")
 
 def message_content(request, message_id):
-	# print("Made it to the return message content method")
-	data = {'test_key': "test_value"}
-	print(data)
-	# return HttpResponse("TESTTESTTTEST")
+	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
+	# organize data into key-value pairs
+	data = {'content': str(cur_message.content), 'writer_id': str(cur_message.writer.id), 'writername': str(cur_message.writername), 'date': str(cur_message.date)}
+	
+	# print(data) # For Debugging
+	# return HttpResponse("Dummy Value") # For Debugging
+	
+	# send data in JSON format
 	return JsonResponse(data, safe=False)
