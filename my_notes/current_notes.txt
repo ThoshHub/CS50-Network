@@ -176,6 +176,9 @@ Need to display user pages:
 		//then need to edit the views.py to make the change in the database
 		finally need to reset the div holding the message to whatever the new message
 
+	20.20.30
+		Left off on resetting the div
+
 
 
 

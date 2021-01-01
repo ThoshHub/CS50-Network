@@ -137,26 +137,36 @@ async function submit_edit(message_id, textarea_id){
 
 	/// TODO grab the new text inputted by the user om the 'textarea_id' textarea
 	/// then store it in a variable and replace "test_value" with that var in the xhr.send below
-	// then need to edit the views.py to make the change in the database
+	/// then need to edit the views.py to make the change in the database
 	// finally need to reset the div holding the message to whatever the new message
 
 	// Need to make post request here
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-			// alert(xhr.responseText);
-			console.log("Recieved POST Response from Server: " + xhr.responseText);
-		}
-	}
-	xhr.open("POST", 'message/edit/' + message_id.toString(), true);
-	xhr.setRequestHeader('X-CSRFToken', csrftoken);
-	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.send(JSON.stringify({
-		"new_message": edited_message
-	}));
+	//TODO: UNCOMMENT (commented for debugging purposes)
+	// var xhr = new XMLHttpRequest();
+	// xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+	// 	if (xhr.readyState == XMLHttpRequest.DONE) {
+	// 		// alert(xhr.responseText);
+	// 		console.log("Recieved POST Response from Server: " + xhr.responseText);
+	// 	}
+	// }
+	// xhr.open("POST", 'message/edit/' + message_id.toString(), true);
+	// xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	// xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	// xhr.setRequestHeader("Accept", "application/json");
+	// xhr.send(JSON.stringify({
+	// 	"new_message": edited_message
+	// }));
 
-	console.log("submitted POST request");
+	reset_message(message_id); // return div to original state of printed message
+}
+
+function reset_message(message_id){
+	const post_id = "message_" + message_id.toString()
+	console.log("Resetting Div with ID of: " + post_id);
+	
+	// grab post div by id and set it equal to dummy value
+	var post = document.getElementById(post_id);
+	post.innerHTML = "TEST"
 }
 
 function getCookie(name) {
