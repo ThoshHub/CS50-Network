@@ -160,16 +160,38 @@ async function submit_edit(message_id, textarea_id){
 	reset_message(message_id); // return div to original state of printed message
 }
 
-function reset_message(message_id){
-	const post_id = "message_" + message_id.toString()
+async function reset_message(message_id){
+	const post_id = "message_" + message_id.toString();
 	console.log("Resetting Div with ID of: " + post_id);
 	
+	// DEBUG
+	get_single_message_data(message_id);
+	//const message_data = await get_single_message_data(message_id);
+	//console.log("2: " + message_data);
+
 	// grab post div by id and set it equal to dummy value
 	var post = document.getElementById(post_id);
 	post.innerHTML = "TEST"
 
+
 	// probably need to send a fetch request...
 	// need the: 
+}
+
+async function get_single_message_data(message_id){
+    console.log("About To Fetch Data For: " + message_id);
+    const data = await fetch('/message/content/' + message_id);
+	const message_data = await data.json();
+	var myArray = Object.values(message_data);
+    console.log("1: " + myArray.toString())
+	
+	
+	// message_data.forEach(element => {
+	// 	// Display each element
+	// 	console.log(element)
+	// });
+
+	return message_data
 }
 
 function getCookie(name) {
