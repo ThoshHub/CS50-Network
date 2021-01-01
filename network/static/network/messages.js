@@ -135,29 +135,27 @@ async function submit_edit(message_id, textarea_id){
 	const edited_message = textarea_sel.value; // the edited message
 	// console.log("Written Text: " + edited_message); // Prints out the current text in the textarea box
 
-	/// TODO grab the new text inputted by the user om the 'textarea_id' textarea
-	/// then store it in a variable and replace "test_value" with that var in the xhr.send below
-	/// then need to edit the views.py to make the change in the database
-	// finally need to reset the div holding the message to whatever the new message
-
 	// Need to make post request here
 	//TODO: UNCOMMENT (commented for debugging purposes)
-	// var xhr = new XMLHttpRequest();
-	// xhr.onreadystatechange = function() { // Print or Alert response recieved from server
-	// 	if (xhr.readyState == XMLHttpRequest.DONE) {
-	// 		// alert(xhr.responseText);
-	// 		console.log("Recieved POST Response from Server: " + xhr.responseText);
-	// 	}
-	// }
-	// xhr.open("POST", 'message/edit/' + message_id.toString(), true);
-	// xhr.setRequestHeader('X-CSRFToken', csrftoken);
-	// xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-	// xhr.setRequestHeader("Accept", "application/json");
-	// xhr.send(JSON.stringify({
-	// 	"new_message": edited_message
-	// }));
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			// alert(xhr.responseText);
+			console.log("Recieved POST Response from Server: " + xhr.responseText);
+		}
+	}
+	xhr.open("POST", 'message/edit/' + message_id.toString(), true);
+	xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.send(JSON.stringify({
+		"new_message": edited_message
+	}));
 
-	reset_message(message_id); // return div to original state of printed message
+	setTimeout(function (){
+		reset_message(message_id);
+	  }, 150); // delay by 150 milliseconds to wait for database update
+	// reset_message(message_id); // return div to original state of printed message
 }
 
 async function reset_message(message_id){
@@ -181,9 +179,7 @@ async function reset_message(message_id){
 	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
 
 	// Generate HTML
-	// url is a placeholder
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
-	// Add Button to edit if it is the currently logged in user's own post
 	const onclick_str = " onclick=\"edit_post('" + message_id + "','" + content+ "')\"" // calling the proper editing function
 	html_str += "<br>";
 	html_str += "<button" 
