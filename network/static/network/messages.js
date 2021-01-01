@@ -162,15 +162,24 @@ async function submit_edit(message_id, textarea_id){
 
 async function reset_message(message_id){
 	const post_id = "message_" + message_id.toString();
-	console.log("Resetting Div with ID of: " + post_id);
+	// console.log("Resetting Div with ID of: " + post_id);
 	
 	// get_single_message_data(message_id); // DEBUG
 	const message_data = await get_single_message_data(message_id);
-	console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
+	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
 
 	// grab post div by id and set it equal to dummy value
 	var post = document.getElementById(post_id);
 	
+	// Assign Variables for HTML Generation
+	const content = message_data.content;
+	const writer_id = message_data.writer_id;
+	const writer = capitalizeFirstLetter(message_data.writername);
+	// const writer = "1";
+	const date = message_data.date; // TODO Format this date
+    const formatted_date = formatDate(date)
+	console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
+
 	// Generate HTML
 	
 	post.innerHTML = "TEST"
@@ -178,7 +187,7 @@ async function reset_message(message_id){
 }
 
 async function get_single_message_data(message_id){
-    console.log("About To Fetch Data For: " + message_id);
+    // console.log("About To Fetch Data For: " + message_id);
     const data = await fetch('/message/content/' + message_id);
 	const message_data = await data.json();
 	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
