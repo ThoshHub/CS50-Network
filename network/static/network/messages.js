@@ -91,7 +91,7 @@ async function display_message(element, current_id) {
 
 function edit_post(message_id, init_content){
 	const post_id = "message_" + message_id;
-	// console.log("Editing Post: " + message_id + ", Content: " + init_content);
+	console.log("Editing Post: " + message_id + ", Content: " + init_content);
 	post = document.getElementById(post_id);
 	const message_text = init_content //this is the original text from the message
 
@@ -127,7 +127,7 @@ function edit_post(message_id, init_content){
 async function submit_edit(message_id, textarea_id){
 	// message_id is the object id of the message that is being edited (needs to be sent to api)
 	// textarea_id is the css id of the textarea field where the new message is
-	console.log("message_id: " + message_id + ", textarea_id: " + textarea_id);
+	// console.log("message_id: " + message_id + ", textarea_id: " + textarea_id);
 	const csrftoken = getCookie('csrftoken');
 	// console.log(csrftoken);
 
@@ -178,12 +178,22 @@ async function reset_message(message_id){
 	// const writer = "1";
 	const date = message_data.date; // TODO Format this date
     const formatted_date = formatDate(date)
-	console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
+	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
 
 	// Generate HTML
-	
-	post.innerHTML = "TEST"
-
+	// url is a placeholder
+	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	// Add Button to edit if it is the currently logged in user's own post
+	const onclick_str = " onclick=\"edit_post('" + message_id + "','" + content+ "')\"" // calling the proper editing function
+	html_str += "<br>";
+	html_str += "<button" 
+	html_str += " type=\"button\"";
+	html_str += " class=\"btn btn-success\""
+	html_str += onclick_str;
+	html_str += ">";
+	html_str += "Edit"
+	html_str +=  "</button>"
+	post.innerHTML = `${html_str}`;
 }
 
 async function get_single_message_data(message_id){
