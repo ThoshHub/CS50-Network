@@ -178,6 +178,8 @@ Need to display user pages:
 
 	20.20.30
 		Left off on resetting the div
+		created a new url route and view ("message_content")
+		now I need to send a fetch request to it in the "reset_message" function in message.js
 
 
 

@@ -213,3 +213,8 @@ def edit_message(request, message_id):
 	# return JsonResponse(data, safe=False)
 	# return HttpResponse("OK")
 	return HttpResponse("Message Recieved")
+
+def message_content(request, message_id):
+	print("Made it to the return message content method")
+	data = {'Message Completed': "True"}
+	return JsonResponse(data, safe=False)

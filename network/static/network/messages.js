@@ -167,6 +167,9 @@ function reset_message(message_id){
 	// grab post div by id and set it equal to dummy value
 	var post = document.getElementById(post_id);
 	post.innerHTML = "TEST"
+
+	// probably need to send a fetch request...
+	// need the: 
 }
 
 function getCookie(name) {

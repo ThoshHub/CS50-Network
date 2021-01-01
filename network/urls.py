@@ -24,11 +24,14 @@ urlpatterns = [
     # if both users are the same aka "following/users/1/1", then the result will always be "same"
     # to indicate that it is the same user
     path("following/user/<int:user_id_1>/<int:user_id_2>", views.return_follows_status, name="follows"),
-    path("user/current", views.return_current_user, name="current_user"),
+    path("user/current", views.return_current_user, name="current_user"), # returns id of current user (I think, check this pls I wrote this comment weeks after writing the function)
 
     # This makes user_id_1 follow user_id_2 
     path("follow/<int:user_id_1>/<int:user_id_2>", views.follow, name="followuser"),
      # This makes user_id_1 unfollow user_id_2
     path("unfollow/<int:user_id_1>/<int:user_id_2>", views.unfollow, name="unfollowuser"),
-    path("message/edit/<int:message_id>", views.edit_message, name="edit_message")
+    # sends the id to edit a message (this needs to be done through a post request)
+    path("message/edit/<int:message_id>", views.edit_message, name="edit_message"),
+
+    path("message/content/<int:message_id>", views.message_content, name="message_content") # simliar to 'return_messages' but only returns content of ONE message
 ]
