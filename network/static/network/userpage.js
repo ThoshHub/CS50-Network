@@ -88,6 +88,9 @@ async function loadUserPosts(user_id, page_counter){
     // page_counter = 0 // page 1
     // console.log("User ID: " + user_id.toString() + ", Page Counter: " + page_counter.toString());
 
+	const current_id = await return_current_user_id();
+	// console.log("User Visiting: " + current_id);
+
 	// fetch('/messages/' + user_id) // calls original API, this works
 	fetch('/messages/user/' + user_id + '/' + page_counter)
 	.then(res => res.json())
@@ -97,12 +100,12 @@ async function loadUserPosts(user_id, page_counter){
 	
 		data.forEach(element => {
 			// Display each element
-			display_message(element);
+			display_message(element, current_id);
 		});
 	});
 }
 
-async function display_message(element) {
+async function display_message(element, current_id) {
 	//console.log(element);
 	const content = element.fields.content;
 	const writer_id = element.fields.writer;
@@ -119,18 +122,21 @@ async function display_message(element) {
 	// url is a placeholder
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=/userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + date;
     // console.log(html_str)
-    const onclick_str = " onclick=\"edit_post('" + element.pk + "','" + content+ "')\"" // calling the proper editing function
-    // console.log(onclick_str)
-    
-    // building the button
-    html_str += "<br>";
-    html_str += "<button" 
-    html_str += " type=\"button\"";
-    html_str += " class=\"btn btn-success\""
-    html_str += onclick_str;
-    html_str += ">";
-    html_str += "Edit"
-    html_str +=  "</button>"
+	// Add Button to edit if it is the currently logged in user's own post
+	if(writer_id == current_id){
+		const onclick_str = " onclick=\"edit_post('" + element.pk + "','" + content+ "')\"" // calling the proper editing function
+		// console.log(onclick_str)
+		
+		// building the button
+		html_str += "<br>";
+		html_str += "<button" 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-success\""
+		html_str += onclick_str;
+		html_str += ">";
+		html_str += "Edit"
+		html_str +=  "</button>"
+	}
     post.innerHTML = `${html_str}`;
 
 	// Attach generated HTML to the messages div
