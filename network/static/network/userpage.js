@@ -117,8 +117,21 @@ async function display_message(element) {
 	post.id = "message_" + element.pk; // give each message a new id, id = pk
 
 	// url is a placeholder
-	const html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + date;
-	post.innerHTML = `${html_str}`;
+	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=/userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + date;
+    // console.log(html_str)
+    const onclick_str = " onclick=\"edit_post('" + element.pk + "','" + content+ "')\"" // calling the proper editing function
+    // console.log(onclick_str)
+    
+    // building the button
+    html_str += "<br>";
+    html_str += "<button" 
+    html_str += " type=\"button\"";
+    html_str += " class=\"btn btn-success\""
+    html_str += onclick_str;
+    html_str += ">";
+    html_str += "Edit"
+    html_str +=  "</button>"
+    post.innerHTML = `${html_str}`;
 
 	// Attach generated HTML to the messages div
 	document.querySelector('#user_posts').append(post);
@@ -128,6 +141,133 @@ async function display_message(element) {
 	document.getElementById(post.id).style.borderRadius = "15px";
 	document.getElementById(post.id).style.padding = "10px";
 	document.getElementById(post.id).style.marginBottom = "10px";
+}
+
+function edit_post(message_id, init_content){
+	const post_id = "message_" + message_id;
+	console.log("Editing Post: " + message_id + ", Content: " + init_content);
+	post = document.getElementById(post_id);
+	const message_text = init_content //this is the original text from the message
+
+	var edit_post_area = "";
+	edit_post_area += "<textarea";
+	edit_post_area += " id='message_edit_" + message_id +"'";
+	edit_post_area += " rows='2'";
+	edit_post_area += " columns='100'";
+	edit_post_area += " class='form-control'>";
+	edit_post_area += init_content // text which appears in textarea
+	edit_post_area += "</textarea>";
+
+	const onclick_str = " onclick=\"submit_edit('" + message_id + "','message_edit_" + message_id + "')\"" // calling the proper editing function
+	var edit_post_button = "";
+	edit_post_button += "<br>";
+	edit_post_button += "<button" 
+	edit_post_button += " type=\"button\"";
+	edit_post_button += " class=\"btn btn-info\""
+	edit_post_button += onclick_str;
+	edit_post_button += ">";
+	edit_post_button += "Submit"
+	edit_post_button +=  "</button>"
+
+	edit_post_area += edit_post_button;
+	// console.log(edit_post_area);
+
+	// post.innerHTML = "TEST"; 
+	post.innerHTML = edit_post_area; 
+}
+
+async function submit_edit(message_id, textarea_id){
+	// message_id is the object id of the message that is being edited (needs to be sent to api)
+	// textarea_id is the css id of the textarea field where the new message is
+	// console.log("message_id: " + message_id + ", textarea_id: " + textarea_id);
+	const csrftoken = getCookie('csrftoken');
+	// console.log(csrftoken);
+
+	var textarea_sel = document.getElementById(textarea_id); // grab the textarea element
+	const edited_message = textarea_sel.value; // the edited message
+	// console.log("Written Text: " + edited_message); // Prints out the current text in the textarea box
+
+	// Need to make post request here
+	//TODO: UNCOMMENT (commented for debugging purposes)
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			// alert(xhr.responseText);
+			console.log("Recieved POST Response from Server: " + xhr.responseText);
+		}
+	}
+	xhr.open("POST", '/message/edit/' + message_id.toString(), true);
+	xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.send(JSON.stringify({
+		"new_message": edited_message
+	}));
+
+	setTimeout(function (){
+		reset_message(message_id);
+	  }, 150); // delay by 150 milliseconds to wait for database update
+	// reset_message(message_id); // return div to original state of printed message
+}
+
+async function reset_message(message_id){
+	const post_id = "message_" + message_id.toString();
+	// console.log("Resetting Div with ID of: " + post_id);
+	
+	// get_single_message_data(message_id); // DEBUG
+	const message_data = await get_single_message_data(message_id);
+	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
+
+	// grab post div by id and set it equal to dummy value
+	var post = document.getElementById(post_id);
+	
+	// Assign Variables for HTML Generation
+	const content = message_data.content;
+	const writer_id = message_data.writer_id;
+	const writer = capitalizeFirstLetter(message_data.writername);
+	// const writer = "1";
+	const date = message_data.date; // TODO Format this date
+    const formatted_date = formatDate(date)
+	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
+
+	// Generate HTML
+	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	const onclick_str = " onclick=\"edit_post('" + message_id + "','" + content+ "')\"" // calling the proper editing function
+	html_str += "<br>";
+	html_str += "<button" 
+	html_str += " type=\"button\"";
+	html_str += " class=\"btn btn-success\""
+	html_str += onclick_str;
+	html_str += ">";
+	html_str += "Edit"
+	html_str +=  "</button>"
+	post.innerHTML = `${html_str}`;
+}
+
+async function get_single_message_data(message_id){
+    // console.log("About To Fetch Data For: " + message_id);
+    const data = await fetch('/message/content/' + message_id);
+	const message_data = await data.json();
+	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
+
+	// var myArray = Object.values(message_data); // Can convert it into an array (optional)
+	return message_data
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 async function get_user(id) {

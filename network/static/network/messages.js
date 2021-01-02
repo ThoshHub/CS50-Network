@@ -91,7 +91,7 @@ async function display_message(element, current_id) {
 
 function edit_post(message_id, init_content){
 	const post_id = "message_" + message_id;
-	console.log("Editing Post: " + message_id + ", Content: " + init_content);
+	// console.log("Editing Post: " + message_id + ", Content: " + init_content);
 	post = document.getElementById(post_id);
 	const message_text = init_content //this is the original text from the message
 
