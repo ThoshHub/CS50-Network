@@ -224,3 +224,11 @@ def message_content(request, message_id):
 	
 	# send data in JSON format
 	return JsonResponse(data, safe=False)
+
+def like_message(request, message_id, user_id):
+	print("User ID: " + user_id + " Likes Message ID: " + message_id)
+	return HttpResponse("Message Liked")
+
+def unlike_message(request, message_id, user_id):
+	print("User ID: " + user_id + " Unlikes Message ID: " + message_id)
+	return HttpResponse("Message Unliked")

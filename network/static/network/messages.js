@@ -52,7 +52,15 @@ async function display_message(element, current_id) {
 	const writer = capitalizeFirstLetter(element.fields.writername);
 	// const writer = "1";
 	const date = element.fields.date; // TODO Format this date
-    const formatted_date = formatDate(date)
+	
+	const numoflikes = element.fields.numoflikes.toString(); 
+	const liked_by = element.fields.liked_by;
+	// TODO to see if current_id is in liked_by variable which will determine if the current user likes the message or not
+	const curr_user_likes_post = liked_by.includes(current_id);
+	// console.log("Number of Likes:\t" + numoflikes + "\nLiked By:\t" + liked_by);
+	console.log("User ID: " + current_id + " Likes Message ID: " + element.pk + ": " + curr_user_likes_post.toString())
+
+	const formatted_date = formatDate(date)
 	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Formatted Date: " + formatted_date)
 
 	// Create a new div for the email
@@ -62,6 +70,36 @@ async function display_message(element, current_id) {
 	
 	// url is a placeholder
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	
+	// Add number of likes and like/dislike button inside a new div
+	html_str += "<br><div id=like_div_" + element.pk + ">"
+	html_str += "<h6 id=nunmoflikes_" + element.pk + ">Likes: " + numoflikes + "</h6>";
+	
+	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
+		const onclick_like = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button" 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-danger\""
+		html_str += onclick_like;
+		html_str += ">";
+		html_str += "Unlike 💔"
+		html_str +=  "</button>"
+	} else { // if the user doesn't already like the post, display the like button
+		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button" 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-primary\""
+		html_str += onclick_like;
+		html_str += ">";
+		html_str += "Like 💗"
+		html_str +=  "</button>"
+	}
+
+
+	html_str += "</div>"
+	
 	// Add Button to edit if it is the currently logged in user's own post
 	if(writer_id == current_id){
 		const onclick_str = " onclick=\"edit_post('" + element.pk + "','" + content+ "')\"" // calling the proper editing function
@@ -87,6 +125,16 @@ async function display_message(element, current_id) {
 	document.getElementById(post.id).style.borderRadius = "15px";
 	document.getElementById(post.id).style.padding = "10px";
 	document.getElementById(post.id).style.marginBottom = "10px";
+}
+
+function like_post(post_id, current_id){
+	console.log("User ID: " + current_id + " Liked Post: " + post_id + "!");
+
+}
+
+function unlike_post(post_id, current_id){
+	console.log("User ID: " + current_id + " Unliked Post: " + post_id + "!");
+	
 }
 
 function edit_post(message_id, init_content){
