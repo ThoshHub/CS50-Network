@@ -176,7 +176,22 @@ Need to display user pages:
 		//created a new url route and view ("message_content")
 		//now I need to send a fetch request to it in the "reset_message" function in message.js
 
-		now need to do the exact same thing for userpage...
+		// now need to do the exact same thing for userpage...
+
+		Need to add like and dislike button... (for EVERY post not just ones that aren't the current users)
+			//Need to add an integer "numoflikes" to the user model
+			need to add a new button to the UI next to follow button (add it on the next line so after a <br>)
+				Needs to be in its own DIV with its own ID! inside the post div
+			add a "Likes: " counter right below it, also inside the div
+				make sure that upon page load the number of likes is grabbed and added to the post
+			
+			Need to create a url route and view that likes a post
+			Need to create a url route and view that unlikes a post
+				both of these, the message id and user id need to be passed in
+				a database update needs to be made
+
+			after calling the route, the "Likes: " counter needs to be updated
+				also the button has to change (like -> unlike & unlike -> like)
 
 		need follow page which shows posts by users that are followed only
 			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
