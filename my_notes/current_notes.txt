@@ -194,9 +194,10 @@ Need to display user pages:
 			//	also the button has to change (like -> unlike & unlike -> like)
 
 			// Now need to make it so that edited posts also get the button
+			//Now I need to implement the like and dislike button for user pages
 
 	21.01.02
-		Now I need to implement the like and dislike button for user pages
+		Need to create following page
 
 		need follow page which shows posts by users that are followed only
 			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
@@ -204,4 +205,6 @@ Need to display user pages:
 			https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
 			https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
 
-
+		finally need to make sure users not logged in cannot like posts
+			I think the simplest way to do this is to return a user id of -1 on check 
+			and hide buttons using this variable globally
