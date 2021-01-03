@@ -320,10 +320,11 @@ async function submit_edit(message_id, textarea_id){
 
 async function reset_message(message_id){
 	const post_id = "message_" + message_id.toString();
+	const current_id = await return_current_user_id();
 	// console.log("Resetting Div with ID of: " + post_id);
 	
 	// get_single_message_data(message_id); // DEBUG
-	const message_data = await get_single_message_data(message_id);
+	const message_data = await get_single_message_data(message_id, current_id);
 	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
 
 	// grab post div by id and set it equal to dummy value
@@ -352,9 +353,9 @@ async function reset_message(message_id){
 	post.innerHTML = `${html_str}`;
 }
 
-async function get_single_message_data(message_id){
+async function get_single_message_data(message_id, current_id){
     // console.log("About To Fetch Data For: " + message_id);
-    const data = await fetch('/message/content/' + message_id);
+    const data = await fetch('/message/content/' + message_id + '/' + current_id);
 	const message_data = await data.json();
 	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
 
