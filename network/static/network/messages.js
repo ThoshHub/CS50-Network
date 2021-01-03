@@ -287,9 +287,6 @@ async function reset_message(message_id){
 		curr_user_likes_post = true // Set true if current userlikes the post
 	}
 	
-	// console.log("Number of Likes:\t" + numoflikes + "\nLiked By:\t" + liked_by);
-	// console.log("User ID: " + current_id + " Likes Message ID: " + message_data + ": " + curr_user_likes_post.toString())
-
     const formatted_date = formatDate(date)
 	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
 

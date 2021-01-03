@@ -297,20 +297,20 @@ async function submit_edit(message_id, textarea_id){
 
 	// Need to make post request here
 	//TODO: UNCOMMENT (commented for debugging purposes)
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-			// alert(xhr.responseText);
-			console.log("Recieved POST Response from Server: " + xhr.responseText);
-		}
-	}
-	xhr.open("POST", '/message/edit/' + message_id.toString(), true);
-	xhr.setRequestHeader('X-CSRFToken', csrftoken);
-	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.send(JSON.stringify({
-		"new_message": edited_message
-	}));
+	// var xhr = new XMLHttpRequest();
+	// xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+	// 	if (xhr.readyState == XMLHttpRequest.DONE) {
+	// 		// alert(xhr.responseText);
+	// 		console.log("Recieved POST Response from Server: " + xhr.responseText);
+	// 	}
+	// }
+	// xhr.open("POST", '/message/edit/' + message_id.toString(), true);
+	// xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	// xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	// xhr.setRequestHeader("Accept", "application/json");
+	// xhr.send(JSON.stringify({
+	// 	"new_message": edited_message
+	// }));
 
 	setTimeout(function (){
 		reset_message(message_id);
@@ -336,11 +336,48 @@ async function reset_message(message_id){
 	const writer = capitalizeFirstLetter(message_data.writername);
 	// const writer = "1";
 	const date = message_data.date; // TODO Format this date
+
+	const numoflikes = message_data.numoflikes.toString(); 
+	const liked_by = message_data.liked_by;
+	var curr_user_likes_post = false // Assume false
+	if(liked_by == "True"){
+		curr_user_likes_post = true // Set true if current userlikes the post
+	}
+
     const formatted_date = formatDate(date)
 	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
 
 	// Generate HTML
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	
+	// Add number of likes and like/dislike button inside a new div
+	html_str += "<br><div id=like_div_" + message_id + ">"
+	html_str += "<h6 id=numoflikes_" + message_id + ">Likes: " + numoflikes + "</h6>";
+	
+	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
+		const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button div=unlike_button_" + message_id; 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-danger\""
+		html_str += onclick_unlike;
+		html_str += ">";
+		html_str += "Unlike 💔"
+		html_str +=  "</button>"
+	} else { // if the user doesn't already like the post, display the like button
+		const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button div=like_button_" + message_id;
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-primary\""
+		html_str += onclick_like;
+		html_str += ">";
+		html_str += "Like 💗"
+		html_str +=  "</button>"
+	}
+
+	html_str += "</div>"
+	
 	const onclick_str = " onclick=\"edit_post('" + message_id + "','" + content+ "')\"" // calling the proper editing function
 	html_str += "<br>";
 	html_str += "<button" 
