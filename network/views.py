@@ -227,12 +227,24 @@ def message_content(request, message_id):
 
 def like_message(request, message_id, user_id):
 	print("User ID: " + str(user_id) + " Likes Message ID: " + str(message_id))
-	
+	cur_user = User.objects.get(id = user_id)
+	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
+	# print(str(cur_message.numoflikes) + ", " + str(cur_user))
+	cur_message.numoflikes = cur_message.numoflikes + 1
+	cur_message.liked_by.add(cur_user)
+	cur_message.save()
+
 	data = {"Message_Liked":str(message_id), "User_Liked":str(user_id)}
 	return JsonResponse(data, safe=False)
 
 def unlike_message(request, message_id, user_id):
 	print("User ID: " + str(user_id) + " Unlikes Message ID: " + str(message_id))
-	
+	cur_user = User.objects.get(id = user_id)
+	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
+	# print(str(cur_message.numoflikes) + ", " + str(cur_user))
+	cur_message.numoflikes = cur_message.numoflikes - 1
+	cur_message.liked_by.remove(cur_user)
+	cur_message.save()
+
 	data = {"Message_Unliked":str(message_id), "User_Unliked":str(user_id)}
 	return JsonResponse(data, safe=False)

@@ -97,7 +97,6 @@ async function display_message(element, current_id) {
 		html_str +=  "</button>"
 	}
 
-
 	html_str += "</div>"
 	
 	// Add Button to edit if it is the currently logged in user's own post
