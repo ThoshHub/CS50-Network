@@ -193,7 +193,10 @@ Need to display user pages:
 			//after calling the route, the "Likes: " counter needs to be updated
 			//	also the button has to change (like -> unlike & unlike -> like)
 
-			Now need to make it so that edited posts also get the button
+			// Now need to make it so that edited posts also get the button
+
+	21.01.02
+		Now I need to implement the like and dislike button for user pages
 
 		need follow page which shows posts by users that are followed only
 			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
