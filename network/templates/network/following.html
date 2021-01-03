@@ -1,0 +1,20 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+	<script src="{% static 'network/userpage.js' %}"></script>
+
+	{% comment %} global variable to determine which page the user is on {% endcomment %}
+	<p id="page_counter">0</p>
+	
+	<div id="following_posts">
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 text-center">
+			<button id="btnPrevious" class="btn btn-primary btn-md center-block" Style="width: 100px;" OnClick="previous_page()" >Previous</button>
+			<button id="btnNext" class="btn btn-danger btn-md center-block" Style="width: 100px;" OnClick="next_page()" >Next</button>
+		</div>
+	</div>
+
+{% endblock %}
