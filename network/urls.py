@@ -10,7 +10,8 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("userpage/<int:user_id>", views.userpage, name="userpage"),
-    
+    path("followpage", views.followpage, name="followpage"),
+
 	# API Routes
     path("messages/<int:message_number>", views.return_messages, name="messages"), # return 10 messaes at a time, return_messages being the page of messages to return
 	path("messages/user/<int:user_id>/<int:message_number>", views.return_user_messages, name="user_messages"), # same as above but for specific user id

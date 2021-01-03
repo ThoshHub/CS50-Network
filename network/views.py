@@ -143,6 +143,9 @@ def userpage(request, user_id):
 		"user_id": user_id
 	})
 
+def followpage(request):
+	return render(request, "network/followpage.html")
+
 def return_current_user(request): # Serves the id of the current user
 	current_user = request.user
 	data = {'loggedin': current_user.id}
