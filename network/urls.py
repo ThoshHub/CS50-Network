@@ -32,7 +32,10 @@ urlpatterns = [
     path("unfollow/<int:user_id_1>/<int:user_id_2>", views.unfollow, name="unfollowuser"),
     # sends the id to edit a message (this needs to be done through a post request)
     path("message/edit/<int:message_id>", views.edit_message, name="edit_message"),
-    path("message/content/<int:message_id>", views.message_content, name="message_content"), # simliar to 'return_messages' but only returns content of ONE message
+	# simliar to 'return_messages' but only returns content of ONE message
+	# a user id is passed in and a field is returned in the json "likes" that says whether the user of that ID
+	# likes the message
+    path("message/content/<int:message_id>/<int:user_id>", views.message_content, name="message_content"), 
 
     path("message/like/<int:message_id>/<int:user_id>", views.like_message, name="like_message"), # user_id likes message_id
     path("message/unlike/<int:message_id>/<int:user_id>", views.unlike_message, name="unlike_message") # user_id unlikes message_id

@@ -214,10 +214,17 @@ def edit_message(request, message_id):
 	# return HttpResponse("OK")
 	return HttpResponse("Message Recieved")
 
-def message_content(request, message_id):
+def message_content(request, message_id, user_id):
 	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
+	cur_user = User.objects.get(id = user_id)
+	
+	user_likes_message = False # Assume user does not like message
+	if cur_message.liked_by.filter(id = user_id): # If user does like message
+		user_likes_message = True # Set equal to true
+	print("User Likes Message: " + str(user_likes_message)) # debug
+
 	# organize data into key-value pairs
-	data = {'content': str(cur_message.content), 'writer_id': str(cur_message.writer.id), 'writername': str(cur_message.writername), 'date': str(cur_message.date)}
+	data = {'content': str(cur_message.content), 'writer_id': str(cur_message.writer.id), 'writername': str(cur_message.writername), 'date': str(cur_message.date), 'numoflikes': str(cur_message.numoflikes), 'liked_by':str(user_likes_message)}
 	
 	# print(data) # For Debugging
 	# return HttpResponse("Dummy Value") # For Debugging

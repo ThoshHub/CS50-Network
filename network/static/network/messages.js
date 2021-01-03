@@ -55,10 +55,9 @@ async function display_message(element, current_id) {
 	
 	const numoflikes = element.fields.numoflikes.toString(); 
 	const liked_by = element.fields.liked_by;
-	// TODO to see if current_id is in liked_by variable which will determine if the current user likes the message or not
 	const curr_user_likes_post = liked_by.includes(current_id);
 	// console.log("Number of Likes:\t" + numoflikes + "\nLiked By:\t" + liked_by);
-	console.log("User ID: " + current_id + " Likes Message ID: " + element.pk + ": " + curr_user_likes_post.toString())
+	// console.log("User ID: " + current_id + " Likes Message ID: " + element.pk + ": " + curr_user_likes_post.toString())
 
 	const formatted_date = formatDate(date)
 	// console.log("Content: " + content.toString() + ", Writer: " + writer + ", Formatted Date: " + formatted_date)
@@ -264,10 +263,11 @@ async function submit_edit(message_id, textarea_id){
 
 async function reset_message(message_id){
 	const post_id = "message_" + message_id.toString();
+	const current_id = await return_current_user_id();
 	// console.log("Resetting Div with ID of: " + post_id);
 	
 	// get_single_message_data(message_id); // DEBUG
-	const message_data = await get_single_message_data(message_id);
+	const message_data = await get_single_message_data(message_id, current_id);
 	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
 
 	// grab post div by id and set it equal to dummy value
@@ -279,11 +279,51 @@ async function reset_message(message_id){
 	const writer = capitalizeFirstLetter(message_data.writername);
 	// const writer = "1";
 	const date = message_data.date; // TODO Format this date
+
+	const numoflikes = message_data.numoflikes.toString(); 
+	const liked_by = message_data.liked_by;
+	var curr_user_likes_post = false // Assume false
+	if(liked_by == "True"){
+		curr_user_likes_post = true // Set true if current userlikes the post
+	}
+	
+	// console.log("Number of Likes:\t" + numoflikes + "\nLiked By:\t" + liked_by);
+	// console.log("User ID: " + current_id + " Likes Message ID: " + message_data + ": " + curr_user_likes_post.toString())
+
     const formatted_date = formatDate(date)
 	// console.log("Content:\t\t" + content.toString() + "\nWriter:\t\t\t" + writer + "\nWriter ID:\t\t" + writer_id + "\nDate:\t\t\t" + date)
 
 	// Generate HTML
 	var html_str = "<h4>" + content + "</h4>" + "\n" + "<a href=userpage/" + writer_id + ">" + writer + "</a>" + "<br>\n" + "<span>" + date + "</span>";
+	
+	// Add number of likes and like/dislike button inside a new div
+	html_str += "<br><div id=like_div_" + message_id + ">"
+	html_str += "<h6 id=numoflikes_" + message_id + ">Likes: " + numoflikes + "</h6>";
+	
+	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
+		const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button div=unlike_button_" + message_id; 
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-danger\""
+		html_str += onclick_unlike;
+		html_str += ">";
+		html_str += "Unlike 💔"
+		html_str +=  "</button>"
+	} else { // if the user doesn't already like the post, display the like button
+		const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id+ "')\"" 
+		html_str += "<br>";
+		html_str += "<button div=like_button_" + message_id;
+		html_str += " type=\"button\"";
+		html_str += " class=\"btn btn-outline-primary\""
+		html_str += onclick_like;
+		html_str += ">";
+		html_str += "Like 💗"
+		html_str +=  "</button>"
+	}
+
+	html_str += "</div>"
+	
 	const onclick_str = " onclick=\"edit_post('" + message_id + "','" + content+ "')\"" // calling the proper editing function
 	html_str += "<br>";
 	html_str += "<button" 
@@ -296,9 +336,9 @@ async function reset_message(message_id){
 	post.innerHTML = `${html_str}`;
 }
 
-async function get_single_message_data(message_id){
+async function get_single_message_data(message_id, current_id){
     // console.log("About To Fetch Data For: " + message_id);
-    const data = await fetch('/message/content/' + message_id);
+    const data = await fetch('/message/content/' + message_id + '/' + current_id);
 	const message_data = await data.json();
 	// console.log("Writer Name: " + message_data.writername + ", Writer ID: " + message_data.writer_id + ",\n Date: " + message_data.date + ", Content: " + message_data.content);
 
