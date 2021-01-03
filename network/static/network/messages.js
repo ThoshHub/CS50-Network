@@ -73,22 +73,22 @@ async function display_message(element, current_id) {
 	
 	// Add number of likes and like/dislike button inside a new div
 	html_str += "<br><div id=like_div_" + element.pk + ">"
-	html_str += "<h6 id=nunmoflikes_" + element.pk + ">Likes: " + numoflikes + "</h6>";
+	html_str += "<h6 id=numoflikes_" + element.pk + ">Likes: " + numoflikes + "</h6>";
 	
 	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
-		const onclick_like = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
+		const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button" 
+		html_str += "<button div=unlike_button_" + element.pk; 
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-danger\""
-		html_str += onclick_like;
+		html_str += onclick_unlike;
 		html_str += ">";
 		html_str += "Unlike 💔"
 		html_str +=  "</button>"
 	} else { // if the user doesn't already like the post, display the like button
 		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button" 
+		html_str += "<button div=like_button_" + element.pk;
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-primary\""
 		html_str += onclick_like;
@@ -127,12 +127,35 @@ async function display_message(element, current_id) {
 	document.getElementById(post.id).style.marginBottom = "10px";
 }
 
-function like_post(post_id, current_id){
-	console.log("User ID: " + current_id + " Liked Post: " + post_id + "!");
+async function like_post(message_id, current_id){
+	console.log("User ID: " + current_id + " Liked Post: " + message_id + "!");
+	const res = await fetch('/message/like/' + message_id + '/' + current_id);
+    const data = await res.json();
+	// console.log(data);
 
+	reset_like_div(message_id); // pressing the like button creates the unlike button
 }
 
-function unlike_post(post_id, current_id){
+function reset_like_div(message_id){ // pressing the like button creates the unlike button
+	// console.log("resetting the div for: " + message_id.toString())
+	const div_id = "like_div_" + message_id.toString() // id for the edit div
+	const numoflikes_id = "numoflikes_" + message_id.toString() // id for the "Likes" label
+
+	const numoflikes_str = document.getElementById(numoflikes_id).innerText; //number of likes before user liked post
+	var new_numoflikes_str = parseInt(numoflikes_str) //+ 1 //number of likes after user liked post
+	console.log(numoflikes_str + ", " + new_numoflikes_str)
+
+	// TODO new_numoflikes_str is NaN for some reason
+	// TODO build rest of the button and then set it to the div
+
+	var post = document.getElementById(div_id); // the div that will be set
+	
+	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
+	
+	post.innerHTML = `${html_str}`;
+}
+
+async function unlike_post(post_id, current_id){
 	console.log("User ID: " + current_id + " Unliked Post: " + post_id + "!");
 	
 }

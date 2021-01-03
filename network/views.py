@@ -226,9 +226,13 @@ def message_content(request, message_id):
 	return JsonResponse(data, safe=False)
 
 def like_message(request, message_id, user_id):
-	print("User ID: " + user_id + " Likes Message ID: " + message_id)
-	return HttpResponse("Message Liked")
+	print("User ID: " + str(user_id) + " Likes Message ID: " + str(message_id))
+	
+	data = {"Message_Liked":str(message_id), "User_Liked":str(user_id)}
+	return JsonResponse(data, safe=False)
 
 def unlike_message(request, message_id, user_id):
-	print("User ID: " + user_id + " Unlikes Message ID: " + message_id)
-	return HttpResponse("Message Unliked")
+	print("User ID: " + str(user_id) + " Unlikes Message ID: " + str(message_id))
+	
+	data = {"Message_Unliked":str(message_id), "User_Unliked":str(user_id)}
+	return JsonResponse(data, safe=False)
