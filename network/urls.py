@@ -16,7 +16,11 @@ urlpatterns = [
     path("messages/<int:message_number>", views.return_messages, name="messages"), # return 10 messaes at a time, return_messages being the page of messages to return
 	path("messages/user/<int:user_id>/<int:message_number>", views.return_user_messages, name="user_messages"), # same as above but for specific user id
 	path("users/pageinfo/<int:user_id>", views.return_user, name="users"), # return user content when id passed in
-    
+    # This returns the messages for a user's feed
+    # The first number is the user id (which determines who he/she is following)
+    # The second number corresponds to the page number that the user is on
+    path("messages/followpage/<int:user_id>/<int:message_number>", views.return_followpage, name="messages_followpage"),
+
     # pass in the two integers, the first will be the id of the user making the request
     # the second will be the id of the user of the page that this api was requested on
     # it will return, "yes", "no", or "same" in a json string 

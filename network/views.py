@@ -258,3 +258,11 @@ def unlike_message(request, message_id, user_id):
 
 	data = {"Message_Unliked":str(message_id), "User_Unliked":str(user_id)}
 	return JsonResponse(data, safe=False)
+
+def return_followpage(request, user_id, message_number):
+	print("Serving Page for User ID: " + str(user_id) + " on Page: " + str(message_number))
+
+	cur_user = User.objects.get(id = user_id) # get the user
+	
+	data = {"Test_Key":"Test_Value"}
+	return JsonResponse(data, safe=False)
