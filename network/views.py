@@ -271,10 +271,11 @@ def return_followpage(request, user_id, message_number):
 		following_id_list.append(follower.id) # add all id's to this list
 	# print("List of Users User_ID is Following: " + str(following_id_list)) # DEBUG
 	
+	# Query messages who's writer is in the following list of user_id
 	messagelist = message.objects.filter(writer__in = following_id_list).order_by("-date")
 	# messagelist = message.objects.filter(writer__in = following_id_list).order_by("date") # For Reverse Order
 
-	print(messagelist)
-
-	data = {"Test_Key":"Test_Value"}
-	return JsonResponse(data, safe=False)
+	messages_json = serializers.serialize("json", messagelist) # serialize them into a json string
+	messages_list = json.loads(messages_json) # convert json string into a list
+	# print(messages_list)
+	return JsonResponse(messages_list, safe=False) # return the list

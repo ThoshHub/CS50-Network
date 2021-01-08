@@ -4,7 +4,7 @@
 {% block body %}
 	<script src="{% static 'network/followpage.js' %}"></script>
 
-	<h1>You are on the followpage</h1>
+	<h1 style="padding:10px" id="followpage_heading" >Messages from Users That You Follow:</h1>
 
 	{% comment %} global variable to determine which page the user is on {% endcomment %}
 	<p id="page_counter">0</p>
@@ -12,7 +12,7 @@
 	{% comment %} global variable to determine which page the user is on {% endcomment %}
 	<p id="page_counter">0</p>
 
-	<div id="following_posts">
+	<div style="padding:10px" id="following_posts">
 	</div>
 	
 	<div class="row">
