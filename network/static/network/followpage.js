@@ -32,6 +32,42 @@ async function initialize(page_counter){
 	});
 }
 
+function next_page(){
+	// console.log("You Clicked On Next Page!")
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
+	// Store and increment
+	var new_counter = page_counter + 1;
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#following_posts').innerHTML = ""
+	// Load new posts
+	initialize(new_counter);
+	// Log which page you're on
+	console.log(new_counter);
+}
+
+function previous_page(){
+	// console.log("You Clicked On Previous Page!")
+	// Get Current Number
+	var page_counter = parseInt(document.querySelector('#following_posts').innerHTML);
+	// Store and decrement
+	var new_counter = page_counter - 1;
+    // Prevent negative numbers
+    if(new_counter < 0) {
+        new_counter = 0;
+    }
+	// Set element to updated number
+	document.querySelector('#page_counter').innerHTML = new_counter.toString();
+	// Clear current posts
+	document.querySelector('#index_messages').innerHTML = ""
+	// Load new posts
+	initialize(new_counter);
+	// Log which page you're on
+	console.log(new_counter);
+}
+
 async function display_message(element, current_id) {
 	//console.log(element);
 	//console.log("User Visiting: " + current_id);
