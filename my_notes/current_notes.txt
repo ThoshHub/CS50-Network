@@ -199,12 +199,16 @@ Need to display user pages:
 	21.01.02
 		Need to create following page
 
-		need follow page which shows posts by users that are followed only
-			This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
-			Documentation says:
-			https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
-			https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
+		/need follow page which shows posts by users that are followed only
+		/	This will need to be done similar to what I do now BUT with the addition of OR clauses in the queryset
+		/	Documentation says:
+		/	https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
+		/	https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
+			
+			Need to add pagination for followpage
 
 		finally need to make sure users not logged in cannot like posts
 			I think the simplest way to do this is to return a user id of -1 on check 
 			and hide buttons using this variable globally
+
+			I think this also needs to be done for follow/unfollow on userpages

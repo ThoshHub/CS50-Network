@@ -101,20 +101,69 @@ async function display_message(element, current_id) {
 
 async function like_post(message_id, current_id){
 	console.log("User ID: " + current_id + " Liked Post: " + message_id + "!");
-	// const res = await fetch('/message/like/' + message_id + '/' + current_id);
-    // const data = await res.json();
-	// // console.log(data);
+	const res = await fetch('/message/like/' + message_id + '/' + current_id);
+    const data = await res.json();
+	// console.log(data);
 
-	// reset_unlike_div(message_id, current_id); // pressing the like button creates the unlike button
+	reset_unlike_div(message_id, current_id); // pressing the like button creates the unlike button
 }
 
 async function unlike_post(message_id, current_id){
 	console.log("User ID: " + current_id + " Unliked Post: " + message_id + "!");
-	// const res = await fetch('/message/unlike/' + message_id + '/' + current_id);
-    // const data = await res.json();
-	// // console.log(data);
+	const res = await fetch('/message/unlike/' + message_id + '/' + current_id);
+    const data = await res.json();
+	// console.log(data);
 
-	// reset_like_div(message_id, current_id); // pressing the unlike button creates the like button
+	reset_like_div(message_id, current_id); // pressing the unlike button creates the like button
+}
+
+function reset_unlike_div(message_id, current_id){ // pressing the like button creates the unlike button
+	// console.log("resetting the div for: " + message_id.toString())
+	const div_id = "like_div_" + message_id.toString() // id for the edit div
+	const numoflikes_id = "numoflikes_" + message_id.toString() // id for the "Likes" label
+
+	const numoflikes_str = document.getElementById(numoflikes_id).innerText.charAt(7); //number of likes before user liked post
+	var new_numoflikes_str = parseInt(numoflikes_str) + 1 //number of likes after user liked post (+1)
+	// console.log("\"" + numoflikes_str + "\" -- \"" + new_numoflikes_str + "\"");
+
+	var post = document.getElementById(div_id); // the div that will be set
+	
+	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
+	const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id + "')\"" 
+	html_str += "<br>";
+	html_str += "<button div=unlike_button_" + message_id; 
+	html_str += " type=\"button\"";
+	html_str += " class=\"btn btn-outline-danger\""
+	html_str += onclick_unlike;
+	html_str += ">";
+	html_str += "Unlike 💔"
+	html_str +=  "</button>"
+
+	post.innerHTML = `${html_str}`;
+}
+
+function reset_like_div(message_id, current_id){ // pressing the unlike button creates the like button
+	// console.log("resetting the div for: " + message_id.toString())
+	const div_id = "like_div_" + message_id.toString() // id for the edit div
+	const numoflikes_id = "numoflikes_" + message_id.toString() // id for the "Likes" label
+
+	const numoflikes_str = document.getElementById(numoflikes_id).innerText.charAt(7); //number of likes before user liked post
+	var new_numoflikes_str = parseInt(numoflikes_str) - 1 //number of likes after user liked post (-1)
+	// console.log("\"" + numoflikes_str + "\" -- \"" + new_numoflikes_str + "\"");
+
+	var post = document.getElementById(div_id); // the div that will be set
+	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
+	const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id + "')\"" 
+	html_str += "<br>";
+	html_str += "<button div=like_button_" + message_id;
+	html_str += " type=\"button\"";
+	html_str += " class=\"btn btn-outline-primary\""
+	html_str += onclick_like;
+	html_str += ">";
+	html_str += "Like 💗"
+	html_str +=  "</button>"
+
+	post.innerHTML = `${html_str}`;	
 }
 
 function capitalizeFirstLetter(string) {
