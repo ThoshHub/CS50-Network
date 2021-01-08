@@ -13,6 +13,7 @@ from django.core import serializers
 import json
 from datetime import date, datetime
 from django.utils import timezone
+from django.db.models import Q
 
 def index(request):
 	# TODO need to show the user some sort of blank page if the user 
@@ -262,7 +263,18 @@ def unlike_message(request, message_id, user_id):
 def return_followpage(request, user_id, message_number):
 	print("Serving Page for User ID: " + str(user_id) + " on Page: " + str(message_number))
 
+	# Get List of Users that user_id follows
 	cur_user = User.objects.get(id = user_id) # get the user
+	following_list = cur_user.following.all() # get a list of users following the user
+	following_id_list = [] # declare empty list
+	for follower in following_list: # loop through followers list
+		following_id_list.append(follower.id) # add all id's to this list
+	# print("List of Users User_ID is Following: " + str(following_id_list)) # DEBUG
 	
+	messagelist = message.objects.filter(writer__in = following_id_list).order_by("-date")
+	# messagelist = message.objects.filter(writer__in = following_id_list).order_by("date") # For Reverse Order
+
+	print(messagelist)
+
 	data = {"Test_Key":"Test_Value"}
 	return JsonResponse(data, safe=False)
