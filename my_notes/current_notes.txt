@@ -227,5 +227,9 @@ Need to display user pages:
 			/hide the previous button if the global var is 0
 			/hide the next button if there is less than 10 messages on the page
 
+		/Also bug where not logged in user goes to a userpage
+		/For some reason logged in users can't follow/unfollow now
+		
+		userpage less than 10 pages on page 0 needs to have no previous/next buttons
 		Massive glitch where post requests are being made on page refreshes leading to duplicate entries
-		Also bug where not logged in user goes to a userpage
+		

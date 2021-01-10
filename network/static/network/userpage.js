@@ -15,19 +15,16 @@ async function initialize() {
 
 	// return the id of the logged in user
 	const current_id = await return_current_user_id();
-	// console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
+	console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
 
 	// only have next button upon page load
 	assignNextButton()
-	
-	if (current_id != -1) {
-		// determine whether the visting user follows the page user or not
-		const follows = await determine_follow(current_id, user_id)
-		// console.log("Follows? " + follows)
-	}
 
 	loadUserData(user_id, page_counter); // loads user data on page load
 	if (current_id != -1) {
+		// determine whether the visting user follows the page user or not
+		const follows = await determine_follow(current_id, user_id)
+		console.log("Follows? " + follows)
 		loadFollowStatus(current_id, user_id, follows) // loads the follow button and associated logic
 	}
 }
