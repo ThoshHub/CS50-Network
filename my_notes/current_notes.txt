@@ -205,10 +205,10 @@ Need to display user pages:
 		/	https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.Q
 		/	https://docs.djangoproject.com/en/3.1/topics/db/queries/#complex-lookups-with-q
 			
-			Need to add pagination for followpage
-				The front end for this has been completed
-				you need to just make sure that ten messages are returned at a time in the views.py method
-					of course make sure the right 10 messages are returned
+		/	Need to add pagination for followpage
+		/		The front end for this has been completed
+		/		you need to just make sure that ten messages are returned at a time in the views.py method
+		/			of course make sure the right 10 messages are returned
 
 		finally need to make sure users not logged in cannot like posts
 			I think the simplest way to do this is to return a user id of -1 on check 
