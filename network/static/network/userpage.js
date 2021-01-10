@@ -17,6 +17,9 @@ async function initialize() {
 	const current_id = await return_current_user_id();
 	// console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
 
+	// only have next button upon page load
+	assignNextButton()
+	
 	if (current_id != -1) {
 		// determine whether the visting user follows the page user or not
 		const follows = await determine_follow(current_id, user_id)
@@ -526,6 +529,18 @@ function next_page(){
 	document.querySelector('#user_posts').innerHTML = ""
 	// Load new posts
 	loadUserPosts(user_id, new_counter);
+
+	setTimeout(function () {
+		// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
+		var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
+		console.log("Num Of Messages: " + numOfMessagesOnPage)
+		if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
+			assignPreviousButton() // only show previous button 
+		} else {
+			assignBothButtons() // show previous AND next button
+		}
+	}, 150);
+
 	// Log which page you're on
 	console.log(new_counter);
 }
@@ -538,16 +553,27 @@ function previous_page(){
 	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
 	// Store and decrement
     var new_counter = page_counter - 1;
-    // Prevent negative numbers
-    if(new_counter < 0) {
-        new_counter = 0;
-    }
+    // // Prevent negative numbers
+    // if(new_counter < 0) {
+    //     new_counter = 0;
+    // }
 	// Set element to updated number
 	document.querySelector('#page_counter').innerHTML = new_counter.toString();
 	// Clear current posts
 	document.querySelector('#user_posts').innerHTML = ""
 	// Load new posts
 	loadUserPosts(user_id, new_counter);
+
+	setTimeout(function () {
+		if (new_counter == 0) { // on page 0
+			assignNextButton() // only show mext button 
+			console.log("Got to Zero")
+		} else {
+			assignBothButtons() // show previous AND next button
+			console.log("Got to something else")
+		}
+	}, 150);
+
 	// Log which page you're on
 	console.log(new_counter);
 }
@@ -564,4 +590,22 @@ function formatDate(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+function assignNextButton(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<button id=\"btnNext\" class=\"btn btn-danger btn-md center-block\" Style=\"width: 100px;\" OnClick=\"next_page()\" >Next</button>"}`;
+}
+
+function assignPreviousButton(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<button id=\"btnPrevious\" class=\"btn btn-primary btn-md center-block\" Style=\"width: 100px;\" OnClick=\"previous_page()\" >Previous</button>"}`;
+}
+
+function assignBothButtons(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<div id=\"pageButtons\" class=\"col-sm-12 text-center\"><button id=\"btnPrevious\" class=\"btn btn-primary btn-md center-block\" Style=\"width: 100px; margin: 2px\" OnClick=\"previous_page()\" >Previous</button><button id=\"btnNext\" class=\"btn btn-danger btn-md center-block\" Style=\"width: 100px; margin: 2px;\" OnClick=\"next_page()\" >Next</button></div>"}`;
 }
