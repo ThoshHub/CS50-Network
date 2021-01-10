@@ -17,7 +17,7 @@ async function return_current_user_id(){
 
 async function initialize(page_counter){
 	const current_id = await return_current_user_id();
-	console.log("Starting Feed For User: " + current_id.toString());
+	// console.log("Starting Feed For User: " + current_id.toString());
 
 	fetch('/messages/followpage/' + current_id + '/' + page_counter)
 	.then(res => res.json())
@@ -45,13 +45,13 @@ function next_page(){
 	// Load new posts
 	initialize(new_counter);
 	// Log which page you're on
-	console.log(new_counter);
+	// console.log("New Counter: " + new_counter.toString());
 }
 
 function previous_page(){
 	// console.log("You Clicked On Previous Page!")
 	// Get Current Number
-	var page_counter = parseInt(document.querySelector('#following_posts').innerHTML);
+	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
 	// Store and decrement
 	var new_counter = page_counter - 1;
     // Prevent negative numbers
@@ -61,11 +61,11 @@ function previous_page(){
 	// Set element to updated number
 	document.querySelector('#page_counter').innerHTML = new_counter.toString();
 	// Clear current posts
-	document.querySelector('#index_messages').innerHTML = ""
+	document.querySelector('#following_posts').innerHTML = ""
 	// Load new posts
 	initialize(new_counter);
 	// Log which page you're on
-	console.log(new_counter);
+	// console.log("New Counter: " + new_counter.toString());
 }
 
 async function display_message(element, current_id) {

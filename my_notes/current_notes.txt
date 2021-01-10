@@ -215,3 +215,7 @@ Need to display user pages:
 			and hide buttons using this variable globally
 
 			I think this also needs to be done for follow/unfollow on userpages
+		
+		Optional: hide next/previous buttons
+			hide the previous button if the global var is 0
+			hide the next button if there is less than 10 messages on the page

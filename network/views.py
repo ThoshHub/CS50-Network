@@ -261,7 +261,7 @@ def unlike_message(request, message_id, user_id):
 	return JsonResponse(data, safe=False)
 
 def return_followpage(request, user_id, message_number):
-	print("Serving Page for User ID: " + str(user_id) + " on Page: " + str(message_number))
+	# print("Serving Page for User ID: " + str(user_id) + " on Page: " + str(message_number))
 
 	# Get List of Users that user_id follows
 	cur_user = User.objects.get(id = user_id) # get the user
@@ -271,8 +271,16 @@ def return_followpage(request, user_id, message_number):
 		following_id_list.append(follower.id) # add all id's to this list
 	# print("List of Users User_ID is Following: " + str(following_id_list)) # DEBUG
 	
+	number_of_messages = message.objects.filter(writer__in = following_id_list).count()
+	# print("Number of Messages: " + str(number_of_messages))
+	begin = message_number * 10 # first index of message
+	end = begin + 10  # last index of message
+	if end > number_of_messages:
+		end = number_of_messages 
+	print("MAX: " + str(number_of_messages) + ", START: " + str(begin) + ", END: " + str(end)) # debug
+
 	# Query messages who's writer is in the following list of user_id
-	messagelist = message.objects.filter(writer__in = following_id_list).order_by("-date")
+	messagelist = message.objects.filter(writer__in = following_id_list).order_by("-date")[begin:end]
 	# messagelist = message.objects.filter(writer__in = following_id_list).order_by("date") # For Reverse Order
 
 	messages_json = serializers.serialize("json", messagelist) # serialize them into a json string
