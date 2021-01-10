@@ -136,7 +136,7 @@ async function display_message(element, current_id) {
 	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
 		const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=unlike_button_" + element.pk; 
+		html_str += "<button id=unlike_button_" + element.pk; 
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-danger\""
 		html_str += onclick_unlike;
@@ -146,7 +146,7 @@ async function display_message(element, current_id) {
 	} else { // if the user doesn't already like the post, display the like button
 		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=like_button_" + element.pk;
+		html_str += "<button id=like_button_" + element.pk;
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-primary\""
 		html_str += onclick_like;
@@ -216,7 +216,7 @@ function reset_unlike_div(message_id, current_id){ // pressing the like button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=unlike_button_" + message_id; 
+	html_str += "<button id=unlike_button_" + message_id; 
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-danger\""
 	html_str += onclick_unlike;
@@ -240,7 +240,7 @@ function reset_like_div(message_id, current_id){ // pressing the unlike button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=like_button_" + message_id;
+	html_str += "<button id=like_button_" + message_id;
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-primary\""
 	html_str += onclick_like;
@@ -296,21 +296,20 @@ async function submit_edit(message_id, textarea_id){
 	// console.log("Written Text: " + edited_message); // Prints out the current text in the textarea box
 
 	// Need to make post request here
-	//TODO: UNCOMMENT (commented for debugging purposes)
-	// var xhr = new XMLHttpRequest();
-	// xhr.onreadystatechange = function() { // Print or Alert response recieved from server
-	// 	if (xhr.readyState == XMLHttpRequest.DONE) {
-	// 		// alert(xhr.responseText);
-	// 		console.log("Recieved POST Response from Server: " + xhr.responseText);
-	// 	}
-	// }
-	// xhr.open("POST", '/message/edit/' + message_id.toString(), true);
-	// xhr.setRequestHeader('X-CSRFToken', csrftoken);
-	// xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-	// xhr.setRequestHeader("Accept", "application/json");
-	// xhr.send(JSON.stringify({
-	// 	"new_message": edited_message
-	// }));
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() { // Print or Alert response recieved from server
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			// alert(xhr.responseText);
+			console.log("Recieved POST Response from Server: " + xhr.responseText);
+		}
+	}
+	xhr.open("POST", '/message/edit/' + message_id.toString(), true);
+	xhr.setRequestHeader('X-CSRFToken', csrftoken);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.send(JSON.stringify({
+		"new_message": edited_message
+	}));
 
 	setTimeout(function (){
 		reset_message(message_id);
@@ -357,7 +356,7 @@ async function reset_message(message_id){
 	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
 		const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=unlike_button_" + message_id; 
+		html_str += "<button id=unlike_button_" + message_id; 
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-danger\""
 		html_str += onclick_unlike;
@@ -367,7 +366,7 @@ async function reset_message(message_id){
 	} else { // if the user doesn't already like the post, display the like button
 		const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=like_button_" + message_id;
+		html_str += "<button id=like_button_" + message_id;
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-primary\""
 		html_str += onclick_like;

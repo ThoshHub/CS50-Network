@@ -15,6 +15,9 @@ async function load(page_counter) {
 	const current_id = await return_current_user_id(); // will return -1 if user is not logged in
 	// console.log("User Visiting: " + current_id);
 
+	// only have next button upon page load
+	assignNextButton()
+
 	fetch('/messages/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
@@ -78,7 +81,7 @@ async function display_message(element, current_id) {
 		if(curr_user_likes_post){ // If the user likes the post, display the unlike button
 			const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
 			html_str += "<br>";
-			html_str += "<button div=unlike_button_" + element.pk; 
+			html_str += "<button id=unlike_button_" + element.pk; 
 			html_str += " type=\"button\"";
 			html_str += " class=\"btn btn-outline-danger\""
 			html_str += onclick_unlike;
@@ -88,7 +91,7 @@ async function display_message(element, current_id) {
 		} else { // if the user doesn't already like the post, display the like button
 			const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
 			html_str += "<br>";
-			html_str += "<button div=like_button_" + element.pk;
+			html_str += "<button id=like_button_" + element.pk;
 			html_str += " type=\"button\"";
 			html_str += " class=\"btn btn-outline-primary\""
 			html_str += onclick_like;
@@ -159,7 +162,7 @@ function reset_unlike_div(message_id, current_id){ // pressing the like button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=unlike_button_" + message_id; 
+	html_str += "<button id=unlike_button_" + message_id; 
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-danger\""
 	html_str += onclick_unlike;
@@ -183,7 +186,7 @@ function reset_like_div(message_id, current_id){ // pressing the unlike button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=like_button_" + message_id;
+	html_str += "<button id=like_button_" + message_id;
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-primary\""
 	html_str += onclick_like;
@@ -302,7 +305,7 @@ async function reset_message(message_id){
 	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
 		const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=unlike_button_" + message_id; 
+		html_str += "<button id=unlike_button_" + message_id; 
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-danger\""
 		html_str += onclick_unlike;
@@ -312,7 +315,7 @@ async function reset_message(message_id){
 	} else { // if the user doesn't already like the post, display the like button
 		const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=like_button_" + message_id;
+		html_str += "<button id=like_button_" + message_id;
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-primary\""
 		html_str += onclick_like;
@@ -377,8 +380,20 @@ function next_page(){
 	document.querySelector('#index_messages').innerHTML = ""
 	// Load new posts
 	load(new_counter);
+
+	setTimeout(function () {
+		// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
+		var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
+		console.log("Num Of Messages: " + numOfMessagesOnPage)
+		if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
+			assignPreviousButton() // only show previous button 
+		} else {
+			assignBothButtons() // show previous AND next button
+		}
+	}, 150);
+
 	// Log which page you're on
-	console.log(new_counter);
+	console.log("Next, Page: " + new_counter);
 }
 
 function previous_page(){
@@ -387,18 +402,29 @@ function previous_page(){
 	var page_counter = parseInt(document.querySelector('#page_counter').innerHTML);
 	// Store and decrement
 	var new_counter = page_counter - 1;
-    // Prevent negative numbers
-    if(new_counter < 0) {
-        new_counter = 0;
-    }
+    // // Prevent negative numbers
+    // if(new_counter < 0) {
+    //     new_counter = 0;
+    // }
 	// Set element to updated number
 	document.querySelector('#page_counter').innerHTML = new_counter.toString();
 	// Clear current posts
 	document.querySelector('#index_messages').innerHTML = ""
 	// Load new posts
 	load(new_counter);
+
+	setTimeout(function () {
+		if (new_counter == 0) { // on page 0
+			assignNextButton() // only show mext button 
+			console.log("Got to Zero")
+		} else {
+			assignBothButtons() // show previous AND next button
+			console.log("Got to something else")
+		}
+	}, 150);
+
 	// Log which page you're on
-	console.log(new_counter);
+	console.log("Previous, Page: " + new_counter);
 }
 
 function formatDate(date) {
@@ -413,4 +439,22 @@ function formatDate(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+function assignNextButton(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<button id=\"btnNext\" class=\"btn btn-danger btn-md center-block\" Style=\"width: 100px;\" OnClick=\"next_page()\" >Next</button>"}`;
+}
+
+function assignPreviousButton(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<button id=\"btnPrevious\" class=\"btn btn-primary btn-md center-block\" Style=\"width: 100px;\" OnClick=\"previous_page()\" >Previous</button>"}`;
+}
+
+function assignBothButtons(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${"<div id=\"pageButtons\" class=\"col-sm-12 text-center\"><button id=\"btnPrevious\" class=\"btn btn-primary btn-md center-block\" Style=\"width: 100px; margin: 2px\" OnClick=\"previous_page()\" >Previous</button><button id=\"btnNext\" class=\"btn btn-danger btn-md center-block\" Style=\"width: 100px; margin: 2px;\" OnClick=\"next_page()\" >Next</button></div>"}`;
 }

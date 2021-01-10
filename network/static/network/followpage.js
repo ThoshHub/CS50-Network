@@ -102,7 +102,7 @@ async function display_message(element, current_id) {
 	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
 		const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=unlike_button_" + element.pk; 
+		html_str += "<button id=unlike_button_" + element.pk; 
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-danger\""
 		html_str += onclick_unlike;
@@ -112,7 +112,7 @@ async function display_message(element, current_id) {
 	} else { // if the user doesn't already like the post, display the like button
 		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
 		html_str += "<br>";
-		html_str += "<button div=like_button_" + element.pk;
+		html_str += "<button id=like_button_" + element.pk;
 		html_str += " type=\"button\"";
 		html_str += " class=\"btn btn-outline-primary\""
 		html_str += onclick_like;
@@ -167,7 +167,7 @@ function reset_unlike_div(message_id, current_id){ // pressing the like button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_unlike = " onclick=\"unlike_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=unlike_button_" + message_id; 
+	html_str += "<button id=unlike_button_" + message_id; 
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-danger\""
 	html_str += onclick_unlike;
@@ -191,7 +191,7 @@ function reset_like_div(message_id, current_id){ // pressing the unlike button c
 	html_str = "<h6 id=numoflikes_" + message_id + ">Likes: " + new_numoflikes_str.toString() + "</h6>";
 	const onclick_like = " onclick=\"like_post('" + message_id + "','" + current_id + "')\"" 
 	html_str += "<br>";
-	html_str += "<button div=like_button_" + message_id;
+	html_str += "<button id=like_button_" + message_id;
 	html_str += " type=\"button\"";
 	html_str += " class=\"btn btn-outline-primary\""
 	html_str += onclick_like;
