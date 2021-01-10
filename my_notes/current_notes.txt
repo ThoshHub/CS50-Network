@@ -210,18 +210,18 @@ Need to display user pages:
 		/		you need to just make sure that ten messages are returned at a time in the views.py method
 		/			of course make sure the right 10 messages are returned
 
-		finally need to make sure users not logged in cannot like posts
-			I think the simplest way to do this is to return a user id of -1 on check 
-			and hide buttons using this variable globally
+		/finally need to make sure users not logged in cannot like posts
+		/	I think the simplest way to do this is to return a user id of -1 on check 
+		/	and hide buttons using this variable globally
 
-			I think this also needs to be done for follow/unfollow on userpages
+		/	I think this also needs to be done for follow/unfollow on userpages
 
-			also need to hide the post message form
-				I think the easiest way to do this is to add a div around the form html tags in index.html
-				and clear that div upon page load (using the div's id) if it comes back that the user is not logged in...
+		/	also need to hide the post message form
+		/		I think the easiest way to do this is to add a div around the form html tags in index.html
+		/		and clear that div upon page load (using the div's id) if it comes back that the user is not logged in...
 
-				actually check this out:
-				https://stackoverflow.com/questions/3644902/how-to-check-if-a-user-is-logged-in-how-to-properly-use-user-is-authenticated
+		/		actually check this out:
+		/		https://stackoverflow.com/questions/3644902/how-to-check-if-a-user-is-logged-in-how-to-properly-use-user-is-authenticated
 
 		Optional: hide next/previous buttons
 			hide the previous button if the global var is 0

@@ -26,7 +26,10 @@ def index(request):
 			current_user_name = return_user_name(current_user.id)
 			posted_message = message(content=str(return_message), writer=current_user, writername=current_user_name)
 			posted_message.save()
-	return render(request, "network/index.html", {"form": messageForm()})
+
+	return render(request, "network/index.html", {
+		"form": messageForm(), "user": request.user
+		})
 
 def login_view(request):
 	if request.method == "POST":

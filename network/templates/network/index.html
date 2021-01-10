@@ -8,12 +8,14 @@
 	{% comment %} global variable to determine which page the user is on {% endcomment %}
 	<p id="page_counter">0</p>
 	
-	<form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
-    {% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input id="submit_message_button" class="btn btn-primary" value="Post Message!" type="Submit">
-    </form>
+	{% if user.is_authenticated %}
+		<form class="cust-form-group" style="border:5px; padding:20px" action="{% url 'index' %}" method="POST">
+		{% comment %} TODO NEED TO CHANGE THE URL ABOVE TO GO TO INDEX ROUTE  {% endcomment %}
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input id="submit_message_button" class="btn btn-primary" value="Post Message!" type="Submit">
+		</form>
+	{% endif %}
     
     <div id="index_messages">
     </div>
