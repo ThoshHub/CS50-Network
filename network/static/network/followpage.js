@@ -22,6 +22,16 @@ async function initialize(page_counter){
 	// only have next button upon page load
 	assignNextButton()
 
+	// // only have next button upon page load if there are at least 10 message
+	// // Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
+	// var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
+	// // console.log("Num Of Messages: " + numOfMessagesOnPage)
+	// if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
+	// 	assignNoButtons() // only show previous button 
+	// } else {
+	// 	assignNextButton() // show only next button
+	// }
+
 	fetch('/messages/followpage/' + current_id + '/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
@@ -51,7 +61,7 @@ function next_page(){
 	setTimeout(function () {
 		// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
 		var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
-		console.log("Num Of Messages: " + numOfMessagesOnPage)
+		// console.log("Num Of Messages: " + numOfMessagesOnPage)
 		if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
 			assignPreviousButton() // only show previous button 
 		} else {
@@ -83,10 +93,8 @@ function previous_page(){
 	setTimeout(function () {
 		if (new_counter == 0) { // on page 0
 			assignNextButton() // only show mext button 
-			console.log("Got to Zero")
 		} else {
 			assignBothButtons() // show previous AND next button
-			console.log("Got to something else")
 		}
 	}, 150);
 
@@ -262,4 +270,10 @@ function assignBothButtons(){
 	post_id = "pageButtons"
 	post = document.getElementById(post_id);
 	post.innerHTML=`${"<div id=\"pageButtons\" class=\"col-sm-12 text-center\"><button id=\"btnPrevious\" class=\"btn btn-primary btn-md center-block\" Style=\"width: 100px; margin: 2px\" OnClick=\"previous_page()\" >Previous</button><button id=\"btnNext\" class=\"btn btn-danger btn-md center-block\" Style=\"width: 100px; margin: 2px;\" OnClick=\"next_page()\" >Next</button></div>"}`;
+}
+
+function assignNoButtons(){
+	post_id = "pageButtons"
+	post = document.getElementById(post_id);
+	post.innerHTML=`${""}`;
 }

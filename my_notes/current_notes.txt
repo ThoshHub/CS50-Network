@@ -231,5 +231,7 @@ Need to display user pages:
 		/For some reason logged in users can't follow/unfollow now
 		
 		userpage less than 10 pages on page 0 needs to have no previous/next buttons
+			need to figure out how to count the posts AFTER the posts have loaded...
+			the problem now is it's trying to determine whether the page has 10 posts before any posts have loaded (before the fetch is made)
 		Massive glitch where post requests are being made on page refreshes leading to duplicate entries
 		
