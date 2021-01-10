@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function load(page_counter) {
 	// return the id of the logged in user
-	const current_id = await return_current_user_id();
+	const current_id = await return_current_user_id(); // will return -1 if user is not logged in
 	// console.log("User Visiting: " + current_id);
 
 	fetch('/messages/' + page_counter)
@@ -74,26 +74,28 @@ async function display_message(element, current_id) {
 	html_str += "<br><div id=like_div_" + element.pk + ">"
 	html_str += "<h6 id=numoflikes_" + element.pk + ">Likes: " + numoflikes + "</h6>";
 	
-	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
-		const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
-		html_str += "<br>";
-		html_str += "<button div=unlike_button_" + element.pk; 
-		html_str += " type=\"button\"";
-		html_str += " class=\"btn btn-outline-danger\""
-		html_str += onclick_unlike;
-		html_str += ">";
-		html_str += "Unlike 💔"
-		html_str +=  "</button>"
-	} else { // if the user doesn't already like the post, display the like button
-		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
-		html_str += "<br>";
-		html_str += "<button div=like_button_" + element.pk;
-		html_str += " type=\"button\"";
-		html_str += " class=\"btn btn-outline-primary\""
-		html_str += onclick_like;
-		html_str += ">";
-		html_str += "Like 💗"
-		html_str +=  "</button>"
+	if(current_id != -1){
+		if(curr_user_likes_post){ // If the user likes the post, display the unlike button
+			const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
+			html_str += "<br>";
+			html_str += "<button div=unlike_button_" + element.pk; 
+			html_str += " type=\"button\"";
+			html_str += " class=\"btn btn-outline-danger\""
+			html_str += onclick_unlike;
+			html_str += ">";
+			html_str += "Unlike 💔"
+			html_str +=  "</button>"
+		} else { // if the user doesn't already like the post, display the like button
+			const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
+			html_str += "<br>";
+			html_str += "<button div=like_button_" + element.pk;
+			html_str += " type=\"button\"";
+			html_str += " class=\"btn btn-outline-primary\""
+			html_str += onclick_like;
+			html_str += ">";
+			html_str += "Like 💗"
+			html_str +=  "</button>"
+		}
 	}
 
 	html_str += "</div>"

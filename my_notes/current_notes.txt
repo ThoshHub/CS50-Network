@@ -215,7 +215,14 @@ Need to display user pages:
 			and hide buttons using this variable globally
 
 			I think this also needs to be done for follow/unfollow on userpages
-		
+
+			also need to hide the post message form
+				I think the easiest way to do this is to add a div around the form html tags in index.html
+				and clear that div upon page load (using the div's id) if it comes back that the user is not logged in...
+
+				actually check this out:
+				https://stackoverflow.com/questions/3644902/how-to-check-if-a-user-is-logged-in-how-to-properly-use-user-is-authenticated
+
 		Optional: hide next/previous buttons
 			hide the previous button if the global var is 0
 			hide the next button if there is less than 10 messages on the page

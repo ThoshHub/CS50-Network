@@ -148,9 +148,15 @@ def followpage(request):
 	return render(request, "network/followpage.html")
 
 def return_current_user(request): # Serves the id of the current user
-	current_user = request.user
-	data = {'loggedin': current_user.id}
-	print(data)
+	return_val = -2 # intialize at -2
+	if not request.user.is_authenticated:
+		return_val = -1 # sends -1 if user is not logged in
+	else:
+		current_user = request.user
+		return_val = current_user.id # otherwise sends user id
+
+	data = {'loggedin': return_val}
+	# print(data)
 	return JsonResponse(data, safe=False)
 
 def return_follows_status(request, user_id_1, user_id_2): # Check whether user_id_1 is FOLLOWING user_id_2
@@ -220,7 +226,7 @@ def edit_message(request, message_id):
 
 def message_content(request, message_id, user_id):
 	cur_message = message.objects.get(id = message_id) # grab the message equal to the id passed in
-	cur_user = User.objects.get(id = user_id)
+	# cur_user = User.objects.get(id = user_id)
 	
 	user_likes_message = False # Assume user does not like message
 	if cur_message.liked_by.filter(id = user_id): # If user does like message
