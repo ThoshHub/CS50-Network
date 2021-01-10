@@ -7,22 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 });
 
-async function initialize(){
-        // return which page the user is on
-        var page_counter = return_page_counter();
-        // return which user the user page is of
-        const user_id = return_user_id();
-        
-        // return the id of the logged in user
-        const current_id = await return_current_user_id();
-        // console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
-        
-        // determine whether the visting user follows the page user or not
-        const follows = await determine_follow(current_id, user_id)
-        // console.log("Follows? " + follows)
+async function initialize() {
+	// return which page the user is on
+	var page_counter = return_page_counter();
+	// return which user the user page is of
+	const user_id = return_user_id();
 
-        loadUserData(user_id, page_counter); // loads user data on page load
-        loadFollowStatus(current_id, user_id, follows) // loads the follow button and associated logic
+	// return the id of the logged in user
+	const current_id = await return_current_user_id();
+	// console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
+
+	if (current_id != -1) {
+		// determine whether the visting user follows the page user or not
+		const follows = await determine_follow(current_id, user_id)
+		// console.log("Follows? " + follows)
+	}
+
+	loadUserData(user_id, page_counter); // loads user data on page load
+	if (current_id != -1) {
+		loadFollowStatus(current_id, user_id, follows) // loads the follow button and associated logic
+	}
 }
 
 async function return_current_user_id(){
@@ -133,26 +137,28 @@ async function display_message(element, current_id) {
 	html_str += "<br><div id=like_div_" + element.pk + ">"
 	html_str += "<h6 id=numoflikes_" + element.pk + ">Likes: " + numoflikes + "</h6>";
 	
-	if(curr_user_likes_post){ // If the user likes the post, display the unlike button
-		const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id+ "')\"" 
-		html_str += "<br>";
-		html_str += "<button id=unlike_button_" + element.pk; 
-		html_str += " type=\"button\"";
-		html_str += " class=\"btn btn-outline-danger\""
-		html_str += onclick_unlike;
-		html_str += ">";
-		html_str += "Unlike 💔"
-		html_str +=  "</button>"
-	} else { // if the user doesn't already like the post, display the like button
-		const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id+ "')\"" 
-		html_str += "<br>";
-		html_str += "<button id=like_button_" + element.pk;
-		html_str += " type=\"button\"";
-		html_str += " class=\"btn btn-outline-primary\""
-		html_str += onclick_like;
-		html_str += ">";
-		html_str += "Like 💗"
-		html_str +=  "</button>"
+	if (current_id != -1) {
+		if (curr_user_likes_post) { // If the user likes the post, display the unlike button
+			const onclick_unlike = " onclick=\"unlike_post('" + element.pk + "','" + current_id + "')\""
+			html_str += "<br>";
+			html_str += "<button id=unlike_button_" + element.pk;
+			html_str += " type=\"button\"";
+			html_str += " class=\"btn btn-outline-danger\""
+			html_str += onclick_unlike;
+			html_str += ">";
+			html_str += "Unlike 💔"
+			html_str += "</button>"
+		} else { // if the user doesn't already like the post, display the like button
+			const onclick_like = " onclick=\"like_post('" + element.pk + "','" + current_id + "')\""
+			html_str += "<br>";
+			html_str += "<button id=like_button_" + element.pk;
+			html_str += " type=\"button\"";
+			html_str += " class=\"btn btn-outline-primary\""
+			html_str += onclick_like;
+			html_str += ">";
+			html_str += "Like 💗"
+			html_str += "</button>"
+		}
 	}
 
 	html_str += "</div>"	

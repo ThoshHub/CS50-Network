@@ -223,6 +223,9 @@ Need to display user pages:
 		/		actually check this out:
 		/		https://stackoverflow.com/questions/3644902/how-to-check-if-a-user-is-logged-in-how-to-properly-use-user-is-authenticated
 
-		Optional: hide next/previous buttons
-			hide the previous button if the global var is 0
-			hide the next button if there is less than 10 messages on the page
+		/Optional: hide next/previous buttons
+			/hide the previous button if the global var is 0
+			/hide the next button if there is less than 10 messages on the page
+
+		Massive glitch where post requests are being made on page refreshes leading to duplicate entries
+		Also bug where not logged in user goes to a userpage
