@@ -18,16 +18,6 @@ async function load(page_counter) {
 	// only have next button upon page load
 	assignNextButton()
 
-	// // only have next button upon page load if there are at least 10 message
-	// // Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
-	// var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
-	// // console.log("Num Of Messages: " + numOfMessagesOnPage)
-	// if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
-	// 	assignNoButtons() // only show previous button 
-	// } else {
-	// 	assignNextButton() // show only next button
-	// }
-
 	fetch('/messages/' + page_counter)
 	.then(res => res.json())
 	.then(data => {
@@ -39,6 +29,20 @@ async function load(page_counter) {
 			display_message(element, current_id)
 		});
 	});
+	// console.log("About To Check Button Assignment")
+	// setTimeout(function (){ checkButtonAssignment(); }, 150);
+}
+
+function checkButtonAssignment(){
+	// only have next button upon page load if there are at least 10 message
+	// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
+	var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
+	// console.log("Num Of Messages: " + numOfMessagesOnPage)
+	if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
+		assignNoButtons() // only show previous button 
+	} else {
+		assignNextButton() // show only next button
+	}
 }
 
 async function return_current_user_id(){

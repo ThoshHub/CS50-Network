@@ -17,15 +17,9 @@ async function initialize() {
 	const current_id = await return_current_user_id();
 	console.log("User Visiting: " + current_id + " User Being Visited: " + user_id);
 
-	// only have next button upon page load if there are at least 10 message
-	// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
-	var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
-	// console.log("Num Of Messages: " + numOfMessagesOnPage)
-	if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
-		assignNoButtons() // only show previous button 
-	} else {
-		assignNextButton() // show only next button
-	}
+
+	// only have next button upon page load
+	// assignNextButton();
 
 	loadUserData(user_id, page_counter); // loads user data on page load
 	if (current_id != -1) {
@@ -33,6 +27,22 @@ async function initialize() {
 		const follows = await determine_follow(current_id, user_id)
 		console.log("Follows? " + follows)
 		loadFollowStatus(current_id, user_id, follows) // loads the follow button and associated logic
+	}
+	// console.log("About To Check Button Assignment")
+	setTimeout(function (){
+		checkButtonAssignment();
+	  }, 150);
+}
+
+function checkButtonAssignment(){
+	// only have next button upon page load if there are at least 10 message
+	// Get the number of messages on page by matching all ids that start with "message_", and get the length of that array
+	var numOfMessagesOnPage = document.querySelectorAll('*[id^="message_"]').length;
+	console.log("Num Of Messages: " + numOfMessagesOnPage)
+	if (numOfMessagesOnPage < 10) { // less than 10 messages means last page
+		assignNoButtons() // only show previous button 
+	} else {
+		assignNextButton() // show only next button
 	}
 }
 
