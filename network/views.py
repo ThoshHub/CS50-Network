@@ -135,11 +135,15 @@ def return_user_name(user_id):
 def return_user(request, user_id):
 	writer = User.objects.filter(id = user_id).first()
 	numOfFollowing = len(User.objects.filter(id = user_id).values('following')) # returns ids of following
-	numOfFollowers = len(User.objects.filter(id = user_id).values('followers')) # returns ids of followers
+	# numOfFollowers = len(User.objects.filter(id = user_id).values('followers')) # returns ids of followers
+	numOfFollowers = len(User.objects.filter(id = user_id).values('follows')) # returns ids of followers (using related_name instead!)
+
 	# print(str(writer) + ", " + str(numOfFollowing) + ", " + str(numOfFollowers))
 	
 	# data = [{'name': 'Peter', 'email': 'peter@example.org'}] # Format Data Like This
 	data = [{'name': str(writer), 'numFollowing': str(numOfFollowing), 'numFollowers': str(numOfFollowers)}] # str(writer) is the username of the id of the user that was passed in
+	
+	print("Data JSON: " + str(data))
 	return JsonResponse(data, safe=False)	
 
 def userpage(request, user_id):
@@ -183,7 +187,7 @@ def return_follows_status(request, user_id_1, user_id_2): # Check whether user_i
 	return JsonResponse(data, safe=False)
 
 def follow(request, user_id_1, user_id_2):
-	# print(str(user_id_1) + " Will Now Follow " + str(user_id_2))
+	print(str(user_id_1) + " Will Now Follow " + str(user_id_2))
 	
 	# https://docs.djangoproject.com/en/dev/ref/models/relations/#django.db.models.fields.related.RelatedManager.add
 	# Edit the following list of "user_id_1" to add "user_id_2"

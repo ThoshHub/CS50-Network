@@ -94,8 +94,8 @@ async function loadUserData(user_id, page_counter){
 
 	var user_profile_html = '<img src="https://i.imgur.com/04baa1h.png" width="240px" height="240px" style="display: block; margin-left: auto; margin-right: auto; border-radius: 10%;">' 
 	user_profile_html += '<h1 style="text-align: center;">' + capitalizeFirstLetter(user_name) + '</h1>\n'
-	user_profile_html += '<h5 style="text-align: center;">Followers: ' + user_followers.toString() + '<h5>\n'
-	user_profile_html += '<h5 style="text-align: center;">Following: ' + user_following.toString() + '<h5>'
+	user_profile_html += '<h5 id=userFollowers style="text-align: center;">Followers: ' + user_followers.toString() + '<h5>\n'
+	user_profile_html += '<h5 id=userFollowing style="text-align: center;">Following: ' + user_following.toString() + '<h5>'
     post.innerHTML = `${user_profile_html}`;
     document.querySelector('#user_profile').append(post);
 
@@ -504,7 +504,8 @@ async function followUser(current_id, user_id){
         
         // after following, clear the current follow button and add unfollow button
         document.getElementById('follow_option').innerHTML = ""; 
-        loadFollowStatus(current_id, user_id, "yes") // will now display unfollow button
+		loadFollowStatus(current_id, user_id, "yes") // will now display unfollow button
+		incrementFollowerCount(current_id, user_id); // increments the follower count
     });
 }
 
@@ -521,9 +522,32 @@ async function unfollowUser(current_id, user_id){
     
         // after following, clear the current follow button and add unfollow button
         document.getElementById('follow_option').innerHTML = "";
-        loadFollowStatus(current_id, user_id, "no") // will now display follow button
+		loadFollowStatus(current_id, user_id, "no") // will now display follow button
+		decrementFollowerCount(current_id, user_id); // decrements the follower count
     });
 }
+
+function incrementFollowerCount(current_id, user_id){
+	console.log("Follower Count Incremented");
+	// Get current number of followers, by grabbing the string in the userFollowers tag and then getting the last char
+	follower_num_init = document.getElementById("userFollowers").innerHTML.charAt(11); 
+	follower_num_init_int = parseInt(follower_num_init);
+	// console.log("Incrementing: " + follower_num_init_int.toString());
+	follower_num_fin = follower_num_init_int + 1;
+	// console.log("Incremented: " + follower_num_fin.toString());
+	document.getElementById("userFollowers").innerHTML = "Followers: " + follower_num_fin.toString();
+}
+
+function decrementFollowerCount(current_id, user_id){
+	console.log("Follower Count Decremented");
+	// Get current number of followers, by grabbing the string in the userFollowers tag and then getting the last char
+	follower_num_init = document.getElementById("userFollowers").innerHTML.charAt(11); 
+	follower_num_init_int = parseInt(follower_num_init);
+	// console.log("Decrementing: " + follower_num_init_int.toString());
+	follower_num_fin = follower_num_init_int - 1;
+	// console.log("Decremented: " + follower_num_fin.toString());
+	document.getElementById("userFollowers").innerHTML = "Followers: " + follower_num_fin.toString();
+} 
 
 function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);

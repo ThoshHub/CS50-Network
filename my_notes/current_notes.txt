@@ -235,3 +235,5 @@ Need to display user pages:
 		\	the problem now is it's trying to determine whether the page has 10 posts before any posts have loaded (before the fetch is made)
 		\Massive glitch where post requests are being made on page refreshes leading to duplicate entries
 		
+		bug where followers and following are not displayed properly (not using related name as it should be)
+			and also not updating
